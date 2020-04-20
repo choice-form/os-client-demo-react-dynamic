@@ -49,3 +49,6 @@ yarn add webpack webpack-cli webpack-dev-server
 1. 安装依赖`yarn add react-router-dom`
 2. 按路由添加说明,添加`index`,`questions`,`realtime`,`reward`四个路由,运行项目,路由添加成功.
 
+## 脚本驱动路由跳转
+1. 尝试使用脚本驱动路由正常跳转,而不是通过链接.
+

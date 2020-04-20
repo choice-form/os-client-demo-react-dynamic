@@ -30,6 +30,7 @@ module.exports = (env) => {
       }]
     },
     devServer: isLocal(env) ? {
+      historyApiFallback: true,
       contentBase: path.resolve(__dirname, 'dist'),
       headers: { "Access-Control-Allow-Origin": "*" },
       host: '0.0.0.0',
