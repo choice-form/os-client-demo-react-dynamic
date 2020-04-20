@@ -44,3 +44,8 @@ yarn add webpack webpack-cli webpack-dev-server
 
 ## 分离vendor
 1. 一开始自己的代码和依赖包`react`,`react-dom`的代码都被构建到了`dist/main.js`中,我们项把第三方包的代码构建到独立的文件中,在webpack配置文件中添加`optimization.splitChunks.chunks:all`,再次构建,发现依赖包已经分离出去.
+
+## 添加路由
+1. 安装依赖`yarn add react-router-dom`
+2. 按路由添加说明,添加`index`,`questions`,`realtime`,`reward`四个路由,运行项目,路由添加成功.
+

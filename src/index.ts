@@ -1,4 +1,4 @@
 import ReactDom from 'react-dom';
-import button from './app';
+import app from './App';
 
-ReactDom.render(button, document.getElementById('root'));
+ReactDom.render(app, document.getElementById('root'));
