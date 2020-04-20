@@ -7,7 +7,7 @@
 
 现在,做好了准备工作,但是项目还是跑不起来的
 
-## 使用webpack构建
+## 基本的webpack构建配置
 1. 安装webpack依赖
 ```shell
 yarn add webpack webpack-cli webpack-dev-server
@@ -23,6 +23,7 @@ yarn add webpack webpack-cli webpack-dev-server
 
 6. 配置`webpack-dev-server`在开发模式下启动热服务器,并在package.json中配置脚本任务,启动任务后,发生任何文件更改时,将自动刷新浏览器.
 
-
+## 配置favicon
+1. 在`HtmlWebpackPlugin`中配置favicon
 
 
