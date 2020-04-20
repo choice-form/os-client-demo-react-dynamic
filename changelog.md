@@ -40,3 +40,4 @@ yarn add webpack webpack-cli webpack-dev-server
 ## 使用tsx语法
 1. `tsconfig.json`中新增配置`"jsx": "react"`
 2. `webpack.config.js`中新增`resolve.extensions`为`[".ts", '.tsx', '.js']`,这三个解析不能少,他们的顺序也不要变,否则可能解析失败.
+3. 将组件分离到一本`app.tsx`中,并且使用jsx的语法,在`webpack.config.js`中对`/tsx?$/`的文件后缀使用`ts-loader`,然后启动项目,可以成功.
