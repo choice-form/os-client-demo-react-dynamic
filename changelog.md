@@ -41,3 +41,6 @@ yarn add webpack webpack-cli webpack-dev-server
 1. `tsconfig.json`中新增配置`"jsx": "react"`
 2. `webpack.config.js`中新增`resolve.extensions`为`[".ts", '.tsx', '.js']`,这三个解析不能少,他们的顺序也不要变,否则可能解析失败.
 3. 将组件分离到一本`app.tsx`中,并且使用jsx的语法,在`webpack.config.js`中对`/tsx?$/`的文件后缀使用`ts-loader`,然后启动项目,可以成功.
+
+## 分离vendor
+1. 一开始自己的代码和依赖包`react`,`react-dom`的代码都被构建到了`dist/main.js`中,我们项把第三方包的代码构建到独立的文件中,在webpack配置文件中添加`optimization.splitChunks.chunks:all`,再次构建,发现依赖包已经分离出去.

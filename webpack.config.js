@@ -38,6 +38,11 @@ module.exports = (env) => {
     } : undefined,
     resolve: {
       extensions: ['.ts', '.tsx', '.js']
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      }
     }
   };
 }
