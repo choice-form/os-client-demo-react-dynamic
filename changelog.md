@@ -36,3 +36,7 @@ yarn add webpack webpack-cli webpack-dev-server
 1. 安装依赖`yarn add react react-dom`和类型依赖`yarn add @type/react @type/react-dom`.
 
 2. 在index.ts导入`react`和`react-dom`并且写一个最简单的组件渲染到页面.
+
+## 使用tsx语法
+1. `tsconfig.json`中新增配置`"jsx": "react"`
+2. `webpack.config.js`中新增`resolve.extensions`为`[".ts", '.tsx', '.js']`,这三个解析不能少,他们的顺序也不要变,否则可能解析失败.

@@ -35,7 +35,9 @@ module.exports = (env) => {
       host: '0.0.0.0',
       port: 7076,
       hot: true,
-    } : undefined
-
+    } : undefined,
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js']
+    }
   };
 }

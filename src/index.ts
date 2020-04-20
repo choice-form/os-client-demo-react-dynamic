@@ -1,10 +1,4 @@
-import React from 'react';
 import ReactDom from 'react-dom';
+import button from './app';
 
-const button = React.createElement('button',
-  {
-    onClick: () => {
-      alert('clicked');
-    }
-  }, 'button');
 ReactDom.render(button, document.getElementById('root'));
