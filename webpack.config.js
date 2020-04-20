@@ -7,7 +7,7 @@ const isLocal = (env) => {
 
 module.exports = (env) => {
   return {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
       filename: isLocal(env) ? '[name].js' : '[name]-[contenthash:8].js',
       path: path.resolve('./dist'),
@@ -21,6 +21,14 @@ module.exports = (env) => {
       }),
       new CleanWebpackPlugin()
     ],
+    module: {
+      rules: [{
+        test: /\.ts$/,
+        use: {
+          loader: 'ts-loader',
+        }
+      }]
+    },
     devServer: isLocal(env) ? {
       contentBase: path.resolve(__dirname, 'dist'),
       headers: { "Access-Control-Allow-Origin": "*" },
@@ -28,5 +36,6 @@ module.exports = (env) => {
       port: 7076,
       hot: true,
     } : undefined
+
   };
 }

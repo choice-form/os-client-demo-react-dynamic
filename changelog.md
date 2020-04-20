@@ -26,4 +26,6 @@ yarn add webpack webpack-cli webpack-dev-server
 ## 配置favicon
 1. 在`HtmlWebpackPlugin`中配置favicon
 
-
+## 使用Typescript
+1. 将`src/index.js`改成`src/index.ts`,并在其中加上些类型声明的代码,然后在`webpack.config.js`中将入口也改成对应的`ts`文件.
+2. 重新运行构建,发现会失败,因为webpack将默认以`javascript`去解析模块,但是读到的文件中有`typescript`的类型声明,不是合法的javascript会读取失败,这时候需要在webpack中添加`ts-loader`,运行`yarn add typescirpt ts-loader -D`安装typescript支持包,在webpack配置文件中增加`module`配置使用`ts-loader`去加载ts文件,然后重新构建可以成功.
