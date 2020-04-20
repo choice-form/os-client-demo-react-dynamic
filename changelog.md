@@ -1,5 +1,7 @@
 # 工作日志
 
+我们准备构建一个react项目,其中包含一个react的主程序,还有一个分离的UI插件程序,这两个都是使用react编写,但是ui插件程序不是默认加载到主程序中的,而是根据某些规则按需加载进去的,这其中会设计到很多自定义的构建流程,所以我们不使用react-create-app去初始化项目,而是我们自己独立自主的使用webpack去构建.
+
 ## 开始
 1. 新建了src目录,在其中添加了index.html和index.js文件.
 2. 初始化了git,添加了.gitignore文件.
@@ -29,3 +31,8 @@ yarn add webpack webpack-cli webpack-dev-server
 ## 使用Typescript
 1. 将`src/index.js`改成`src/index.ts`,并在其中加上些类型声明的代码,然后在`webpack.config.js`中将入口也改成对应的`ts`文件.
 2. 重新运行构建,发现会失败,因为webpack将默认以`javascript`去解析模块,但是读到的文件中有`typescript`的类型声明,不是合法的javascript会读取失败,这时候需要在webpack中添加`ts-loader`,运行`yarn add typescirpt ts-loader -D`安装typescript支持包,在webpack配置文件中增加`module`配置使用`ts-loader`去加载ts文件,然后重新构建可以成功.
+
+## 引入react
+1. 安装依赖`yarn add react react-dom`和类型依赖`yarn add @type/react @type/react-dom`.
+
+2. 在index.ts导入`react`和`react-dom`并且写一个最简单的组件渲染到页面.

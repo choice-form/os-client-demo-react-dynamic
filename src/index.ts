@@ -1,3 +1,10 @@
-const str: string = '1';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-document.write('Hello world' + str);
+const button = React.createElement('button',
+  {
+    onClick: () => {
+      alert('clicked');
+    }
+  }, 'button');
+ReactDom.render(button, document.getElementById('root'));
