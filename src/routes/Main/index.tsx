@@ -8,7 +8,6 @@ interface IProps extends RouteComponentProps {
 class Main extends React.Component {
   props: IProps
   render() {
-    console.log(this.props);
     return <div>
       index page
       <button onClick={() => {

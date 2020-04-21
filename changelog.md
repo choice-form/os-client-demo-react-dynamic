@@ -51,5 +51,10 @@ yarn add webpack webpack-cli webpack-dev-server
 
 ## 脚本驱动路由跳转
 1. 尝试使用脚本驱动路由正常跳转,而不是通过链接.注意直接使用浏览器级别的接口更改浏览器地址,是会重新刷新页面,不会触发框架级别的路由跳转的,这样会丢失内存数据.
-2. react-router中不能直接访问到跳转链接的api,而是要在路由组件的几个规则中才能访问到,我们通过路由组件的render方式传入routeProps到Main和Questions两个路由中,这样在里面可以借助这个属性跳转路由,Realtime和Reward两个页面是单独存在的,无与其他路由内存共用的需求,不需要路由跳转,可以浏览器直接跳转.
+2. react-router中不能直接访问到跳转链接的api,而是要在路由组件的几个规则中才能访问到,我们通过路由组件的render方式传入routeProps到Main和Questions两个路由中,这样在里面可以借助这个属性跳转路由,Realtime和Reward两个页面是单独存在的,无与其他路由内存共用的需求,不需要路由跳转,可以浏览器直接跳转,路由跳转方式参考[这里](https://reacttraining.com/react-router/web/api/location)
 
+
+## 添加os-client-core
+1. 安装依赖包
+2. 初始化core
+3. 在根组件状态上粘附初始化好的核心数据

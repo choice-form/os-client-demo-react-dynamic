@@ -8,14 +8,13 @@ interface IProps extends RouteComponentProps {
 class Questions extends React.Component {
   props: IProps
   render() {
-    console.log(this.props);
     return <div>
       question page
       <button onClick={() => {
         this.props.handleAdd();
       }}>Add</button>
       <button onClick={() => {
-        this.props.history.replace('./index');
+        this.props.history.replace('./');
       }}>
         Jump to index
       </button>
