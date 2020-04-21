@@ -58,3 +58,7 @@ yarn add webpack webpack-cli webpack-dev-server
 1. 安装依赖包
 2. 初始化core
 3. 在根组件状态上粘附初始化好的核心数据
+
+## 初始化答题程序
+1. 调用sdk获取首页,答题页数据
+2. 答题核心发生变化后驱动react更新页面

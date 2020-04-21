@@ -1,0 +1,34 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-static-field",
+          "private-instance-field",
+          "public-instance-field",
+          "public-constructor",
+          "private-instance-method",
+          "protected-instance-method",
+          "public-instance-method"
+        ],
+        "alphabetize": true
+      }
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "max-line-length": [
+      true,
+      90
+    ]
+  }
+}

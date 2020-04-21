@@ -2,22 +2,13 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface IProps extends RouteComponentProps {
-  handleAdd: () => void
+  model: CFState;
 }
 
-class Questions extends React.Component {
-  props: IProps
-  render() {
+class Questions extends React.Component<IProps> {
+  render(): JSX.Element {
     return <div>
       question page
-      <button onClick={() => {
-        this.props.handleAdd();
-      }}>Add</button>
-      <button onClick={() => {
-        this.props.history.replace('./');
-      }}>
-        Jump to index
-      </button>
     </div>
   }
 }
