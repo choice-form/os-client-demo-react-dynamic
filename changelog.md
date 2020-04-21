@@ -73,4 +73,4 @@ yarn add webpack webpack-cli webpack-dev-server
 1. 渲染首页
 2. 点击下一题获取答题页数据,然后驱动路由跳转.
 3. 渲染答题页面第一阶段
-4. 
+4. 处理自动开始下一题功能

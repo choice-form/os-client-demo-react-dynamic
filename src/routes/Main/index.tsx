@@ -4,7 +4,7 @@ import { Util } from '@choiceform/os-client-core'
 interface IProps extends RouteComponentProps {
   model: CFIntro;
   requestModel(): void;
-  requestQuestions(): Promise<void>;
+  requestQuestions(silent?: boolean): Promise<void>;
 }
 
 interface IState {
@@ -19,17 +19,22 @@ class Main extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = { nextLoading: false };
-    this.gotoQuestions = this.gotoQuestions.bind(this);
   }
   /**
    * 去往答题页面
+   * @param silent 静默模式不会更新状态
    */
-  private async gotoQuestions(): Promise<void> {
+  private async gotoQuestions(silent?: boolean): Promise<void> {
     // 去之前先拿帮答题页拿好数据,同时显示loading状态
     // 这样可以避免答题页面临时拿数据出现空白
-    this.setState({ nextLoading: true });
-    await this.props.requestQuestions()
-    this.setState({ nextLoading: false });
+    if (!silent) {
+      this.setState({ nextLoading: true });
+    }
+    await this.props.requestQuestions(silent)
+    if (!silent) {
+      this.setState({ nextLoading: false });
+    }
+
     const url = Util.getQuestionsPageUrl('questions')
       .replace(location.origin, '.');
     this.props.history.replace(url)
@@ -46,6 +51,11 @@ class Main extends React.Component<IProps, IState> {
     if (!model) {
       return <div>Loading</div>
     }
+    // 自动跳过首页开始答题的情况下
+    if (model.startAuto) {
+      this.gotoQuestions(true);
+      return <div></div>;
+    }
 
     return <div>
       {model.images.map(image => {
@@ -56,7 +66,7 @@ class Main extends React.Component<IProps, IState> {
       })}
       <h1>{model.title}</h1>
       <p>{model.summary}</p>
-      <button onClick={this.gotoQuestions}>
+      <button onClick={() => this.gotoQuestions()}>
         {this.state.nextLoading ? 'Loading' : model.nextButton}
       </button>
     </div>

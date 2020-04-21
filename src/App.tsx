@@ -154,10 +154,13 @@ class App extends React.Component<any, IFullState> {
   }
   /**
    * 请求答题页数据
+   * @param silent 静默模式不会更新状态
    */
-  async requestQuestionsModel(): Promise<void> {
+  async requestQuestionsModel(silent?: boolean): Promise<void> {
     await this.core.fetchQuestions();
-    this.updateCore();
+    if (!silent) {
+      this.updateCore();
+    }
   }
   /**
    * 请求奖励页数据
