@@ -1,11 +1,12 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
+interface IProps extends RouteComponentProps {
+  handleAdd: () => void
+}
 
 class Questions extends React.Component {
-  props: {
-    handleAdd: () => void,
-    handleJump: (url: string) => void,
-  }
+  props: IProps
   render() {
     console.log(this.props);
     return <div>
@@ -14,7 +15,7 @@ class Questions extends React.Component {
         this.props.handleAdd();
       }}>Add</button>
       <button onClick={() => {
-        this.props
+        this.props.history.replace('./index');
       }}>
         Jump to index
       </button>

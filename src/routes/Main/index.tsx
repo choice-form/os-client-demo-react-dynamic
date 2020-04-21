@@ -5,7 +5,7 @@ interface IProps extends RouteComponentProps {
   handleAdd: () => void
 }
 
-class Index extends React.Component {
+class Main extends React.Component {
   props: IProps
   render() {
     console.log(this.props);
@@ -23,4 +23,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default Main;

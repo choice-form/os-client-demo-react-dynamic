@@ -7,7 +7,7 @@ const isLocal = (env) => {
 
 module.exports = (env) => {
   return {
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     output: {
       filename: isLocal(env) ? '[name].js' : '[name]-[contenthash:8].js',
       path: path.resolve('./dist'),

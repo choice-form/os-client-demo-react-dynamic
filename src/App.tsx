@@ -3,74 +3,59 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
+  RouteComponentProps,
 } from "react-router-dom";
-import Index from "./routes/Index/index";
+import Main from "./routes/Main/index";
 import Questions from "./routes/Questions";
 import Realtime from "./routes/Realtime";
 import Reward from "./routes/Reward";
 
-class AppRoute extends React.Component {
+class App extends React.Component {
   state: { index: number, questions: number }
   constructor(props) {
     super(props);
-    this.state = { index: 0, questions: 0 };
+    this.state = { index: 1, questions: 1 };
+    this.renderMain = this.renderMain.bind(this);
+    this.renderQuestions = this.renderQuestions.bind(this);
+  }
+  renderMain(routeProps: RouteComponentProps) {
+    return <Main handleAdd={() => {
+      this.setState({ index: this.state.index + 1 })
+    }} {...routeProps} />
+  }
+  renderQuestions(routeProps: RouteComponentProps) {
+    return <Questions handleAdd={() => {
+      this.setState({ questions: this.state.questions + 1 })
+    }} {...routeProps} />
   }
   render() {
     return (<Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Index</Link>
-            </li>
-            <li>
-              <Link to="/questions">Questions</Link>
-            </li>
-            <li>
-              <Link to="/realtime">Realtime</Link>
-            </li>
-            <li>
-              <Link to="/reward">Reward</Link>
-            </li>
-          </ul>
-        </nav>
         <ul>
           <li>
-            index count: {this.state.index}
+            index: {this.state.index}
           </li>
           <li>
-            questions count: {this.state.questions}
+            questions: {this.state.questions}
           </li>
         </ul>
         <Switch>
-          <Route path="/questions">
-            <Questions handleAdd={() => {
-              this.setState({ questions: this.state.questions + 1 })
-            }} handleJump={() => {
-
-            }} />
-          </Route>
           <Route path="/realtime">
             <Realtime />
           </Route>
           <Route path="/reward">
             <Reward />
           </Route>
-          <Route path="/" render={(routeProps) => {
-            return <Index handleAdd={() => {
-              this.setState({ index: this.state.index + 1 })
-            }} {...routeProps} />
-          }}>
+          <Route path="/questions"
+            render={this.renderQuestions}>
+          </Route>
+          <Route path="/"
+            render={this.renderMain}>
           </Route>
         </Switch>
       </div>
     </Router>)
   }
 }
-
-const App = <div>
-  <AppRoute></AppRoute>
-</div>
 
 export default App;
