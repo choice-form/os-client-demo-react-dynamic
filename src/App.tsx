@@ -10,6 +10,7 @@ import Questions from "./routes/Questions";
 import Realtime from "./routes/Realtime";
 import Reward from "./routes/Reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
+import CF_CONFIG from "config";
 
 /**
  * 引用程序根状态
@@ -76,6 +77,7 @@ class App extends React.Component<any, IFullState> {
       locateError: this.locateError,
       setLocale: this.setLocale,
       realTimePreview: location.href.indexOf('/realtime') > -1,
+      hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
     this.updateCore()

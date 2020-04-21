@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prod": "webpack --env.NODE_ENV=prod --mode=production",
-    "dev": "webpack --env.NODE_ENV=local --mode=development",
+    "staging": "webpack --env.NODE_ENV=staging --mode=development",
     "start": "webpack-dev-server --env.NODE_ENV=local --mode=development"
   },
   "author": "somebody",

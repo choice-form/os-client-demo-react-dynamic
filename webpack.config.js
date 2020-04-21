@@ -1,9 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const isLocal = (env) => {
+
+function isLocal(env) {
   return env.NODE_ENV === 'local';
 };
+function getConfigFile(env) {
+  return env.NODE_ENV === 'prod' ? 'prod' : 'staging';
+}
 
 module.exports = (env) => {
   return {
@@ -38,7 +42,10 @@ module.exports = (env) => {
       hot: true,
     } : undefined,
     resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.ts', '.tsx', '.js'],
+      alias: {
+        config: path.join(__dirname, `config/${getConfigFile(env)}.ts`),
+      },
     },
     optimization: {
       splitChunks: {

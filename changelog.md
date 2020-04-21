@@ -62,3 +62,9 @@ yarn add webpack webpack-cli webpack-dev-server
 ## 初始化答题程序
 1. 调用sdk获取首页,答题页数据
 2. 答题核心发生变化后驱动react更新页面
+
+## 分环境构建配置文件
+1. 因为在正式环境和测试环境上接口请求地址是不一样的,这些地址分别配置到不同的两本文件中,构建的时候按环境的不同加载不同的文件,但是写代码的时候都是统一的导入方式`import CF_CONFIG from "config"`;
+2. 现在types中声明好虚拟的config模块,制定好器类型声明,
+3. 创建config文件夹,里面分别放置`dev.ts`,`prod.ts`两本配置文件,各自配置好不同的内容
+4. webpack的配置文件总,resolve.alias中设置`config`模块的自定义解析方式,按构建时的环境参数决定指向`config/dev.ts`还是`config/prod.ts`,这在再次构建,就能正确加载对应环境上的配置文件.
