@@ -131,6 +131,7 @@ class App extends React.Component<any, IFullState> {
   renderMain(routeProps: RouteComponentProps): JSX.Element {
     return <Main
       requestModel={this.requestMainModel}
+      requestQuestions={this.requestQuestionsModel}
       model={this.state.core.intro}
       {...routeProps} />
   }
@@ -144,27 +145,22 @@ class App extends React.Component<any, IFullState> {
   /**
    * 请求首页数据
    */
-  requestMainModel(): void {
-    if (this.core) {
-      this.core.fetchIntro().then(this.updateCore);
-    }
+  async requestMainModel(): Promise<void> {
+    await this.core.fetchIntro();
+    this.updateCore();
   }
   /**
    * 请求答题页数据
    */
-  requestQuestionsModel(): void {
-    if (this.core) {
-      this.core.fetchQuestions().then(this.updateCore);
-    }
-
+  async requestQuestionsModel(): Promise<void> {
+    await this.core.fetchQuestions();
   }
   /**
    * 请求奖励页数据
    */
-  requestRewardModel(): void {
-    if (this.core) {
-      this.core.fetchReward().then(this.updateCore);
-    }
+  async requestRewardModel(): Promise<void> {
+    await this.core.fetchReward();
+    this.updateCore();
   }
   /**
    * 切换语言
