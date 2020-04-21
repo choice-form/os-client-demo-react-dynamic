@@ -103,7 +103,7 @@ class App extends React.Component<any, IFullState> {
   render(): JSX.Element {
     // 核心还未完成初始化
     if (!this.state.core) {
-      return <div>loading...</div>
+      return <div></div>
     }
     return (<Router>
       <div>
@@ -140,7 +140,10 @@ class App extends React.Component<any, IFullState> {
    * @param routeProps 路由属性
    */
   renderQuestions(routeProps: RouteComponentProps): JSX.Element {
-    return <Questions model={this.state.core.questions} {...routeProps} />
+    return <Questions
+      requestModel={this.requestQuestionsModel}
+      model={this.state.core.questions}
+      {...routeProps} />
   }
   /**
    * 请求首页数据
@@ -154,6 +157,7 @@ class App extends React.Component<any, IFullState> {
    */
   async requestQuestionsModel(): Promise<void> {
     await this.core.fetchQuestions();
+    this.updateCore();
   }
   /**
    * 请求奖励页数据

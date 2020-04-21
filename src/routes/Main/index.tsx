@@ -25,6 +25,8 @@ class Main extends React.Component<IProps, IState> {
    * 去往答题页面
    */
   private async gotoQuestions(): Promise<void> {
+    // 去之前先拿帮答题页拿好数据,同时显示loading状态
+    // 这样可以避免答题页面临时拿数据出现空白
     this.setState({ nextLoading: true });
     await this.props.requestQuestions()
     this.setState({ nextLoading: false });
@@ -36,14 +38,15 @@ class Main extends React.Component<IProps, IState> {
    * 渲染页面
    */
   render(): JSX.Element {
+    const { model } = this.props;
     if (!this.initialized) {
       this.initialized = true;
       this.props.requestModel();
     }
-    if (!this.props.model) {
-      return <div>Loading Main...</div>
+    if (!model) {
+      return <div>Loading</div>
     }
-    const { model } = this.props;
+
     return <div>
       {model.images.map(image => {
         return <img src={image.large}

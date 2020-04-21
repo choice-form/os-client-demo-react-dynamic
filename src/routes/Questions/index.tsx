@@ -3,12 +3,40 @@ import { RouteComponentProps } from 'react-router-dom';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
+  requestModel(): Promise<void>;
 }
 
 class Questions extends React.Component<IProps> {
+  private initialized: boolean;
   render(): JSX.Element {
+    const { model } = this.props;
+    // 初始情况下检查数据
+    if (!this.initialized) {
+      this.initialized = true;
+      // 如果没有数据,自己要求一下数据
+      if (!model) {
+        this.props.requestModel();
+      }
+    }
+    if (!model) {
+      return <div></div>;
+    }
     return <div>
-      question page
+      {model.nodes.map(node => {
+        return <div key={node.renderId}>{node.title}:{node.quesType}</div>
+      })}
+      {this.renderButton()}
+    </div>
+  }
+
+  /**
+   * 渲染单页组按钮
+   */
+  renderButton(): JSX.Element {
+    const { nextButton, prevButton } = this.props.model;
+    return <div>
+      {prevButton ? <button>{prevButton}</button> : ''}
+      {nextButton ? <button>{nextButton}</button> : ''}
     </div>
   }
 }
