@@ -25,7 +25,11 @@ class Questions extends React.Component<IProps> {
     return <div>
       {model.nodes.map(node => {
         const NodeCom = getNodeComponent(node.quesType);
-        return <NodeCom node={node} handler={model.handleEvents} />
+        return <div key={node.renderId}
+          style={{ margin: '10px', padding: '10px', border: '1px solid black' }}>
+          <NodeCom node={node} handler={model.handleEvents} />
+        </div>
+
       })}
       {this.renderButton()}
     </div>

@@ -32,7 +32,7 @@ class Weight extends React.Component<IProps> {
             width: ratio,
             height: '30px',
             background: opt.color,
-          }}></span>
+          }} key={opt.renderId}></span>
         })}
       </div>
       {node.options.map(opt => {
@@ -48,7 +48,8 @@ class Weight extends React.Component<IProps> {
             min='0'
             max={opt.maxValue}
             step='1'
-            onInput={(e) => {
+            value={opt.value}
+            onChange={(e) => {
               const value = (e.target as HTMLInputElement).value;
               handler.handleOptionInput(value, opt, node);
             }} />

@@ -28,7 +28,8 @@ class Range extends React.Component<IProps> {
             min={opt.minValue}
             max={opt.maxValue}
             step={opt.step}
-            onInput={(e) => {
+            value={opt.value}
+            onChange={(e) => {
               const value = (e.target as HTMLInputElement).value;
               handler.handleOptionInput(value, opt, node);
             }} />

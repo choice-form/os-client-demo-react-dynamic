@@ -26,7 +26,7 @@ class ShortText extends React.Component<IProps> {
           <span>{opt.text}</span>
           <input type="text"
             value={opt.value}
-            onInput={(e) => {
+            onChange={(e) => {
               const value = (e.target as HTMLInputElement).value;
               handler.handleOptionInput(value, opt, node)
             }} />

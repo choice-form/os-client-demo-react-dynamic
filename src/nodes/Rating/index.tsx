@@ -39,8 +39,8 @@ class Rating extends React.Component<IProps> {
       {node.options.map(opt => {
         const iconList = this.getIconList(opt);
         return < div key={opt.renderId} >
-          <div>{opt.text}</div>
-          <div>
+          <span>{opt.text}</span>
+          <div style={{ display: 'inline-block' }}>
             {iconList.map((_icon, index) => {
               return <span key={index} style={{
                 display: 'inline-block',
@@ -50,6 +50,7 @@ class Rating extends React.Component<IProps> {
               }} onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
               </span>
             })}
+            <span>{opt.value || 0}</span>
           </div>
         </div>
       })
