@@ -39,10 +39,14 @@ class Questions extends React.Component<IProps> {
    * 渲染单页组按钮
    */
   renderButton(): JSX.Element {
-    const { nextButton, prevButton } = this.props.model;
+    const { nextButton, prevButton, handleEvents } = this.props.model;
     return <div>
-      {prevButton ? <button>{prevButton}</button> : ''}
-      {nextButton ? <button>{nextButton}</button> : ''}
+      {prevButton ? <button onClick={() => {
+        handleEvents.handlePrevClick();
+      }}>{prevButton}</button> : ''}
+      {nextButton ? <button onClick={() => {
+        handleEvents.handleNextClick();
+      }}>{nextButton}</button> : ''}
     </div>
   }
 }
