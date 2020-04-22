@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { getNodeComponent } from '../../nodes';
+import getNodeComponent from 'node-plugin';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
