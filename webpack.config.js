@@ -51,7 +51,7 @@ function getDevPlugin(env) {
 
 module.exports = (env) => {
   return {
-    entry: './src/index.tsx',
+    entry: './app/index.tsx',
     output: {
       filename: isLocal(env) ? '[name].js' : '[name]-[contenthash:8].js',
       path: path.resolve('./dist'),
@@ -59,7 +59,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './app/index.html',
         filename: 'index.html',
         favicon: path.resolve('./public/favicon.ico')
       }),
