@@ -23,15 +23,15 @@ interface IFullState {
   /**
    * 错误消息
    */
-  error?: string;
+  error: string;
   /**
    * 多语言代号
    */
   locale: string;
   /**
-   * 提示消息
+   * 提示消息列表
    */
-  notification?: string;
+  notification: { id: number, text: string }[];
 }
 /**
  * 应用程序根组件
@@ -46,17 +46,12 @@ class App extends React.Component<any, IFullState> {
    */
   constructor(props: any) {
     super(props);
-    this.state = { locale: 'zh_cn', core: null };
-    this.renderMain = this.renderMain.bind(this);
-    this.renderQuestions = this.renderQuestions.bind(this);
-    this.updateCore = this.updateCore.bind(this);
-    this.locateError = this.locateError.bind(this);
-    this.showError = this.showError.bind(this);
-    this.notify = this.notify.bind(this);
-    this.setLocale = this.setLocale.bind(this);
-    this.requestMainModel = this.requestMainModel.bind(this);
-    this.requestQuestionsModel = this.requestQuestionsModel.bind(this);
-    this.requestRewardModel = this.requestRewardModel.bind(this);
+    this.state = {
+      locale: 'zh_cn',
+      core: null,
+      error: '',
+      notification: []
+    };
     this.init();
   }
   /**
@@ -72,17 +67,17 @@ class App extends React.Component<any, IFullState> {
       useWxSdk: true,
       indexUrl: location.origin + '?' + surveyId,
       rewardUrl: location.origin + '/reward?sid=' + surveyId,
-      error: this.showError,
-      notify: this.notify,
-      locateError: this.locateError,
-      setLocale: this.setLocale,
+      error: (e) => this.showError(e),
+      notify: (e) => this.notify(e),
+      locateError: () => this.locateError(),
+      setLocale: (e) => this.setLocale(e),
       realTimePreview: location.href.indexOf('/realtime') > -1,
       hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
     this.updateCore()
     // 每当核心数据发生变化时,再次驱动更新
-    EventHub.on('SET_PROPS', this.updateCore)
+    EventHub.on('SET_PROPS', () => this.updateCore())
   }
   /**
    * 定位错误
@@ -95,18 +90,51 @@ class App extends React.Component<any, IFullState> {
    * @param text 提示消息
    */
   notify(text: string): void {
-    this.setState({ notification: text })
+    const item = { id: Math.random(), text };
+    this.setState({ notification: [...this.state.notification, item] })
+    setTimeout(() => {
+      this.setState({
+        notification: this.state.notification.filter(a => a !== item)
+      });
+    }, 2000);
   }
   /**
    * 渲染页面
    */
   render(): JSX.Element {
+    const { core } = this.state;
     // 核心还未完成初始化
-    if (!this.state.core) {
+    if (!core) {
       return <div></div>
     }
+
     return (<Router>
       <div>
+        {this.state.error
+          ? <div style={{
+            position: 'absolute',
+            zIndex: 100,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            textAlign: 'center',
+            background: 'white',
+          }}>{this.state.error}</div>
+          : null}
+        {core.needPreviewFlag
+          ? <div style={{ textAlign: 'center' }}>预览测试</div>
+          : null}
+        <div style={{
+          position: 'fixed',
+          width: '200px',
+          right: '100px',
+        }}>
+          {this.state.notification.map(nt => {
+            return <div style={{ border: 'solid 1px black' }}
+              key={nt.id}>{nt.text}</div>
+          })}
+        </div>
         <Switch>
           <Route path="/realtime">
             <Realtime />
@@ -115,10 +143,10 @@ class App extends React.Component<any, IFullState> {
             <Reward />
           </Route>
           <Route path="/questions"
-            render={this.renderQuestions}>
+            render={(e) => this.renderQuestions(e)}>
           </Route>
           <Route path="/"
-            render={this.renderMain}>
+            render={(e) => this.renderMain(e)}>
           </Route>
         </Switch>
       </div>
@@ -130,8 +158,8 @@ class App extends React.Component<any, IFullState> {
    */
   renderMain(routeProps: RouteComponentProps): JSX.Element {
     return <Main
-      requestModel={this.requestMainModel}
-      requestQuestions={this.requestQuestionsModel}
+      requestModel={() => this.requestMainModel()}
+      requestQuestions={(e) => this.requestQuestionsModel(e)}
       model={this.state.core.intro}
       {...routeProps} />
   }
@@ -141,7 +169,7 @@ class App extends React.Component<any, IFullState> {
    */
   renderQuestions(routeProps: RouteComponentProps): JSX.Element {
     return <Questions
-      requestModel={this.requestQuestionsModel}
+      requestModel={() => this.requestQuestionsModel()}
       model={this.state.core.questions}
       {...routeProps} />
   }
