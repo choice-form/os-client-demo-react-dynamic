@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { getNodeComponent } from '../../nodes';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
@@ -23,7 +24,8 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.nodes.map(node => {
-        return <div key={node.renderId}>{node.title}:{node.quesType}</div>
+        const NodeCom = getNodeComponent(node.quesType);
+        return <NodeCom node={node} handler={model.handleEvents} />
       })}
       {this.renderButton()}
     </div>
