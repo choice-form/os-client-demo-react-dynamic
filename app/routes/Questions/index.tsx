@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import getNodeComponent from 'node-plugin';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
@@ -24,7 +23,6 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.nodes.map(node => {
-        const NodeCom = getNodeComponent(node.quesType);
         return <div key={node.renderId} id={node.renderId}
           style={{
             margin: '10px', padding: '10px',
@@ -36,7 +34,7 @@ class Questions extends React.Component<IProps> {
           }}>
             {node.errorMessage}
           </span>
-          <NodeCom node={node} handler={model.handleEvents} />
+          {/* <NodeCom node={node} handler={model.handleEvents} /> */}
         </div>
 
       })}

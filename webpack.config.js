@@ -91,7 +91,19 @@ module.exports = (env) => {
     },
     optimization: {
       splitChunks: {
-        chunks: 'all',
+        maxSize: 500 * 1024,
+        cacheGroups: {
+          react: {
+            chunks: 'all',
+            name: 'react',
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          },
+          core: {
+            chunks: 'all',
+            name: 'core',
+            test: /[\\/]os-client-core[\\/]/,
+          }
+        }
       }
     }
   };
