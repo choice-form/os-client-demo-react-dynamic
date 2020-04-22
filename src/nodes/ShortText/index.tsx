@@ -31,6 +31,7 @@ class ShortText extends React.Component<IProps> {
               handler.handleOptionInput(value, opt, node)
             }} />
           <span>{opt.value}</span>
+          <span style={{ background: 'red' }}>{opt.errorMessage}</span>
         </div>
       })}
     </div>

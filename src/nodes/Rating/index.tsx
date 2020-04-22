@@ -46,7 +46,7 @@ class Rating extends React.Component<IProps> {
                 display: 'inline-block',
                 width: '30px', height: '30px',
                 border: 'solid 1px black',
-                backgroundColor: (opt.value > index) ? 'red' : undefined
+                backgroundColor: (opt.value > index) ? 'orange' : undefined
               }} onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
               </span>
             })}

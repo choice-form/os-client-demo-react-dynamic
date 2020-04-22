@@ -77,3 +77,9 @@ yarn add webpack webpack-cli webpack-dev-server
 5. 渲染了几个基本题型:选择,打分,填空,权重,并处理他们的UI事件回调
 6. 处理上一题下一题UI事件回调
 7. 渲染错误消息,提示消息,预览标志等全局信息
+8. 定位单页错误
+
+
+## 尝试使用开发版核心包sdc
+1. 我在本地开发是想导入的是带sourcemap的本地版sdc,而到线上就是用发布的sdc,这需要在webpack的配置文件中做些修改.
+2. 本地开发包在相邻项目os-client-core的debug文件下下面,我们需要在webpack的配置文件中检查是否相邻目录的debug文件夹下能找到开发版sdk,能找到则给`@choiceform/os-client-core`设置解析别名,否则就不设置.

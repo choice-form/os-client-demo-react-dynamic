@@ -37,10 +37,15 @@ interface IFullState {
  * 应用程序根组件
  */
 class App extends React.Component<any, IFullState> {
+
   /**
    * 答题核心对象
    */
   private core: CFCore;
+  /**
+   * 更新任务id
+   */
+  private updateTaskId: number = -1;
   /**
    * 构造函数
    */
@@ -69,7 +74,7 @@ class App extends React.Component<any, IFullState> {
       rewardUrl: location.origin + '/reward?sid=' + surveyId,
       error: (e) => this.showError(e),
       notify: (e) => this.notify(e),
-      locateError: () => this.locateError(),
+      locateError: (e) => this.locateError(e),
       setLocale: (e) => this.setLocale(e),
       realTimePreview: location.href.indexOf('/realtime') > -1,
       hostConfig: CF_CONFIG,
@@ -82,8 +87,14 @@ class App extends React.Component<any, IFullState> {
   /**
    * 定位错误
    */
-  locateError(): void {
-    // 后续实现
+  locateError(e: CFValidateResult): void {
+    const { dueToNode } = e;
+    if (dueToNode) {
+      const element = document.getElementById(dueToNode.renderId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
   }
   /**
    * 显示提示消息
@@ -128,7 +139,8 @@ class App extends React.Component<any, IFullState> {
         <div style={{
           position: 'fixed',
           width: '200px',
-          right: '100px',
+          right: '10px',
+          background: 'red',
         }}>
           {this.state.notification.map(nt => {
             return <div style={{ border: 'solid 1px black' }}
@@ -215,18 +227,23 @@ class App extends React.Component<any, IFullState> {
    * 驱动核心数据上的变化到页面中
    * 因为核心数据的变化是sdk中发生的,react对他是无感的
    * 需要我们从根部驱动一下
+   * 同一进程中的同步更改所调用的更新会被合并到最后一个来减压
    */
   updateCore(): void {
-    this.setState({
-      core: {
-        preview: this.core.preview,
-        needPreviewFlag: this.core.needPreviewFlag,
-        intro: this.core.intro,
-        questions: this.core.questions,
-        reward: this.core.reward,
-        realtime: this.core.realtime,
-      }
-    });
+    clearTimeout(this.updateTaskId);
+    this.updateTaskId = window.setTimeout(() => {
+      this.setState({
+        core: {
+          preview: this.core.preview,
+          needPreviewFlag: this.core.needPreviewFlag,
+          intro: this.core.intro,
+          questions: this.core.questions,
+          reward: this.core.reward,
+          realtime: this.core.realtime,
+        }
+      });
+    })
+
   }
 }
 

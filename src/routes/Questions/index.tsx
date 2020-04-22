@@ -25,8 +25,17 @@ class Questions extends React.Component<IProps> {
     return <div>
       {model.nodes.map(node => {
         const NodeCom = getNodeComponent(node.quesType);
-        return <div key={node.renderId}
-          style={{ margin: '10px', padding: '10px', border: '1px solid black' }}>
+        return <div key={node.renderId} id={node.renderId}
+          style={{
+            margin: '10px', padding: '10px',
+            border: '1px solid black', position: 'relative'
+          }}>
+          <span style={{
+            position: 'absolute',
+            top: 0, right: 0, background: 'red'
+          }}>
+            {node.errorMessage}
+          </span>
           <NodeCom node={node} handler={model.handleEvents} />
         </div>
 
