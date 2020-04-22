@@ -86,3 +86,83 @@ yarn add webpack webpack-cli webpack-dev-server
 
 ## 分离问题组件到插件形式
 1. 之前的src目录改成app目录,为后续将nodes组件移动到plugin目录下做准备
+2. nodes目录移动到plugin目录之下.
+
+## 插件构建思路
+1. 每个插件构建出单独的文件,需要携带hash摘要.
+2. 对所有的插件需要一个汇总json文件,这本文件需要被设计端和答题端加载,内容是一个对象,
+对象中包含以下格式内容:
+```typescript
+interface IPluginSummary {
+  /**
+   * 所有问题类型的插件概要列表
+   * 其中每一项的内容格式后面进行说明
+   */
+  plugins:[],
+  /**
+   * 各种被plugins依赖的通用小组件的集合,他们本身不是一个插件
+   * 其中每一项啊内容格式在后面说明
+   */ 
+  commons:[]
+}
+```
+每个插件配置项的格式如下:
+```typescript
+interface IPluginItem {
+  /**
+   * 插件名称,用于设计端下拉列表中选择
+   */
+  name: string; // 举例值:'Choice Basic',
+  /**
+   * 插件id,当设计端选择使用该插件时,ui插件配置中会存储该id,
+   * 答题端中从设计端存储好的ui插件配置中获取该id,然后从加载好的该文件中
+   * 找到url去加载该插件的内容,达到按需加载的目的
+   */
+  id: string; // 举例值:'choice_basic',
+  /**
+   * 用于加载该插件的真实内容
+   */
+  url: string; // 举例值: 'https://rq.choiceform.io/plugin/nodes/choice/basic-7uhg8thd.js',
+  /**
+   * 该插件是为哪个类型的题型准备的,一般只为一个类型准备,以防有些插件可以跨题型准别
+   * 所有是数组类型,
+   * 设计端加载到该配置后,可以按规则给各个题型分别可用的插件列表.
+   */
+  forTypes: number[]; // 举例值: [1]
+  /**
+   * 所依赖的通用小组件模板id名列表
+   * 虽然每个题型自己单独写插件,但是这些题型中有很多部分可能行为还是一致的
+   * 比如,图片显示,其他选项展示等,这些东西在每个插件里都重复写肯定是不好的,
+   * 所以依然可以抽出公共部分,但这些小组件会像插件一样独自抽成js文件,
+   * 从而方便按需加载
+   * 当加载某个插件时,需要先加载其依赖的模板,当然模板又可以依赖其他的模板,
+   * 这样就需要深入加载
+   */ 
+  depends: string[]; // ['common_head', 'common_image', 'common_other_options']
+}
+```
+每个小组件模板配置项结构如下:
+```typescript
+interface ICommonItems{
+  /**
+   * 模板id
+   */
+  id: string; // 举例值: common_head
+  url: string // 举例值: 'https://rq.choiceform.io/plugin/common/head-cfsghdth.js',
+  /**
+   * 依赖的其他模板的id
+   * 模板可以再次依赖其他模板
+   */ 
+  depends: string[] // 举例值: ['common_image']
+}
+```
+3. 插件的写法规范
+ + 除了第三方插件之外,其他的依赖导入都从一个虚拟模块中导入.
+ + 每个模块都要以某种方式注册到虚拟模块中
+
+4. 样式规则:
+ + 通过webpack显式加载以字符串形式注入到组件内,组件初始化的时候会尝试往页面头部插入这些样式,如果该组件id的样式已经插入过,则不再插入.
+
+5. app和plugin是两个独立的程序,不要互相依赖,把他们放一个项目中是因为构建同步方便统一管理资源.
+
+6. 如何通过webpack配置组件的指定规范抽取摘要文件是关键的一步.

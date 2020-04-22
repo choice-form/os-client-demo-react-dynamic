@@ -5,13 +5,14 @@ interface IProps {
   node: CFFillQuestion;
 }
 
-class ShortText extends React.Component<IProps> {
+class ShortTextAdvanced extends React.Component<IProps> {
   /**
    * 渲染组件
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
     return <div>
+      <span>ShortTextAdvanced</span>
       {node.images.map(image => {
         return <img src={image.large}
           key={image.id}
@@ -38,4 +39,4 @@ class ShortText extends React.Component<IProps> {
   }
 }
 
-export default ShortText;
+export default ShortTextAdvanced;

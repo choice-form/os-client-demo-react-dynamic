@@ -5,13 +5,14 @@ interface IProps {
   node: CFSelectQuestion;
 }
 
-class Choice extends React.Component<IProps> {
+class ChoiceAdvanced extends React.Component<IProps> {
   /**
    * 渲染组件
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
     return <div>
+      <span>ChoiceAdvanced</span>
       {node.images.map(image => {
         return <img src={image.large}
           key={image.id}
@@ -35,5 +36,5 @@ class Choice extends React.Component<IProps> {
   }
 }
 
-export default Choice;
+export default ChoiceAdvanced;
 

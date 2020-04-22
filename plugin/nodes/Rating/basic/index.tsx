@@ -5,7 +5,7 @@ interface IProps {
   node: CFMarkQuestion;
 }
 
-class Rating extends React.Component<IProps> {
+class RatingBasic extends React.Component<IProps> {
   private iconListCache: { [key: number]: string[] } = [];
   /**
    * 获取图标列表
@@ -27,6 +27,7 @@ class Rating extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, handler } = this.props;
     return <div>
+      <span>RatingBasic</span>
       {node.images.map(image => {
         return <img src={image.large}
           key={image.id}
@@ -59,4 +60,4 @@ class Rating extends React.Component<IProps> {
   }
 }
 
-export default Rating;
+export default RatingBasic;
