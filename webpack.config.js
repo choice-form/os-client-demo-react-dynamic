@@ -61,7 +61,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: './app/index.html',
         filename: 'index.html',
-        favicon: path.resolve('./public/favicon.ico')
+        favicon: path.resolve('./app/favicon.ico')
       }),
       new CleanWebpackPlugin(),
       ...getDevPlugin(env),
