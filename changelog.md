@@ -170,3 +170,4 @@ interface ICommonItems{
 ## 构建插件
 1. 单独构建出插件脚本
 2. 插件脚本不要注入到index.html中,在WebpackHtmlPlugin中配置要排除的入口id
+3. 在插件中以常规方式导入依赖项,仍然能分离构建partials脚本.

@@ -11,7 +11,6 @@ class NodeImage extends React.Component<IProps> {
   render(): JSX.Element {
     const { node } = this.props;
     return <div>
-      <span>ChoiceAdvanced</span>
       {node.images.map(image => {
         return <img src={image.large}
           key={image.id}

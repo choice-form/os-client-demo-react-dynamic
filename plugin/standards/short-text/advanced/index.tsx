@@ -1,4 +1,5 @@
 import React from 'react';
+import NodeHead from '../../../partials/node-head';
 
 interface IProps {
   handler: CFUIEventHandler;
@@ -13,12 +14,7 @@ class ShortTextAdvanced extends React.Component<IProps> {
     const { node, handler } = this.props;
     return <div>
       <span>ShortTextAdvanced</span>
-      {node.images.map(image => {
-        return <img src={image.large}
-          key={image.id}
-          title={image.originName}
-        ></img>
-      })}
+      <NodeHead node={node} />
       <h1>{node.title}</h1>
       <p>{node.description}</p>
       <div>{node.typeName}</div>

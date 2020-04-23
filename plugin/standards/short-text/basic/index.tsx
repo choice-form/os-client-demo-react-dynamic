@@ -1,4 +1,5 @@
 import React from 'react';
+import NodeHead from '../../../partials/node-head';
 
 interface IProps {
   handler: CFUIEventHandler;
@@ -13,15 +14,7 @@ class ShortTextBasic extends React.Component<IProps> {
     const { node, handler } = this.props;
     return <div>
       <span>ShortTextBasic</span>
-      {node.images.map(image => {
-        return <img src={image.large}
-          key={image.id}
-          title={image.originName}
-        ></img>
-      })}
-      <h1>{node.title}</h1>
-      <p>{node.description}</p>
-      <div>{node.typeName}</div>
+      <NodeHead node={node} />
       {node.options.map(opt => {
         return <div key={opt.renderId}>
           <span>{opt.text}</span>

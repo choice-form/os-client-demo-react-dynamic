@@ -5,17 +5,12 @@ import {
   Route,
   RouteComponentProps,
 } from "react-router-dom";
-import Main from "./routes/main/index";
+import Main from "./routes/main";
 import Questions from "./routes/questions";
-import Realtime from "./routes/realtime";
+import Realtime from "./routes/realtime/";
 import Reward from "./routes/reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
-// React已经被模块化打包了,虽然被加载进了页面
-// 但是后面独立记载进来的插件并不能访问到躲在模块里面的React对象
-// 所以此处将注册React注册到全局的指定位置
-// 后面异步加载的插件可以从这里访问到React
-window.CF_UI_PLUGIN_CLUSTER.React = React;
 
 /**
  * 引用程序根状态
