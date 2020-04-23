@@ -20,18 +20,31 @@ function getFiles(directory, prefix = '') {
   });
   return result;
 }
-
-function getPluginEntries() {
+function getPluginConfig() {
   const pluginsFiles = getFiles(standardPath, standardFolder);
   const componentFiles = getFiles(componentPath, componentFolder);
   const entries = {};
+  const splitChunks = {};
   [...pluginsFiles, ...componentFiles].forEach(file => {
-    const name = file.replace(/[\\/]/g, '_').replace(/(?:_index)?\.tsx$/, '');
-    entries[name] = pluginRoot + file;
+    const pPath = file.replace(/(?:[\\/]index)?\.tsx$/, '');
+    const name = pPath.replace(/[\\/]/g, '_');
+    if (file.startsWith(componentFolder)) {
+      splitChunks[name] = {
+        chunks: 'all',
+        name,
+        enforce: true,
+        test(module) {
+          return module.resource.includes(pPath);
+        }
+      };
+    } else {
+      entries[name] = pluginRoot + file;
+    }
   });
-  return entries;
+  console.log(splitChunks);
+  return { entries, splitChunks };
 }
 
 module.exports = {
-  getPluginEntries,
+  getPluginConfig,
 };

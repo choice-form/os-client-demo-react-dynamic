@@ -4,14 +4,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin
 } = require('./webpack/dev');
-const { getPluginEntries } = require('./webpack/plugin');
-const pluginEntries = getPluginEntries();
+const { getPluginConfig } = require('./webpack/plugin');
+const pluginConfig = getPluginConfig();
 
 module.exports = (env) => {
   return {
     entry: {
       cluster: './plugin/cluster.ts',
-      ...pluginEntries,
+      ...pluginConfig.entries,
       index: './app/index.tsx',
     },
     output: {
@@ -64,7 +64,8 @@ module.exports = (env) => {
             chunks: 'all',
             name: 'core',
             test: /[\\/]os-client-core[\\/]/,
-          }
+          },
+          ...pluginConfig.splitChunks,
         }
       }
     }

@@ -1,5 +1,5 @@
 import React from "react";
-
+import NodeHead from '../../../components/node-head';
 interface IProps {
   handler: CFUIEventHandler;
   node: CFSelectQuestion;
@@ -12,16 +12,7 @@ class ChoiceBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, handler } = this.props;
     return <div>
-      <span>ChoiceBasic</span>
-      {node.images.map(image => {
-        return <img src={image.large}
-          key={image.id}
-          title={image.originName}
-        ></img>
-      })}
-      <h1>{node.title}</h1>
-      <p>{node.description}</p>
-      <div>{node.typeName}</div>
+      <NodeHead node={node} />
       {node.options.map(opt => {
         return <div key={opt.renderId}
           onClick={() => handler.handleOptionClick(opt, node)}>
