@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
 interface IProps {
   handler: CFUIEventHandler;
   node: CFWeightQuestion;
 }
 
-class WeightBasic extends React.Component<IProps> {
+class WeightAdvanced extends React.Component<IProps> {
   /**
    * 渲染组件
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
     return <div>
-      <span>WeightBasic</span>
+      <span>WeightAdvanced</span>
       {node.images.map(image => {
         return <img src={image.large}
           key={image.id}
@@ -62,4 +62,4 @@ class WeightBasic extends React.Component<IProps> {
   }
 }
 
-export default WeightBasic;
+export default WeightAdvanced;
