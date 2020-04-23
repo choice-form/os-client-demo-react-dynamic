@@ -15,7 +15,7 @@ class NodeHead extends React.Component<IProps> {
     const node = this.props.node as CFSelectQuestion;
     return <div>
       <NodeImage node={node} />
-      <h1>{node.title + 'hehe'}</h1>
+      <h1>{node.title + 'heheda'}</h1>
       <p>{node.description}</p>
       <div>{node.typeName}</div>
     </div>

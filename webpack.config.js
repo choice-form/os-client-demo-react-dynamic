@@ -4,7 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin
 } = require('./webpack/dev');
-const { getPluginConfig } = require('./webpack/plugin');
+const { getPluginConfig } = require('./webpack/plugin-config');
+const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
 const pluginConfig = getPluginConfig();
 
 module.exports = (env) => {
@@ -27,6 +28,7 @@ module.exports = (env) => {
         // excludeChunks: Object.keys(pluginEntries)
       }),
       new CleanWebpackPlugin(),
+      new SummaryTreePlugin(),
       ...getDevPlugin(env),
     ],
     module: {

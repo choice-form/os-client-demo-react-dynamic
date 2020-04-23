@@ -34,7 +34,7 @@ function getPluginConfig() {
         name,
         enforce: true,
         test(module) {
-          return module.resource.includes(file);
+          return module.resource && module.resource.includes(file);
         }
       };
     } else {
