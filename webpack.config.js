@@ -6,7 +6,6 @@ const {
 } = require('./webpack/dev');
 const { getPluginEntries } = require('./webpack/plugin');
 const pluginEntries = getPluginEntries();
-console.log(pluginEntries);
 
 module.exports = (env) => {
   return {
@@ -23,7 +22,8 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: './app/index.html',
         filename: 'index.html',
-        favicon: path.resolve('./app/favicon.ico')
+        favicon: path.resolve('./app/favicon.ico'),
+        excludeChunks: Object.keys(pluginEntries)
       }),
       new CleanWebpackPlugin(),
       ...getDevPlugin(env),
