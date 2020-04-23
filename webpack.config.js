@@ -10,8 +10,9 @@ const pluginEntries = getPluginEntries();
 module.exports = (env) => {
   return {
     entry: {
-      index: './app/index.tsx',
+      cluster: './plugin/cluster.ts',
       ...pluginEntries,
+      index: './app/index.tsx',
     },
     output: {
       filename: isLocal(env) ? '[name].js' : '[name]-[contenthash:8].js',
@@ -23,7 +24,7 @@ module.exports = (env) => {
         template: './app/index.html',
         filename: 'index.html',
         favicon: path.resolve('./app/favicon.ico'),
-        excludeChunks: Object.keys(pluginEntries)
+        // excludeChunks: Object.keys(pluginEntries)
       }),
       new CleanWebpackPlugin(),
       ...getDevPlugin(env),

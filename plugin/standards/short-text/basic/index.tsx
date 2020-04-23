@@ -1,5 +1,4 @@
-// import React from 'react';
-const React = window.React;
+import React from 'react';
 
 interface IProps {
   handler: CFUIEventHandler;
@@ -41,3 +40,4 @@ class ShortTextBasic extends React.Component<IProps> {
 }
 
 export default ShortTextBasic;
+window.CF_UI_PLUGIN_CLUSTER.ShortTextBasic = ShortTextBasic;

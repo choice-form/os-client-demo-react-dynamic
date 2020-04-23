@@ -42,3 +42,5 @@ class RangeBasic extends React.Component<IProps> {
 }
 
 export default RangeBasic;
+
+window.CF_UI_PLUGIN_CLUSTER.RangeBasic = RangeBasic;

@@ -61,3 +61,5 @@ class RatingBasic extends React.Component<IProps> {
 }
 
 export default RatingBasic;
+
+window.CF_UI_PLUGIN_CLUSTER.RatingBasic = RatingBasic;

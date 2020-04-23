@@ -5,6 +5,18 @@ interface IProps extends RouteComponentProps {
   model: CFState;
   requestModel(): Promise<void>;
 }
+function getNodeCom(type: string): any {
+  const map = {
+    choice: window.CF_UI_PLUGIN_CLUSTER.ChoiceBasic,
+    range: window.CF_UI_PLUGIN_CLUSTER.RangeBasic,
+    rating: window.CF_UI_PLUGIN_CLUSTER.RatingBasic,
+    'short-text': window.CF_UI_PLUGIN_CLUSTER.ShortTextBasic,
+    weight: window.CF_UI_PLUGIN_CLUSTER.WeightBasic,
+  }
+  return map[type];
+}
+
+
 
 class Questions extends React.Component<IProps> {
   private initialized: boolean;
@@ -23,6 +35,7 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.nodes.map(node => {
+        const NodeCom = getNodeCom(node.quesType);
         return <div key={node.renderId} id={node.renderId}
           style={{
             margin: '10px', padding: '10px',
@@ -34,7 +47,7 @@ class Questions extends React.Component<IProps> {
           }}>
             {node.errorMessage}
           </span>
-          {/* <NodeCom node={node} handler={model.handleEvents} /> */}
+          {<NodeCom node={node} handler={model.handleEvents} />}
         </div>
 
       })}

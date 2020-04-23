@@ -11,3 +11,7 @@ declare module 'node-plugin' {
   const getNodeComponent: (type: string) => typeof React.Component;
   export default getNodeComponent;
 }
+
+interface Window {
+  CF_UI_PLUGIN_CLUSTER: any;
+}
