@@ -1,5 +1,5 @@
 import React from "react";
-import NodeHead from "../../../partials/node-head";
+// import NodeHead from "../../../partials/node-head";
 
 interface IProps {
   handler: CFUIEventHandler;
@@ -14,7 +14,7 @@ class WeightBasic extends React.Component<IProps> {
     const { node, handler } = this.props;
     return <div>
       <span>WeightBasic</span>
-      <NodeHead node={node} />
+      {/* <NodeHead node={node} /> */}
       <div style={{
         height: '30px',
         margin: '5px',
