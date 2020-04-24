@@ -173,6 +173,9 @@ interface ICommonItems{
 3. 在插件中以常规方式导入依赖项,仍然能分离构建partials脚本.
 
 ## 构建插件进阶
-1. 根据webpack的构建依赖树制作出我们自己的插件依赖汇总信息
-2. 尝试在hot-server中限定某部分chunk携带websocket,以减少本地开发的socket连接,如果每个插件都呆着socket链接的话,会出现非常多的连接
-3. 如果添加或者删除了文件,则尝试重启hot-server.
+1. 根据webpack的构建依赖树制作出我们自己的插件依赖汇总信息,通过读取webpack的构建树,抽取其中的关键信息描绘了我们的汇总信息,输出成tree.json文件
+2. 通过loader入口插件中,是插件粘附到全局的一个属性上.
+
+## 构建插件高级(可选)
+1. 尝试在hot-server中限定某部分chunk携带websocket,以减少本地开发的socket连接,如果每个插件都呆着socket链接的话,会出现非常多的连接
+2. 如果添加或者删除了文件,则尝试重启hot-server.

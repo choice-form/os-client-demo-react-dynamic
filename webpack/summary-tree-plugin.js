@@ -71,7 +71,7 @@ function generatePluginTree(compilation) {
       config.partials.push(reformed);
     }
   });
-  fs.writeFileSync('./dist/tree.json', JSON.stringify(config, null, ' '));
+  fs.writeFileSync('./dist/tree.json', JSON.stringify(config));
 }
 
 
