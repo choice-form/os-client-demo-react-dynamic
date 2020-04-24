@@ -29,5 +29,3 @@ class ChoiceBasic extends React.Component<IProps> {
 }
 
 export default ChoiceBasic;
-
-window.CF_UI_PLUGIN_CLUSTER.ChoiceBasic = ChoiceBasic;

@@ -11,12 +11,11 @@ const pluginConfig = getPluginConfig();
 module.exports = (env) => {
   return {
     entry: {
-      cluster: './plugin/cluster.ts',
       ...pluginConfig.entries,
       index: './app/index.tsx',
     },
     output: {
-      filename: isLocal(env) ? '[name].js' : '[name]-[contenthash:8].js',
+      filename: isLocal(env) ? 'assets/[name].js' : 'assets/[name]-[contenthash:8].js',
       path: path.resolve('./dist'),
       pathinfo: false,
     },
@@ -25,7 +24,7 @@ module.exports = (env) => {
         template: './app/index.html',
         filename: 'index.html',
         favicon: path.resolve('./app/favicon.ico'),
-        // excludeChunks: Object.keys(pluginEntries)
+        excludeChunks: Object.keys(pluginConfig.entries)
       }),
       new CleanWebpackPlugin(),
       new SummaryTreePlugin(),
@@ -34,9 +33,13 @@ module.exports = (env) => {
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: {
-          loader: 'ts-loader',
-        }
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+          {
+            loader: require.resolve('./webpack/plugin-loader'),
+          }]
       }]
     },
     devServer: isLocal(env) ? {

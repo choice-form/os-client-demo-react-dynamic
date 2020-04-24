@@ -29,5 +29,5 @@ class ChoiceAdvanced extends React.Component<IProps> {
   }
 }
 
-export default ChoiceAdvanced;
+export default (window as any).CF_UI_PLUGIN.hehe =  ChoiceAdvanced;
 

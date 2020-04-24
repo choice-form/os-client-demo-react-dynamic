@@ -1,7 +1,5 @@
 const fs = require('fs');
-// 用于匹配插件路径规则的正则表达式
-const standardMatchReg = /[\\/]plugin[\\/]standards[\\/]/;
-const partialMatchReg = /[\\/]plugin[\\/]partials[\\/]/;
+const { standardMatchReg, partialMatchReg } = require('./common');
 
 /**
  * 是否为标准的插件路径

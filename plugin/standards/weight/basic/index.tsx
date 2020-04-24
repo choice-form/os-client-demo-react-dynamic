@@ -56,5 +56,3 @@ class WeightBasic extends React.Component<IProps> {
 }
 
 export default WeightBasic;
-
-window.CF_UI_PLUGIN_CLUSTER.WeightBasic = WeightBasic;

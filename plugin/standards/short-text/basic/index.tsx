@@ -33,4 +33,3 @@ class ShortTextBasic extends React.Component<IProps> {
 }
 
 export default ShortTextBasic;
-window.CF_UI_PLUGIN_CLUSTER.ShortTextBasic = ShortTextBasic;
