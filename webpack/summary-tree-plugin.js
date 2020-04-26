@@ -46,6 +46,7 @@ function generatePluginTree(compilation) {
         self: md.context,
         dependencies
       };
+      console.log(md.context);
       rawList.push(raw);
     });
   });
@@ -64,6 +65,7 @@ function generatePluginTree(compilation) {
       })
     };
     if (raw.standard) {
+      reformed.type = raw.self.match(/[\\/]plugin[\\/]standards[\\/](.+?)[\\/]/)[1];
       reformed.name = raw.id.substr(raw.id.lastIndexOf('_') + 1)
         .replace(/[-_]/g, ' ');
       config.standards.push(reformed);
