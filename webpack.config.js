@@ -47,7 +47,7 @@ module.exports = (env) => {
       contentBase: path.resolve(__dirname, 'dist'),
       headers: { "Access-Control-Allow-Origin": "*" },
       host: '0.0.0.0',
-      port: 7076,
+      port: 4401,
       hot: true,
     } : undefined,
     resolve: {

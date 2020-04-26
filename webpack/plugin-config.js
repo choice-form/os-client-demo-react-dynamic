@@ -34,9 +34,10 @@ function getPluginConfig() {
         name,
         enforce: true,
         test(module) {
-          return module.replace &&
+          return module.resource &&
             module.resource.replace(/\\/g, '/')
               .includes(file.replace(/\\/g, '/'));
+
         }
       };
     } else {
