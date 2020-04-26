@@ -3,7 +3,7 @@ import NodeHead from "../../../partials/node-head";
 
 interface IProps {
   handler: CFUIEventHandler;
-  node: CFMarkQuestion;
+  node: CFValueMarkQuestion;
 }
 
 class RangeAdvanced extends React.Component<IProps> {

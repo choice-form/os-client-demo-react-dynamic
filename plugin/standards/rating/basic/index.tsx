@@ -3,7 +3,7 @@ import NodeHead from "../../../partials/node-head";
 
 interface IProps {
   handler: CFUIEventHandler;
-  node: CFMarkQuestion;
+  node: CFGraphMarkQuestion;
 }
 
 class RatingBasic extends React.Component<IProps> {
@@ -12,7 +12,7 @@ class RatingBasic extends React.Component<IProps> {
    * 获取图标列表
    * @param opt
    */
-  private getIconList(opt: CFMarkOption): string[] {
+  private getIconList(opt: CFGraphMarkOption): string[] {
     const { count, icon } = opt;
     let result = this.iconListCache[count];
     if (!result) {
