@@ -88,6 +88,7 @@ class App extends React.Component<any, IFullState> {
       suspendNotify: () => this.suspendNotify(),
       resumeNotify: () => this.resumeNotify(),
       realTimePreview: location.href.indexOf('/themes') > -1,
+      setTheme: (e) => this.setTheme(e),
       hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
@@ -127,9 +128,9 @@ class App extends React.Component<any, IFullState> {
    * 渲染页面
    */
   render(): JSX.Element {
-    const { core, theme } = this.state;
+    const { core } = this.state;
     // 核心还未完成初始化
-    if (!core || !theme) {
+    if (!core) {
       return <div></div>
     }
 
