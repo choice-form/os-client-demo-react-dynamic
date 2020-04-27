@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
-  isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin
+  isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin,
+  getDevHtmlTemplate,
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
@@ -21,7 +22,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './app/index.html',
+        templateContent: getDevHtmlTemplate(env),
         filename: 'index.html',
         favicon: path.resolve('./app/favicon.ico'),
         excludeChunks: Object.keys(pluginConfig.entries)
@@ -64,11 +65,13 @@ module.exports = (env) => {
             chunks: 'all',
             name: 'react',
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            enforce: true,
           },
           core: {
             chunks: 'all',
             name: 'core',
             test: /[\\/]os-client-core[\\/]/,
+            enforce: true,
           },
           ...pluginConfig.splitChunks,
         }

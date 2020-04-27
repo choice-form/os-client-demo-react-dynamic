@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Main from "./routes/main";
 import Questions from "./routes/questions";
-import Realtime from "./routes/realtime/";
+import Themes from "./routes/themes";
 import Reward from "./routes/reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
@@ -32,6 +32,10 @@ interface IFullState {
    * 提示消息列表
    */
   notification: { id: number, text: string }[];
+  /**
+   * 全局主题信息
+   */
+  theme: CFTheme;
 }
 /**
  * 应用程序根组件
@@ -42,6 +46,10 @@ class App extends React.Component<any, IFullState> {
    * 答题核心对象
    */
   private core: CFCore;
+  /**
+   * 提示信息是否被挂起
+   */
+  private notifySuspended: boolean;
   /**
    * 更新任务id
    */
@@ -55,7 +63,8 @@ class App extends React.Component<any, IFullState> {
       locale: 'zh_cn',
       core: null,
       error: '',
-      notification: []
+      notification: [],
+      theme: null,
     };
     this.init();
   }
@@ -76,7 +85,9 @@ class App extends React.Component<any, IFullState> {
       notify: (e) => this.notify(e),
       locateError: (e) => this.locateError(e),
       setLocale: (e) => this.setLocale(e),
-      realTimePreview: location.href.indexOf('/realtime') > -1,
+      suspendNotify: () => this.suspendNotify(),
+      resumeNotify: () => this.resumeNotify(),
+      realTimePreview: location.href.indexOf('/themes') > -1,
       hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
@@ -101,6 +112,9 @@ class App extends React.Component<any, IFullState> {
    * @param text 提示消息
    */
   notify(text: string): void {
+    if (this.notifySuspended) {
+      return;
+    }
     const item = { id: Math.random(), text };
     this.setState({ notification: [...this.state.notification, item] })
     setTimeout(() => {
@@ -113,9 +127,9 @@ class App extends React.Component<any, IFullState> {
    * 渲染页面
    */
   render(): JSX.Element {
-    const { core } = this.state;
+    const { core, theme } = this.state;
     // 核心还未完成初始化
-    if (!core) {
+    if (!core || !theme) {
       return <div></div>
     }
 
@@ -148,8 +162,8 @@ class App extends React.Component<any, IFullState> {
           })}
         </div>
         <Switch>
-          <Route path="/realtime">
-            <Realtime />
+          <Route path="/themes">
+            <Themes />
           </Route>
           <Route path="/reward">
             <Reward />
@@ -210,6 +224,12 @@ class App extends React.Component<any, IFullState> {
     this.updateCore();
   }
   /**
+   * 将提示消息从挂起状态中恢复过来,之后的提示消息会恢复显示
+   */
+  resumeNotify(): void {
+    this.notifySuspended = false;
+  }
+  /**
    * 切换语言
    * @param locale
    */
@@ -217,11 +237,24 @@ class App extends React.Component<any, IFullState> {
     this.setState({ locale })
   }
   /**
+   * 设置主题
+   * @param theme 主题
+   */
+  setTheme(theme: CFTheme): void {
+    this.setState({ theme });
+  }
+  /**
    * 显示错误消息
    * @param text
    */
   showError(text: string): void {
     this.setState({ error: text })
+  }
+  /**
+   * 将提示信息挂起,直到恢复之前,任何提示信息都不会被显示出来.
+   */
+  suspendNotify(): void {
+    this.notifySuspended = true;
   }
   /**
    * 驱动核心数据上的变化到页面中

@@ -6,6 +6,7 @@
   "scripts": {
     "prod": "webpack --env.NODE_ENV=prod --mode=production",
     "staging": "webpack --env.NODE_ENV=staging --mode=production",
+    "local": "webpack --env.NODE_ENV=local --mode=development",
     "start": "webpack-dev-server --env.NODE_ENV=local --mode=development"
   },
   "author": "somebody",
