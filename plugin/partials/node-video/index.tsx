@@ -10,7 +10,7 @@ class NodeVideo extends React.Component<IProps> {
    */
   render(): JSX.Element {
     return <div>
-      video
+      <video src={this.props.node.video.url} controls></video>
     </div>
   }
 }

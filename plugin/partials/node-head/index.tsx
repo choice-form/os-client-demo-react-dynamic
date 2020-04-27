@@ -17,7 +17,7 @@ class NodeHead extends React.Component<IProps> {
     return <div>
       <NodeVideo node={node} />
       <NodeImage node={node} />
-      <h1>{node.title + 'heheda'}</h1>
+      <h1>{node.title}</h1>
       <p>{node.description}</p>
       <div>{node.typeName}</div>
     </div>

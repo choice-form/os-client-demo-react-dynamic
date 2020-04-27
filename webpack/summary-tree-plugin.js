@@ -46,7 +46,6 @@ function generatePluginTree(compilation) {
         self: md.context,
         dependencies
       };
-      console.log(md.context);
       rawList.push(raw);
     });
   });
