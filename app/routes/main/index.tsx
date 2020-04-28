@@ -6,19 +6,13 @@ interface IProps extends RouteComponentProps {
   requestModel(): Promise<void>;
   requestQuestions(silent?: boolean): Promise<void>;
 }
-
-interface IState {
-  nextLoading: boolean;
-}
-class Main extends React.Component<IProps, IState> {
+class Main extends React.Component<IProps> {
   /**
    * 是否已经进行了首次渲染
    */
   private initialized: boolean;
-  state: IState;
   constructor(props: IProps) {
     super(props);
-    this.state = { nextLoading: false };
   }
   /**
    * 去往答题页面
@@ -55,7 +49,6 @@ class Main extends React.Component<IProps, IState> {
         this.gotoQuestions();
       })
     });
-
   }
   /**
    * 渲染页面

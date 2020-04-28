@@ -74,7 +74,7 @@ class App extends React.Component<any, IFullState> {
    */
   getTemplatePath(): string {
     // 本地开发模式
-    if (location.origin.match(/(?:localhost|(?:\d{1,3}\.){3}\w{1,3})/)){
+    if (location.origin.match(/(?:localhost|(?:\d{1,3}\.){3}\w{1,3})/)) {
       return location.origin;
     }
     return CF_CONFIG.cdnHost + '/os-client-live';
@@ -182,8 +182,8 @@ class App extends React.Component<any, IFullState> {
           <Route path="/themes">
             <Themes />
           </Route>
-          <Route path="/reward">
-            <Reward />
+          <Route path="/reward"
+            render={(e) => this.renderReward(e)}>
           </Route>
           <Route path="/questions"
             render={(e) => this.renderQuestions(e)}>
@@ -215,6 +215,16 @@ class App extends React.Component<any, IFullState> {
       requestModel={() => this.requestQuestionsModel()}
       model={this.state.core.questions}
       {...routeProps} />
+  }
+  /**
+   * 渲染奖励页面
+   * @param routeProps 路由属性
+   */
+  renderReward(routeProps: RouteComponentProps): JSX.Element {
+    return <Reward
+      requestModel={() => this.requestRewardModel()}
+      model={this.state.core.reward}
+      {...routeProps}></Reward>
   }
   /**
    * 请求首页数据

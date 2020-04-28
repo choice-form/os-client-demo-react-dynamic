@@ -55,7 +55,7 @@ class Questions extends React.Component<IProps> {
         handleEvents.handlePrevClick();
       }}>{prevButton}</button> : ''}
       {nextButton ? <button onClick={() => {
-        handleEvents.handleNextClick();
+        handleEvents.handleNextClick(true);
       }}>{nextButton}</button> : ''}
     </div>
   }
