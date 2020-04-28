@@ -9,8 +9,12 @@ class NodeVideo extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
+    const { video } = this.props.node;
+    if (!video) {
+      return null;
+    }
     return <div>
-      <video src={this.props.node.video.url} controls></video>
+      <video src={video.url} controls></video>
     </div>
   }
 }

@@ -25,6 +25,7 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.nodes.map(node => {
+        const NodeComponent = node.template.component;
         return <div key={node.renderId} id={node.renderId}
           style={{
             margin: '10px', padding: '10px',
@@ -36,7 +37,7 @@ class Questions extends React.Component<IProps> {
           }}>
             {node.errorMessage}
           </span>
-          {/* {<NodeCom node={node} handler={model.handleEvents} />} */}
+          <NodeComponent node={node} handler={model.handleEvents} />
         </div>
 
       })}

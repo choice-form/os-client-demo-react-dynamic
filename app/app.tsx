@@ -69,16 +69,29 @@ class App extends React.Component<any, IFullState> {
     this.init();
   }
   /**
+   * 获取动态组件所在路径
+   */
+  getTemplatePath(): string {
+    // 本地开发模式
+    if (location.origin.match(/(?:localhost|(?:\d{1,3}\.){3}\w{1,3})/)){
+      return location.origin;
+    }
+    return CF_CONFIG.cdnHost + '/os-client-live';
+  }
+  /**
    * 初始化答题核心
    */
   async init(): Promise<void> {
     if (this.core) {
       return
     }
+
     const surveyId = Util.getSidOfStandardUrl();
     this.core = await Core.setup({
       clientName: 'Live',
       dynamic: true,
+      treeUrl: location.origin + '/tree.json',
+      templatePath: this.getTemplatePath(),
       surveyId,
       useWxSdk: true,
       indexUrl: location.origin + '?' + surveyId,
