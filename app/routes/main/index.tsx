@@ -37,6 +37,10 @@ class Main extends React.Component<IProps> {
    * 初始化数据
    */
   private async init(): Promise<void> {
+    if (this.initialized) {
+      return;
+    }
+    this.initialized = true;
     await this.props.requestModel();
     // 首页下一题的行为会切换理由,核心包是无法处理的,这里修改一下这个处理器
     // 由本路由自己处理
@@ -56,7 +60,6 @@ class Main extends React.Component<IProps> {
   render(): JSX.Element {
     const { model } = this.props;
     if (!this.initialized) {
-      this.initialized = true;
       // tslint:disable-next-line:no-floating-promises
       this.init();
     }

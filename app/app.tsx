@@ -179,8 +179,8 @@ class App extends React.Component<any, IFullState> {
           })}
         </div>
         <Switch>
-          <Route path="/themes">
-            <Themes />
+          <Route path="/themes"
+            render={(e) => this.renderThemes(e)}>
           </Route>
           <Route path="/reward"
             render={(e) => this.renderReward(e)}>
@@ -225,6 +225,15 @@ class App extends React.Component<any, IFullState> {
       requestModel={() => this.requestRewardModel()}
       model={this.state.core.reward}
       {...routeProps}></Reward>
+  }
+  /**
+   * 渲染主题实时预览页面
+   * @param routeProps 路由属性
+   */
+  renderThemes(routeProps: RouteComponentProps): JSX.Element {
+    return <Themes
+      model={this.state.core.realtime}
+      {...routeProps}></Themes>
   }
   /**
    * 请求首页数据
@@ -303,7 +312,6 @@ class App extends React.Component<any, IFullState> {
         }
       });
     })
-
   }
 }
 
