@@ -6,8 +6,6 @@ interface IProps extends RouteComponentProps {
   requestModel(): Promise<void>;
 }
 
-
-
 class Questions extends React.Component<IProps> {
   private initialized: boolean;
   render(): JSX.Element {
@@ -17,6 +15,7 @@ class Questions extends React.Component<IProps> {
       this.initialized = true;
       // 如果没有数据,自己要求一下数据
       if (!model) {
+        // tslint:disable-next-line:no-floating-promises
         this.props.requestModel();
       }
     }
@@ -25,6 +24,7 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.nodes.map(node => {
+        // 节点真实内容交给动态组件渲染
         const NodeComponent = node.template.component;
         return <div key={node.renderId} id={node.renderId}
           style={{

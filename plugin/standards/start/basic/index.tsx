@@ -1,8 +1,28 @@
 import React from 'react';
 
-class StartBasic extends React.Component {
+interface IProps {
+  model: CFIntro;
+}
+
+class StartBasic extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div>StartBasic</div>
+    const { model } = this.props;
+    return <div>
+
+      <span>StartBasic</span>
+      {model.images.map(image => {
+        return <img src={image.large}
+          key={image.id}
+          title={image.originName}
+        ></img>
+      })}
+      <h1>{model.title}</h1>
+      <p>{model.summary}</p>
+      <button onClick={() => model.handleEvents.handleNextClick()}>
+        {model.nextLoading ? 'Loading' : model.nextButton}
+      </button>
+    </div>
+
   }
 }
 

@@ -66,6 +66,7 @@ class App extends React.Component<any, IFullState> {
       notification: [],
       theme: null,
     };
+    // tslint:disable-next-line:no-floating-promises
     this.init();
   }
   /**
