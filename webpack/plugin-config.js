@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const pluginRoot = './plugin/';
+const pluginRoot = './src/plugin/';
 const standardFolder = 'standards';
 const standardPath = pluginRoot + standardFolder;
 const partialFolder = 'partials';

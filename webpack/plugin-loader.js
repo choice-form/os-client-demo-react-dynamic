@@ -1,5 +1,5 @@
 
-const nameMatchReg = /[\\/]plugin[\\/](standards[\\/].+)[\\/]index.tsx$/;
+const nameMatchReg = /[\\/]src[\\/]plugin[\\/](standards[\\/].+)[\\/]index.tsx$/;
 
 module.exports = function (source) {
   const match = this.resourcePath.match(nameMatchReg);

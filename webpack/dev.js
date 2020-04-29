@@ -26,7 +26,6 @@ function getCoreSdkAlias(env) {
     // 我们偷偷的导入一个共调试使用的转接包
     const dest = debugSdkPath
       .replace(/[\\/][^\\/]+$/, '/core-update.js');
-    console.log(dest);
     return {
       '@choiceform/os-client-core': dest,
     };
@@ -69,7 +68,7 @@ function getDevPlugin(env) {
 }
 
 function getDevHtmlTemplate(env) {
-  let content = fs.readFileSync('./app/index.html').toString();
+  let content = fs.readFileSync('./src/app/index.html').toString();
   if (isLocal(env)) {
     content = content.replace('</body>',
       ` <script src='assets/umd-legacy-with-i18n.js'></script>

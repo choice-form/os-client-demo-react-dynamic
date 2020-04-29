@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Util } from '@choiceform/os-client-core'
 import { renderQuestions } from '../../templates/questions';
 import { renderNoViewNode } from '../../templates/no-view';
+import { utilExampleLog } from '../../../utils/logger';
 
 interface IProps extends RouteComponentProps {
   model: CFRealTime;
@@ -39,7 +40,7 @@ class Themes extends React.Component<IProps> {
     if (!data || !data.nodes) {
       return null;
     }
-    console.log('render preview:', data.nodes[0] && data.nodes[0].nodeName);
+    utilExampleLog('render preview:', data.nodes[0] && data.nodes[0].nodeName);
     // 开始页面和奖励页面的预览特殊处理
     if (data.isStart || data.isGift) {
       const DynamicComponent = data.template.component;

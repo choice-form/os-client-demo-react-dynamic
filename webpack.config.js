@@ -49,7 +49,7 @@ module.exports = (env) => {
   return {
     entry: {
       ...pluginConfig.entries,
-      index: './app/index.tsx',
+      index: './src/app/index.tsx',
     },
     output: {
       filename: local ? 'assets/[name].js' : 'assets/[name]-[contenthash:8].js',
@@ -60,7 +60,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         templateContent: getDevHtmlTemplate(env),
         filename: 'index.html',
-        favicon: path.resolve('./app/favicon.ico'),
+        favicon: path.resolve('./src/app/favicon.ico'),
         excludeChunks: Object.keys(pluginConfig.entries)
       }),
       new CleanWebpackPlugin(),
@@ -82,12 +82,12 @@ module.exports = (env) => {
           }]
       }, {
         test: /\.scss$/,
-        exclude: /plugin\/.+\.scss$/,
+        exclude: /src\/plugin\/.+\.scss$/,
         use: appScssLoaders,
       },
       {
         test: /\.scss$/,
-        exclude: /app\/.+\.scss$/,
+        exclude: /src\/app\/.+\.scss$/,
         use: basicScssLoaders,
       }
       ]
