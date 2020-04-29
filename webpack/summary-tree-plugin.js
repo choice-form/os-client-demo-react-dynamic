@@ -18,6 +18,27 @@ function isPluginPath(p) {
 }
 
 /**
+ * 尝试将项目加到树中,如果树中已经有同id的项目
+ * 则不加入而是合并依赖项,这样才能防止生成同样的树
+ * @param {*} list 
+ * @param {*} item 
+ */
+function addToTree(list, item) {
+  const old = list.find(temp => {
+    return temp.id === item.id;
+  });
+  if (old) {
+    item.dependencies.forEach(did => {
+      if (!old.dependencies.includes(did)) {
+        old.dependencies.push(did);
+      }
+    });
+  } else {
+    list.push(item);
+  }
+}
+
+/**
  * 生成组件依赖树
  * @param compilation 
  */
@@ -44,7 +65,10 @@ function generatePluginTree(compilation) {
         id: chunk.name,
         file: chunk.files[0],
         self: md.context,
-        dependencies
+        tid: md.id,
+        dependencies,
+        // chunk,
+        // md,
       };
       rawList.push(raw);
     });
@@ -61,15 +85,16 @@ function generatePluginTree(compilation) {
       dependencies: raw.dependencies.map(dp => {
         const item = rawList.find(temp => temp.self === dp);
         return item.id;
-      })
+        // 自身引用的不要
+      }).filter(id => id !== raw.id)
     };
     if (raw.standard) {
       reformed.type = raw.self.match(/[\\/]plugin[\\/]standards[\\/](.+?)[\\/]/)[1];
       reformed.name = raw.id.substr(raw.id.lastIndexOf('_') + 1)
         .replace(/[-_]/g, ' ');
-      config.standards.push(reformed);
+      addToTree(config.standards, reformed);
     } else {
-      config.partials.push(reformed);
+      addToTree(config.partials, reformed);
     }
   });
   fs.writeFileSync('./dist/tree.json', JSON.stringify(config));
