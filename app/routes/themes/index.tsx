@@ -1,6 +1,8 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Util } from '@choiceform/os-client-core'
+import { renderQuestions } from '../../templates/questions';
+import { renderNoViewNode } from '../../templates/no-view';
 
 interface IProps extends RouteComponentProps {
   model: CFRealTime;
@@ -37,26 +39,22 @@ class Themes extends React.Component<IProps> {
     if (!data || !data.nodes) {
       return null;
     }
-    return <div>
-      {data.nodes.map(node => {
-        // 节点真实内容交给动态组件渲染
-        const NodeComponent = node.template.component;
-        return <div key={node.renderId} id={node.renderId}>
-          <NodeComponent node={node} handler={data.handleEvents} />
-        </div>
-      })}
-      {this.renderButton()}
-    </div>
-  }
-  /**
-   * 渲染单页组按钮
-   */
-  renderButton(): JSX.Element {
-    const { nextButton, prevButton } = this.props.model.data;
-    return <div>
-      {prevButton ? <button>{prevButton}</button> : null}
-      {nextButton ? <button>{nextButton}</button> : null}
-    </div>
+    console.log('render preview:', data.nodes[0] && data.nodes[0].nodeName);
+    // 开始页面和奖励页面的预览特殊处理
+    if (data.isStart || data.isGift) {
+      const DynamicComponent = data.template.component;
+      return <div>
+        <DynamicComponent model={data} />
+      </div>
+      // 其他和正常题目一样
+    } else {
+      // 无视图节点的预览单独处理
+      const node = data.nodes[0];
+      if (node.noView) {
+        return renderNoViewNode(node);
+      }
+      return renderQuestions(data);
+    }
   }
 }
 
