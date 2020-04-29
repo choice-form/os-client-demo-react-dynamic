@@ -27,10 +27,6 @@
       "parameter",
       "member-variable-declaration"
     ],
-    "max-line-length": [
-      true,
-      90
-    ],
     "no-floating-promises": true
   }
 }

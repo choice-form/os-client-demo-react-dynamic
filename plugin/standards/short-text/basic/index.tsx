@@ -12,7 +12,7 @@ class ShortTextBasic extends React.Component<IProps> {
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
-    return <div>
+    return <div className='basic-short-text'>
       <span>ShortTextBasic</span>
       <NodeHead node={node} />
       {node.options.map(opt => {
@@ -25,7 +25,7 @@ class ShortTextBasic extends React.Component<IProps> {
               handler.handleOptionInput(value, opt, node)
             }} />
           <span>{opt.value}</span>
-          <span style={{ background: 'red' }}>{opt.errorMessage}</span>
+          <span className='option-error'>{opt.errorMessage}</span>
         </div>
       })}
     </div>

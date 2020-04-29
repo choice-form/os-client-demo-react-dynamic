@@ -27,21 +27,18 @@ class RatingBasic extends React.Component<IProps> {
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
-    return <div>
+    return <div className='basic-rating'>
       <span>RatingBasic</span>
       <NodeHead node={node} />
       {node.options.map(opt => {
         const iconList = this.getIconList(opt);
         return < div key={opt.renderId} >
           <span>{opt.text}</span>
-          <div style={{ display: 'inline-block' }}>
+          <div className='rate-icon-list'>
             {iconList.map((_icon, index) => {
-              return <span key={index} style={{
-                display: 'inline-block',
-                width: '30px', height: '30px',
-                border: 'solid 1px black',
-                backgroundColor: (opt.value > index) ? 'orange' : undefined
-              }} onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
+              return <span key={index}
+                className={(opt.value > index) ? 'active' : ''}
+                onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
               </span>
             })}
             <span>{opt.value || 0}</span>

@@ -48,18 +48,14 @@ export function renderQuestions(
     {data.nodes.map(node => {
       // 节点真实内容交给动态组件渲染
       const NodeComponent = node.template.component;
-      return <div key={node.renderId} id={node.renderId}
-        style={{
-          margin: '10px', padding: '10px',
-          border: '1px solid black', position: 'relative'
-        }}>
-        <span style={{
-          position: 'absolute',
-          top: 0, right: 0, background: 'red'
-        }}>
+      return <div key={node.renderId}
+        id={node.renderId}
+        className='question-rect'>
+        <span className='question-error'>
           {node.errorMessage}
         </span>
-        <NodeComponent node={node} handler={data.handleEvents} />
+        <NodeComponent node={node}
+          handler={data.handleEvents} />
       </div>
 
     })}

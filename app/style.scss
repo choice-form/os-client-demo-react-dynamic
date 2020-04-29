@@ -1,0 +1,23 @@
+.global-error {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  text-align: center;
+  background: white;
+}
+.preview-flag {
+  text-align: center;
+}
+
+.global-notification {
+  position: fixed;
+  width: 200px;
+  right: 10px;
+  background: red;
+  .notification-item {
+    border: solid 1px black;
+  }
+}

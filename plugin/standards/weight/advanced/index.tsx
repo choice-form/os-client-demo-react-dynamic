@@ -12,30 +12,22 @@ class WeightAdvanced extends React.Component<IProps> {
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
-    return <div>
+    return <div className='advanced-weight'>
       <span>WeightAdvanced</span>
       <NodeHead node={node} />
-      <div style={{
-        height: '30px',
-        margin: '5px',
-      }}>
+      <div className='weight-indicator'>
         {node.options.map(opt => {
           const ratio = Number(opt.value) * 100 / node.weightTotal + '%';
           return <span style={{
-            display: 'inline-block',
             width: ratio,
-            height: '30px',
             background: opt.color,
           }} key={opt.renderId}></span>
         })}
       </div>
       {node.options.map(opt => {
         return <div key={opt.renderId}>
-          <span style={{
+          <span className='wegith-opt-color' style={{
             backgroundColor: opt.color,
-            display: 'inline-block',
-            width: '30px',
-            height: '30px',
           }}></span>
           <span>{opt.text}</span>
           <input type="range"

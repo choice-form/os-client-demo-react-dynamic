@@ -1,0 +1,7 @@
+.advanced-choice {
+  .option{
+    &.selected {
+      background: red;
+    }
+  }
+}

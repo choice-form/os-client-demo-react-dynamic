@@ -17,10 +17,10 @@ class ChoiceAdvanced extends React.Component<IProps> {
       <NodeHead node={node} />
       {node.options.map(opt => {
         return <div key={opt.renderId}
+          className={'advanced-choice-option'
+            + (opt.selected ? ' selected' : '')}
           onClick={() => handler.handleOptionClick(opt, node)}>
-          <span style={{
-            backgroundColor: opt.selected ? 'red' : undefined
-          }}>
+          <span>
             {opt.text}
           </span>
         </div>

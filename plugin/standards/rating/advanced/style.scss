@@ -1,0 +1,14 @@
+.advanced-rating {
+  .rate-icon-list {
+    display: inline-block;
+    > span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border: solid 1px black;
+      &.active {
+        background: orange;
+      }
+    }
+  }
+}

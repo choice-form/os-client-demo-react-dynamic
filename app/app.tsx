@@ -153,28 +153,16 @@ class App extends React.Component<any, IFullState> {
     return (<Router>
       <div>
         {this.state.error
-          ? <div style={{
-            position: 'absolute',
-            zIndex: 100,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 0,
-            textAlign: 'center',
-            background: 'white',
-          }}>{this.state.error}</div>
+          ? <div className='global-error'>
+            {this.state.error}
+          </div>
           : null}
         {core.needPreviewFlag
-          ? <div style={{ textAlign: 'center' }}>预览测试</div>
+          ? <div className='preview-flag'>预览测试</div>
           : null}
-        <div style={{
-          position: 'fixed',
-          width: '200px',
-          right: '10px',
-          background: 'red',
-        }}>
+        <div className='global-notification'>
           {this.state.notification.map(nt => {
-            return <div style={{ border: 'solid 1px black' }}
+            return <div className='notification-item'
               key={nt.id}>{nt.text}</div>
           })}
         </div>

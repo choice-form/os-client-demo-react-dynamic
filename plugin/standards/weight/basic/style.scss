@@ -1,0 +1,15 @@
+.basic-weight {
+  .weight-indicator {
+    height: 30px;
+    margin: 5px;
+    > span {
+      display: inline-block;
+      height: 30px;
+    }
+  }
+  .weight-opt-color {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+  }
+}

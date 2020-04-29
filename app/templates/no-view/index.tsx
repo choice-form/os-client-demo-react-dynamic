@@ -4,5 +4,5 @@ import React from 'react';
  * @param node 节点
  */
 export function renderNoViewNode(node: CFQuestion): JSX.Element {
-  return <div>无视图节点,答题过程中不会显示</div>
+  return <div className='no-view'>无视图节点,答题过程中不会显示</div>
 }
