@@ -40,7 +40,7 @@ class Themes extends React.Component<IProps> {
     if (!data || !data.nodes) {
       return null;
     }
-    utilExampleLog('render preview:', data.nodes[0] && data.nodes[0].nodeName);
+    utilExampleLog('render preview:');
     // 开始页面和奖励页面的预览特殊处理
     if (data.isStart || data.isGift) {
       const DynamicComponent = data.template.component;

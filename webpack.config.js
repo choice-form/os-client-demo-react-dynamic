@@ -122,6 +122,12 @@ module.exports = (env) => {
             test: /[\\/]os-client-core[\\/]/,
             enforce: true,
           },
+          utils: {
+            chunks: 'all',
+            name: 'utils',
+            test: /[\\/]src[\\/]utils[\\/]/,
+            enforce: true,
+          },
           ...pluginConfig.splitChunks,
         }
       }

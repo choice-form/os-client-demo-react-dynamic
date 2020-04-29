@@ -1,7 +1,6 @@
 
 
-export function utilExampleLog(...message: string[]): void {
-  const [first, ...others] = message;
-  console.log('%c Logged by UtilExampleLogger: ' + first,
-   ...others, 'background: #222, color: #bada55');
+export function utilExampleLog(message: string): void {
+  console.log('%c Logged by UtilExampleLogger: ' + message,
+    'background: #222; color: #bada55');
 };
