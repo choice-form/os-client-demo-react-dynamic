@@ -11,6 +11,7 @@ import Themes from "./routes/themes";
 import Reward from "./routes/reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
+import './app.scss';
 
 /**
  * 引用程序根状态

@@ -7,16 +7,24 @@ const {
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pluginConfig = getPluginConfig();
+const os = require('os');
+const { generateScssTree } = require('./webpack/scss');
+
+generateScssTree();
+
+
 
 module.exports = (env) => {
+  const local = isLocal(env);
   return {
     entry: {
       ...pluginConfig.entries,
       index: './app/index.tsx',
     },
     output: {
-      filename: isLocal(env) ? 'assets/[name].js' : 'assets/[name]-[contenthash:8].js',
+      filename: local ? 'assets/[name].js' : 'assets/[name]-[contenthash:8].js',
       path: path.resolve('./dist'),
       pathinfo: false,
     },
@@ -29,6 +37,9 @@ module.exports = (env) => {
       }),
       new CleanWebpackPlugin(),
       new SummaryTreePlugin(),
+      new MiniCssExtractPlugin({
+        filename: local ? '[name].css' : '[name]-[contenthash:8].css',
+      }),
       ...getDevPlugin(env),
     ],
     module: {
@@ -41,9 +52,35 @@ module.exports = (env) => {
           {
             loader: require.resolve('./webpack/plugin-loader'),
           }]
-      }]
+      }, {
+        test: /\.scss$/,
+        use: [
+          ...(local ? [{
+            loader: 'css-hot-loader',
+          }] : []),
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              removeCR: os.platform() === 'win32' ? true : false
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
+        ]
+      },
+      ]
     },
-    devServer: isLocal(env) ? {
+    devServer: local ? {
       historyApiFallback: true,
       contentBase: path.resolve(__dirname, 'dist'),
       headers: { "Access-Control-Allow-Origin": "*" },
