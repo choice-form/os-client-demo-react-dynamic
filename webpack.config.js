@@ -16,8 +16,36 @@ generateScssTree();
 
 
 
+
+
 module.exports = (env) => {
   const local = isLocal(env);
+  // 基本的样式加载器
+  const basicScssLoaders = [
+    {
+      loader: 'css-loader'
+    },
+    {
+      loader: 'resolve-url-loader',
+      options: {
+        removeCR: os.platform() === 'win32' ? true : false
+      }
+    },
+    {
+      loader: 'sass-loader',
+
+    }
+  ];
+  const appScssLoaders = [{
+    loader: MiniCssExtractPlugin.loader,
+  }, ...basicScssLoaders];
+  if (local) {
+    appScssLoaders.unshift({
+      loader: 'css-hot-loader',
+    });
+  }
+
+
   return {
     entry: {
       ...pluginConfig.entries,
@@ -38,7 +66,7 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new SummaryTreePlugin(),
       new MiniCssExtractPlugin({
-        filename: local ? '[name].css' : '[name]-[contenthash:8].css',
+        filename: local ? 'assets/[name].css' : 'assets/[name]-[contenthash:8].css',
       }),
       ...getDevPlugin(env),
     ],
@@ -54,30 +82,14 @@ module.exports = (env) => {
           }]
       }, {
         test: /\.scss$/,
-        use: [
-          ...(local ? [{
-            loader: 'css-hot-loader',
-          }] : []),
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'resolve-url-loader',
-            options: {
-              removeCR: os.platform() === 'win32' ? true : false
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            }
-          }
-        ]
+        exclude: /plugin\/.+\.scss$/,
+        use: appScssLoaders,
       },
+      {
+        test: /\.scss$/,
+        exclude: /app\/.+\.scss$/,
+        use: basicScssLoaders,
+      }
       ]
     },
     devServer: local ? {

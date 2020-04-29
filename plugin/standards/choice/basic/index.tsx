@@ -6,18 +6,18 @@ interface IProps {
 }
 
 class ChoiceBasic extends React.Component<IProps> {
+  static style: string = require('./style.scss');
   /**
    * 渲染组件
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
-    return <div>
+    return <div className='basic-choice'>
       <span>ChoiceBasic</span>
       <NodeHead node={node} />
       {node.options.map(opt => {
         return <div key={opt.renderId}
-          className={'basic-choice-option'
-            + (opt.selected ? ' selected' : '')}
+          className={'option' + (opt.selected ? ' selected' : '')}
           onClick={() => handler.handleOptionClick(opt, node)}>
           <span>
             {opt.text}
@@ -27,5 +27,5 @@ class ChoiceBasic extends React.Component<IProps> {
     </div>
   }
 }
-
+console.log('basic choice loaded');
 export default ChoiceBasic;

@@ -9,6 +9,6 @@ module.exports = function (source) {
   // 偷偷在插件的默认导出中注入粘附到全局的代码
   const name = match[1].replace(/[\\/]/g, '_');
   const parsed = source.replace(/export\s+default/,
-    `export default window.CF_UI_COMS["${name}"] =`);
+    `export default (window as any).CF_UI_COMS["${name}"] =`);
   return parsed;
 };

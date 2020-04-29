@@ -7,17 +7,18 @@ interface IProps {
 }
 
 class ChoiceAdvanced extends React.Component<IProps> {
+  static style: string = require('./style.scss');
   /**
    * 渲染组件
    */
   render(): JSX.Element {
     const { node, handler } = this.props;
-    return <div>
+    return <div className='advanced-choice'>
       <span>ChoiceAdvanced</span>
       <NodeHead node={node} />
       {node.options.map(opt => {
         return <div key={opt.renderId}
-          className={'advanced-choice-option'
+          className={'option'
             + (opt.selected ? ' selected' : '')}
           onClick={() => handler.handleOptionClick(opt, node)}>
           <span>
@@ -28,6 +29,6 @@ class ChoiceAdvanced extends React.Component<IProps> {
     </div>
   }
 }
-
+console.log('advanced choice loaded');
 export default ChoiceAdvanced;
 
