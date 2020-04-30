@@ -77,10 +77,19 @@ function getDevHtmlTemplate(env) {
   return content;
 }
 
+function insureDistDir() {
+  try {
+    fs.mkdirSync('dist');
+  } catch (e) {
+    // do nothing;
+  }
+}
+
 module.exports = {
   isLocal,
   getConfigFile,
   getCoreSdkAlias,
   getDevPlugin,
   getDevHtmlTemplate,
+  insureDistDir,
 };

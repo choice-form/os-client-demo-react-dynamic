@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin,
-  getDevHtmlTemplate,
+  getDevHtmlTemplate, insureDistDir
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
@@ -13,9 +13,7 @@ const os = require('os');
 const { generateScssTree } = require('./webpack/scss');
 
 generateScssTree();
-
-
-
+insureDistDir();
 
 
 module.exports = (env) => {
