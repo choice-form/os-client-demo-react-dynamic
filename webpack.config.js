@@ -9,7 +9,7 @@ const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pluginConfig = getPluginConfig();
-const os = require('os');
+// const os = require('os');
 const { generateScssTree } = require('./webpack/scss');
 
 generateScssTree();
@@ -23,12 +23,12 @@ module.exports = (env) => {
     {
       loader: 'css-loader'
     },
-    {
-      loader: 'resolve-url-loader',
-      options: {
-        removeCR: os.platform() === 'win32' ? true : false
-      }
-    },
+    // {
+    //   loader: 'resolve-url-loader',
+    //   options: {
+    //     removeCR: os.platform() === 'win32' ? true : false
+    //   }
+    // },
     {
       loader: 'sass-loader',
 
@@ -80,12 +80,12 @@ module.exports = (env) => {
           }]
       }, {
         test: /\.scss$/,
-        exclude: /src\/plugin\/.+\.scss$/,
+        exclude: /src[\\/]plugin[\\/].+\.scss$/,
         use: appScssLoaders,
       },
       {
         test: /\.scss$/,
-        exclude: /src\/app\/.+\.scss$/,
+        exclude: /src[\\/]app[\\/].+\.scss$/,
         use: basicScssLoaders,
       }
       ]
