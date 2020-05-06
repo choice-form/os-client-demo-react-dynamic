@@ -209,6 +209,11 @@ interface ICommonItems{
 不过还能更懒,我们可以在每个下一题的时候再加载谋面这道题用的模板,不过这样就要把题目合成的流程从现在的同步流程变成异步流程
 
 ## I18n的导入和翻译方式
++ 翻译文本用typescript编写
++ 使用时直接调用方法
++ 添加webpack的plugin和loader,分别构建json文件,注入加载地址,替换多语言代号.
 
 ## svg资源导入html
-
++ 使用html-loader的interpolate方法注入html片段
++ 使用link语法,然后用一个pre-html-loader,将link语法转成html-loader需要的require语法,因为require语法在html中没有友好的链接提示.
+> 最新版的html-loader移除了interpolate的支持,后续可能需要寻找其他方案来注入html片段

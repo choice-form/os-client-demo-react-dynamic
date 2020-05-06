@@ -131,6 +131,7 @@ module.exports = (env) => {
       headers: { "Access-Control-Allow-Origin": "*" },
       host: '0.0.0.0',
       port: 4401,
+      watchContentBase: true,
       hot: true,
     } : undefined,
     resolve: {
