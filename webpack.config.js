@@ -2,8 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
-  isLocal, getConfigFile, getCoreSdkAlias, getDevPlugin,
-  getDevHtmlTemplate, insureDistDir
+  isLocal, getConfigFile, getCoreSdkAlias,
+  getDevPlugin, insureDistDir
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
@@ -56,7 +56,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        templateContent: getDevHtmlTemplate(env),
+        template: './src/app/index.html',
         filename: 'index.html',
         favicon: path.resolve('./src/app/favicon.ico'),
         excludeChunks: Object.keys(pluginConfig.entries)
@@ -69,25 +69,46 @@ module.exports = (env) => {
       ...getDevPlugin(env),
     ],
     module: {
-      rules: [{
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: 'ts-loader',
-          },
-          {
-            loader: require.resolve('./webpack/plugin-loader'),
-          }]
-      }, {
-        test: /\.scss$/,
-        exclude: /src[\\/]plugin[\\/].+\.scss$/,
-        use: appScssLoaders,
-      },
-      {
-        test: /\.scss$/,
-        exclude: /src[\\/]app[\\/].+\.scss$/,
-        use: basicScssLoaders,
-      }
+      rules: [
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: 'html-loader',
+              options: {
+                interpolate: true,
+              },
+            },
+            {
+              loader: path.resolve('./webpack/pre-html-loader'),
+              options: {
+                devSupport: local
+                  ? "<script src='assets/umd-legacy-with-i18n.js'></script>"
+                  : '',
+              }
+            }
+          ]
+        },
+        {
+          test: /\.tsx?$/,
+          use: [
+            {
+              loader: 'ts-loader',
+            },
+            {
+              loader: require.resolve('./webpack/plugin-loader'),
+            }]
+        },
+        {
+          test: /\.scss$/,
+          exclude: /src[\\/]plugin[\\/].+\.scss$/,
+          use: appScssLoaders,
+        },
+        {
+          test: /\.scss$/,
+          exclude: /src[\\/]app[\\/].+\.scss$/,
+          use: basicScssLoaders,
+        }
       ]
     },
     devServer: local ? {
