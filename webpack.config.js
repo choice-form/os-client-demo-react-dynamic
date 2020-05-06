@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
-  isLocal, getConfigFile, getCoreSdkAlias,
+  isLocal, getConfigFile, getCoreSdkAlias, getDevPort,
   getDevPlugin, insureDistDir, getAssetsHost
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
@@ -130,7 +130,7 @@ module.exports = (env) => {
       contentBase: path.resolve(__dirname, 'dist'),
       headers: { "Access-Control-Allow-Origin": "*" },
       host: '0.0.0.0',
-      port: 4401,
+      port: getDevPort(),
       watchContentBase: true,
       hot: true,
     } : undefined,

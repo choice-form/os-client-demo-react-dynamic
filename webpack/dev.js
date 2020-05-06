@@ -1,6 +1,11 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
+
+
+const config = JSON.parse(fs.readFileSync('build.json').toString());
+
+
 function isLocal(env) {
   return env.NODE_ENV === 'local';
 }
@@ -86,13 +91,11 @@ function insureDistDir() {
 }
 
 function getAssetsHost(env) {
-  if (env.NODE_ENV === 'local') {
-    return `http://localhost:4401/assets`;
-  } else if (env.NODE_ENV === 'staging') {
-    return 'https://media.choiceform.io/os-client-live/assets';
-  } else {
-    return 'https://media.choiceform.com/os-client-live/assets';
-  }
+  return config.assetsPath[env.NODE_ENV];
+}
+
+function getDevPort(){
+  return config.devPort;
 }
 
 module.exports = {
@@ -103,4 +106,5 @@ module.exports = {
   getDevHtmlTemplate,
   insureDistDir,
   getAssetsHost,
+  getDevPort,
 };
