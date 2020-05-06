@@ -34,7 +34,7 @@ class LangPlugin {
         }
         // 生成json
         const text = JSON.stringify(content);
-        const fileName = `${langCode}${hash}.json`;
+        const fileName = `assets/${langCode}${hash}.json`;
         compilation.assets[fileName] = {
           source: function () {
             return text;
@@ -48,6 +48,7 @@ class LangPlugin {
   }
 }
 
-LangPlugin.loader = require.resolve('./loader');
+LangPlugin.codeLoader = require.resolve('./code-loader');
+LangPlugin.entryLoader = require.resolve('./entry-loader');
 
 module.exports = LangPlugin;

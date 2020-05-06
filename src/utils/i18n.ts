@@ -8,8 +8,8 @@ const mf = new I18n.MessageFormat();
  * 花括号里面的这个注释使用是用于构建的识别码，不能更改
  */
 const langSrcMap: { [key: string]: string } = {
-  'zh_ch': require('./../../lang/zh_cn').toString(),
-  'en_us': require('./../../lang/en_us').toString(),
+  'zh_cn': require('./../../lang/zh_cn').default,
+  'en_us': require('./../../lang/en_us').default,
 };
 
 const langDict: { [key: string]: { [key: string]: any } } = {};

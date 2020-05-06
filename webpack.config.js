@@ -92,7 +92,15 @@ module.exports = (env) => {
           ]
         },
         {
+          test: /lang[\\/]\w+\.ts/,
+          use: [{
+            loader: LangPlugin.entryLoader,
+            options: { local, prefix: getAssetsHost(env) }
+          }]
+        },
+        {
           test: /\.tsx?$/,
+          exclude: /lang[\\/]\w+\.ts/,
           use: [
             {
               loader: 'ts-loader',
@@ -101,8 +109,7 @@ module.exports = (env) => {
               loader: require.resolve('./webpack/plugin-loader'),
             },
             {
-              loader: LangPlugin.loader,
-              options: { local, prefix: getAssetsHost(env) }
+              loader: LangPlugin.codeLoader,
             }
           ]
         },

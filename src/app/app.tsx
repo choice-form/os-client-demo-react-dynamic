@@ -12,6 +12,7 @@ import Reward from "./routes/reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
 import './app.scss';
+import { setLocale } from "../utils/i18n";
 
 /**
  * 引用程序根状态
@@ -260,6 +261,7 @@ class App extends React.Component<any, IFullState> {
    */
   setLocale(locale: string): void {
     this.setState({ locale })
+    setLocale(locale);
   }
   /**
    * 设置主题
