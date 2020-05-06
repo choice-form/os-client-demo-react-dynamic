@@ -3,12 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   isLocal, getConfigFile, getCoreSdkAlias,
-  getDevPlugin, insureDistDir
+  getDevPlugin, insureDistDir, getAssetsHost
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pluginConfig = getPluginConfig();
+const LangPlugin = require('./webpack/lang-plugin/plugin');
 // const os = require('os');
 const { generateScssTree } = require('./webpack/scss');
 
@@ -66,6 +67,7 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: local ? 'assets/[name].css' : 'assets/[name]-[contenthash:8].css',
       }),
+      new LangPlugin({ directory: 'lang', local }),
       ...getDevPlugin(env),
     ],
     module: {
@@ -97,7 +99,12 @@ module.exports = (env) => {
             },
             {
               loader: require.resolve('./webpack/plugin-loader'),
-            }]
+            },
+            {
+              loader: LangPlugin.loader,
+              options: { local, prefix: getAssetsHost(env) }
+            }
+          ]
         },
         {
           test: /\.scss$/,

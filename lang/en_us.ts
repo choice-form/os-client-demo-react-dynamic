@@ -1,5 +1,5 @@
 const enUS: ILang = {
-  groupA: {
-    title: 'Title of Group A'
+  general: {
+    noView: 'No view node will not be display at survey page',
   }
 }

@@ -1,4 +1,4 @@
-import {I18n} from '@choiceform/os-client-core'
+import { I18n } from '@choiceform/os-client-core'
 
 
 const mf = new I18n.MessageFormat();
@@ -7,7 +7,10 @@ const mf = new I18n.MessageFormat();
  * 多语言资源配置
  * 花括号里面的这个注释使用是用于构建的识别码，不能更改
  */
-const langSrcMap: { [key: string]: string } = {/** REAL_LANG_MAP_HOLDER */ };
+const langSrcMap: { [key: string]: string } = {
+  'zh_ch': require('./../../lang/zh_cn').toString(),
+  'en_us': require('./../../lang/en_us').toString(),
+};
 
 const langDict: { [key: string]: { [key: string]: any } } = {};
 
@@ -50,7 +53,7 @@ export const setLocale = (lang: string) => {
  * @param key 键名
  * @param options 参数
  */
-export const translate = (key: string, options: any): string => {
+export const translate = (key: string, options?: any): string => {
   let dict = loadLang(currentLang);
   try {
     const keys = key.split('.');

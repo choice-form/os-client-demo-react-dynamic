@@ -1,6 +1,5 @@
 import React from "react";
 import NodeHead from "../../../partials/node-head";
-import { utilExampleLog } from "../../../../utils/logger";
 
 interface IProps {
   handler: CFUIEventHandler;
@@ -30,6 +29,5 @@ class ChoiceAdvanced extends React.Component<IProps> {
     </div>
   }
 }
-utilExampleLog('advanced choice loaded');
 export default ChoiceAdvanced;
 

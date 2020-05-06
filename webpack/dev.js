@@ -85,6 +85,16 @@ function insureDistDir() {
   }
 }
 
+function getAssetsHost(env) {
+  if (env.NODE_ENV === 'local') {
+    return `http://localhost:4401/assets`;
+  } else if (env.NODE_ENV === 'staging') {
+    return 'https://media.choiceform.io/os-client-live/assets';
+  } else {
+    return 'https://media.choiceform.com/os-client-live/assets';
+  }
+}
+
 module.exports = {
   isLocal,
   getConfigFile,
@@ -92,4 +102,5 @@ module.exports = {
   getDevPlugin,
   getDevHtmlTemplate,
   insureDistDir,
+  getAssetsHost,
 };

@@ -1,6 +1,6 @@
 const zhCN = {
-  groupA: {
-    title: 'A组标题'
+  general: {
+    noView: '无视图节点,答题过程中不会显示'
   }
 }
 

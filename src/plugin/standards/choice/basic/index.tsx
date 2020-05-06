@@ -1,6 +1,5 @@
 import React from "react";
 import NodeHead from '../../../partials/node-head';
-import { utilExampleLog } from "../../../../utils/logger";
 interface IProps {
   handler: CFUIEventHandler;
   node: CFSelectQuestion;
@@ -28,5 +27,4 @@ class ChoiceBasic extends React.Component<IProps> {
     </div>
   }
 }
-utilExampleLog('basic choice loaded');
 export default ChoiceBasic;
