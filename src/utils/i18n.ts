@@ -22,7 +22,7 @@ let currentLang = 'zh_cn';
  * 加载某个语言的翻译规则
  * @param lang
  */
-const loadLang = (lang: string) => {
+function loadLang(lang: string): any {
   lang = lang.toLowerCase();
   let src = langSrcMap[lang];
   // 还没有该UI语言的话退回英语
@@ -44,7 +44,7 @@ const loadLang = (lang: string) => {
  * 设置当前语言
  * @param lang 语言代码
  */
-export const setLocale = (lang: string) => {
+export function setLocale(lang: string): void {
   currentLang = lang.toLowerCase();
 }
 
@@ -53,7 +53,7 @@ export const setLocale = (lang: string) => {
  * @param key 键名
  * @param options 参数
  */
-export const translate = (key: string, options?: any): string => {
+export function T(key: string, options?: any): string {
   let dict = loadLang(currentLang);
   try {
     const keys = key.split('.');
@@ -69,6 +69,5 @@ export const translate = (key: string, options?: any): string => {
   }
   return `missing translation for ${key} ${currentLang}`;
 }
-
 
 

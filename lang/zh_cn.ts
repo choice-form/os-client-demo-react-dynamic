@@ -1,6 +1,7 @@
 const zhCN = {
-  general: {
-    noView: '无视图节点,答题过程中不会显示'
+  preview: {
+    title: '预览测试',
+    noView: '无视图节点,答题过程中不会显示',
   }
 }
 

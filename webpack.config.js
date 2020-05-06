@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
   isLocal, getConfigFile, getCoreSdkAlias, getDevPort,
-  getDevPlugin, insureDistDir, getAssetsHost
+  getDevPlugin, insureDistDir, getAssetsPath, getCdnFolder
 } = require('./webpack/dev');
 const { getPluginConfig } = require('./webpack/plugin-config');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
@@ -15,6 +15,8 @@ const { generateScssTree } = require('./webpack/scss');
 
 generateScssTree();
 insureDistDir();
+
+const cdnFolder = getCdnFolder();
 
 
 module.exports = (env) => {
@@ -51,7 +53,9 @@ module.exports = (env) => {
       index: './src/app/index.tsx',
     },
     output: {
-      filename: local ? 'assets/[name].js' : 'assets/[name]-[contenthash:8].js',
+      filename: local
+        ? `${cdnFolder}[name].js`
+        : `${cdnFolder}[name]-[contenthash:8].js`,
       path: path.resolve('./dist'),
       pathinfo: false,
     },
@@ -65,7 +69,9 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new SummaryTreePlugin(),
       new MiniCssExtractPlugin({
-        filename: local ? 'assets/[name].css' : 'assets/[name]-[contenthash:8].css',
+        filename: local 
+        ? `${cdnFolder}[name].css`
+        : `${cdnFolder}[name]-[contenthash:8].css`,
       }),
       new LangPlugin({ directory: 'lang', local }),
       ...getDevPlugin(env),
@@ -85,7 +91,7 @@ module.exports = (env) => {
               loader: path.resolve('./webpack/pre-html-loader'),
               options: {
                 devSupport: local
-                  ? "<script src='assets/umd-legacy-with-i18n.js'></script>"
+                  ? `<script src='${cdnFolder}umd-legacy-with-i18n.js'></script>`
                   : '',
               }
             }
@@ -95,7 +101,7 @@ module.exports = (env) => {
           test: /lang[\\/]\w+\.ts/,
           use: [{
             loader: LangPlugin.entryLoader,
-            options: { local, prefix: getAssetsHost(env) }
+            options: { local, prefix: getAssetsPath(env) }
           }]
         },
         {

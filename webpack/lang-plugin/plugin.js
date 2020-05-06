@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { getHash } = require('./hash');
+const { getCdnFolder } = require('../dev');
 class LangPlugin {
   constructor(options) {
     this.options = options || {};
@@ -34,7 +35,7 @@ class LangPlugin {
         }
         // 生成json
         const text = JSON.stringify(content);
-        const fileName = `assets/${langCode}${hash}.json`;
+        const fileName = `${getCdnFolder()}${langCode}${hash}.json`;
         compilation.assets[fileName] = {
           source: function () {
             return text;

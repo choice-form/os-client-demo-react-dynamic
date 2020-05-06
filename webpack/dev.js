@@ -2,17 +2,30 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 
-
+/**
+ * 读入的构建配置
+ */
 const config = JSON.parse(fs.readFileSync('build.json').toString());
 
-
+/**
+ * 是否为本地开发
+ * @param {*} env 
+ */
 function isLocal(env) {
   return env.NODE_ENV === 'local';
 }
+
+/**
+ * 获取线上的配置
+ * @param {*} env 
+ */
 function getConfigFile(env) {
   return env.NODE_ENV === 'prod' ? 'prod' : 'staging';
 }
-
+/**
+ * 获取本地开发核心包地址
+ * @param {*} env 
+ */
 function getDevCoreSdkPath(env) {
   const debugSdkPath = path.resolve(
     '../os-client-core/debug/umd-legacy-with-i18n.js');
@@ -22,6 +35,10 @@ function getDevCoreSdkPath(env) {
   return undefined;
 }
 
+/**
+ * 获取本地开发核心包别名
+ * @param {*} env 
+ */
 function getCoreSdkAlias(env) {
   const debugSdkPath = getDevCoreSdkPath(env);
   // 本地开发模式且能找到开发版sdk
@@ -52,18 +69,18 @@ function getDevPlugin(env) {
       const fileName = name + '-00000000.json';
       return {
         from: debugSdkPath.replace(/\/[^/]+$/, '/' + fileName),
-        to: path.resolve('./dist/assets/debug/' + fileName)
+        to: path.resolve(`./dist/${getCdnFolder()}debug/` + fileName)
       };
     });
     // 把核心包和sourcemap拷贝到assets目录下,以供直接引入
     const sdkFileName = debugSdkPath.match(/[\\/]([^\\/]+)$/)[1];
     list.push({
       from: debugSdkPath + '.map',
-      to: path.resolve('./dist/assets/' + sdkFileName + '.map')
+      to: path.resolve(`./dist/${getCdnFolder()}` + sdkFileName + '.map')
     });
     list.push({
       from: debugSdkPath,
-      to: path.resolve('./dist/assets/' + sdkFileName)
+      to: path.resolve(`./dist/${getCdnFolder()}` + sdkFileName)
     });
     return [
       new CopyWebpackPlugin(list),
@@ -72,16 +89,9 @@ function getDevPlugin(env) {
   return [];
 }
 
-function getDevHtmlTemplate(env) {
-  let content = fs.readFileSync('./src/app/index.html').toString();
-  if (isLocal(env)) {
-    content = content.replace('</body>',
-      ` <script src='assets/umd-legacy-with-i18n.js'></script>
-    </body>`);
-  }
-  return content;
-}
-
+/**
+ * 确保dist目录存在
+ */
 function insureDistDir() {
   try {
     fs.mkdirSync('dist');
@@ -89,13 +99,34 @@ function insureDistDir() {
     // do nothing;
   }
 }
-
-function getAssetsHost(env) {
-  return config.assetsPath[env.NODE_ENV];
+/**
+ * 获取cdn资源路径
+ * @param {*} env 
+ */
+function getAssetsPath(env) {
+  let result = config.assetsPath[env.NODE_ENV];
+  if (env.NODE_ENV === 'local') {
+    result = result.replace('${port}', config.devPort);
+  }
+  if (config.cdnFolder) {
+    result += "/" + config.cdnFolder;
+  }
+  return result;
 }
-
-function getDevPort(){
+/**
+ * 获取本地开发启动端口
+ */
+function getDevPort() {
   return config.devPort;
+}
+/**
+ * 获取cdn资源文件夹
+ */
+function getCdnFolder() {
+  if (config.cdnFolder) {
+    return config.cdnFolder + '/';
+  }
+  return '';
 }
 
 module.exports = {
@@ -103,8 +134,8 @@ module.exports = {
   getConfigFile,
   getCoreSdkAlias,
   getDevPlugin,
-  getDevHtmlTemplate,
   insureDistDir,
-  getAssetsHost,
+  getAssetsPath,
+  getCdnFolder,
   getDevPort,
 };

@@ -12,7 +12,7 @@ import Reward from "./routes/reward";
 import { Core, Util, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
 import './app.scss';
-import { setLocale } from "../utils/i18n";
+import { setLocale, T } from "../utils/i18n";
 
 /**
  * 引用程序根状态
@@ -160,7 +160,7 @@ class App extends React.Component<any, IFullState> {
           </div>
           : null}
         {core.needPreviewFlag
-          ? <div className='preview-flag'>预览测试</div>
+          ? <div className='preview-flag'>{T(LANG.preview.title)}</div>
           : null}
         <div className='global-notification'>
           {this.state.notification.map(nt => {
