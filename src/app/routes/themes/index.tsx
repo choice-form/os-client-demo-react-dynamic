@@ -47,7 +47,7 @@ class Themes extends React.Component<IProps> {
       return <div>
         {node.noView
           ? <NoView node={node} />
-          : <QuesContainer data={data} />}
+          : <QuesContainer model={data} />}
       </div>
     }
   }

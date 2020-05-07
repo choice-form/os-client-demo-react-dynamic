@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import QuesContainer from '../../components/ques-container';
 import { Core } from '@choiceform/os-client-core';
 import PreviewTool from '../../components/preview-tool';
+import AnswerResume from '../../components/answer-resume';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
@@ -34,9 +35,13 @@ class Questions extends React.Component<IProps> {
     if (!model) {
       return <div></div>;
     }
+    // 考虑断点续答
+    if (model.memoryTool && model.memoryTool.show) {
+      return <AnswerResume model={model.memoryTool} />
+    }
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}
-      <QuesContainer data={model} />
+      <QuesContainer model={model} />
     </div>;
   }
 }

@@ -26,16 +26,16 @@ interface IQuestionsRenderData {
 }
 
 interface IProps {
-  data: IQuestionsRenderData;
+  model: IQuestionsRenderData;
 }
 
 type INodeCom = typeof React.Component;
 
 class QuesContainer extends React.Component<IProps> {
   render(): JSX.Element {
-    const { data } = this.props;
+    const { model } = this.props;
     return <div>
-      {data.nodes.map(node => {
+      {model.nodes.map(node => {
         // 节点真实内容交给动态组件渲染
         const NodeComponent = node.template.component as INodeCom;
         return <div key={node.renderId}
@@ -45,7 +45,7 @@ class QuesContainer extends React.Component<IProps> {
             {node.errorMessage}
           </span>
           <NodeComponent node={node}
-            handler={data.handleEvents} theme={data.theme} />
+            handler={model.handleEvents} theme={model.theme} />
         </div>
       })}
       {this.renderButton()}
@@ -53,7 +53,7 @@ class QuesContainer extends React.Component<IProps> {
   }
 
   renderButton(): JSX.Element {
-    const { data } = this.props;
+    const { model: data } = this.props;
     const { nextButton, prevButton, handleEvents } = data;
     return <div>
       {prevButton ? <button onClick={() => {
