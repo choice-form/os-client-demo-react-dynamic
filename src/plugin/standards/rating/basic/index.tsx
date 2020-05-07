@@ -1,8 +1,7 @@
 import React from "react";
 import NodeHead from "../../../partials/node-head";
 
-interface IProps {
-  handler: CFUIEventHandler;
+interface IProps extends IQuesComBaseProps{
   node: CFGraphMarkQuestion;
 }
 
@@ -26,10 +25,10 @@ class RatingBasic extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    const { node, handler } = this.props;
+    const { node, handler, theme } = this.props;
     return <div className='basic-rating'>
       <span>RatingBasic</span>
-      <NodeHead node={node} />
+      <NodeHead node={node} theme={theme} />
       {node.options.map(opt => {
         const iconList = this.getIconList(opt);
         return < div key={opt.renderId} >

@@ -1,8 +1,7 @@
 import React from "react";
 import NodeHead from "../../../partials/node-head";
 
-interface IProps {
-  handler: CFUIEventHandler;
+interface IProps extends IQuesComBaseProps {
   node: CFWeightQuestion;
 }
 
@@ -11,10 +10,10 @@ class WeightBasic extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    const { node, handler } = this.props;
+    const { node, handler, theme } = this.props;
     return <div className='basic-weight'>
       <span>WeightBasic</span>
-      <NodeHead node={node} />
+      <NodeHead node={node} theme={theme} />
       <div className='weight-indicator'>
         {node.options.map(opt => {
           const ratio = Number(opt.value) * 100 / node.weightTotal + '%';

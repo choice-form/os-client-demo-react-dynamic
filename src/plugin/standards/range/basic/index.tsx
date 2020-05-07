@@ -1,8 +1,7 @@
 import React from "react";
 import NodeHead from "../../../partials/node-head";
 
-interface IProps {
-  handler: CFUIEventHandler;
+interface IProps extends IQuesComBaseProps {
   node: CFValueMarkQuestion;
 }
 
@@ -11,10 +10,10 @@ class RangeBasic extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    const { node, handler } = this.props;
+    const { node, handler, theme } = this.props;
     return <div>
       <span>RangeBasic</span>
-      <NodeHead node={node} />
+      <NodeHead node={node} theme={theme} />
       {node.options.map(opt => {
         return <div key={opt.renderId}>
           <span>{opt.text}</span>

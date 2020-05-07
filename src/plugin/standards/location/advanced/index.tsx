@@ -2,7 +2,7 @@ import React from 'react';
 
 class LocationAdvanced extends React.Component {
   render():JSX.Element {
-    return <div>LocationAdvanced</div>
+    return <div>LocationAdvanced 空容器</div>
   }
 }
 

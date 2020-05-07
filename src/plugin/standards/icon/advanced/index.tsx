@@ -2,7 +2,7 @@ import React from 'react';
 
 class IconAdvanced extends React.Component {
   render():JSX.Element {
-    return <div>IconAdvanced</div>
+    return <div>IconAdvanced 空容器</div>
   }
 }
 

@@ -4,6 +4,7 @@ import NodeVideo from '../node-video';
 
 interface IProps {
   node: CFQuestion;
+  theme: CFTheme;
 }
 
 
