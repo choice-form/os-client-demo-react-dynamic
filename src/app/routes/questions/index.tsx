@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { renderQuestions } from '../../templates/questions';
+import QuesContainer from '../../components/ques-container';
 import { Core } from '@choiceform/os-client-core';
 import PreviewTool from '../../components/preview-tool';
 
@@ -36,7 +36,7 @@ class Questions extends React.Component<IProps> {
     }
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}
-      {renderQuestions(model)}
+      <QuesContainer data={model} />
     </div>;
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Core } from '@choiceform/os-client-core'
-import { renderQuestions } from '../../templates/questions';
-import { renderNoViewNode } from '../../templates/no-view';
+import NoView from '../../components/no-view';
+import QuesContainer from '../../components/ques-container';
 
 interface IProps extends RouteComponentProps {
   model: CFRealTime;
@@ -44,11 +44,11 @@ class Themes extends React.Component<IProps> {
     } else {
       // 无视图节点的预览单独处理
       const node = data.nodes[0];
-      console.log(node.quesType, node.noView)
-      if (node.noView) {
-        return renderNoViewNode(node);
-      }
-      return renderQuestions(data);
+      return <div>
+        {node.noView
+          ? <NoView node={node} />
+          : <QuesContainer data={data} />}
+      </div>
     }
   }
 }
