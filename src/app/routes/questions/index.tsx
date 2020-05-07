@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { renderQuestions } from '../../templates/questions';
 import { Core } from '@choiceform/os-client-core';
+import PreviewTool from '../../components/preview-tool';
 
 interface IProps extends RouteComponentProps {
   model: CFState;
@@ -22,7 +23,7 @@ class Questions extends React.Component<IProps> {
     // 稍后准备微信分享
     setTimeout(() => {
       Core.prepareWxShare(this.props.model);
-    })
+    }, 500)
   }
   render(): JSX.Element {
     const { model } = this.props;
@@ -33,7 +34,10 @@ class Questions extends React.Component<IProps> {
     if (!model) {
       return <div></div>;
     }
-    return renderQuestions(model);
+    return <div>
+      {model.preview ? <PreviewTool model={model.previewTool} /> : null}
+      {renderQuestions(model)}
+    </div>;
   }
 }
 

@@ -60,7 +60,7 @@ export function T(key: string, options?: any): string {
     let part = keys.shift()
     while (part) {
       dict = dict[part];
-      part = keys.pop();
+      part = keys.shift();
     }
     const msg = mf.compile(dict);
     return msg(options);

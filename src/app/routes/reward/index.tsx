@@ -24,7 +24,7 @@ class Reward extends React.Component<IProps> {
     // 稍后初始化微信分享
     setTimeout(() => {
       Core.prepareWxShare(this.props.model);
-    });
+    }, 500);
   }
   /**
    * 渲染

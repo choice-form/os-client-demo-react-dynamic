@@ -52,7 +52,7 @@ class Main extends React.Component<IProps> {
         this.gotoQuestions();
       })
       Core.prepareWxShare(this.props.model);
-    });
+    }, 500);
   }
   /**
    * 渲染页面
@@ -63,10 +63,10 @@ class Main extends React.Component<IProps> {
       this.init();
     }
     if (!model) {
-      return <div>Loading</div>
+      return null
     }
     // 自动跳过首页开始答题的情况下
-    if (model.startAuto) {
+    if (model.startAuto && !model.nextLoading) {
       this.gotoQuestions(true);
       return null;
     }

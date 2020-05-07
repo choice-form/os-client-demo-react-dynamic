@@ -1,0 +1,36 @@
+.preview-tool {
+  .trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+  }
+  .main {
+    z-index: 10;
+    background: white;
+    margin-top: 22px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .header {
+      display: flex;
+      > div {
+        width: 50%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        &.active {
+          background: pink;
+        }
+      }
+    }
+    ul li,
+    .time-title {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

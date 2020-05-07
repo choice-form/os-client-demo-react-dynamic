@@ -150,7 +150,7 @@ class App extends React.Component<any, IFullState> {
     if (!core) {
       return <div></div>
     }
-
+    const theme = core.getTheme();
     return (<Router>
       <div>
         {this.state.error
@@ -159,7 +159,10 @@ class App extends React.Component<any, IFullState> {
           </div>
           : null}
         {core.needPreviewFlag
-          ? <div className='preview-flag'>{T(LANG.preview.title)}</div>
+          ? <div className='preview-flag'
+            style={{ background: theme.contrast }}>
+            {T(LANG.preview.title)}
+          </div>
           : null}
         <div className='global-notification'>
           {this.state.notification.map(nt => {
@@ -299,6 +302,9 @@ class App extends React.Component<any, IFullState> {
           questions: this.core.questions,
           reward: this.core.reward,
           realtime: this.core.realtime,
+          getTheme: () => {
+            return this.core.getTheme();
+          }
         }
       });
     })
