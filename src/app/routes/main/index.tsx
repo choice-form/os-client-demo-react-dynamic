@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Util } from '@choiceform/os-client-core'
+import { Util, Core } from '@choiceform/os-client-core'
 interface IProps extends RouteComponentProps {
   model: CFIntro;
   requestModel(): Promise<void>;
@@ -49,9 +49,9 @@ class Main extends React.Component<IProps> {
     // 否则model还没有更新进来
     setTimeout(() => {
       this.props.model.setNextHander(() => {
-        // tslint:disable-next-line:no-floating-promises
         this.gotoQuestions();
       })
+      Core.prepareWxShare(this.props.model);
     });
   }
   /**
@@ -60,7 +60,6 @@ class Main extends React.Component<IProps> {
   render(): JSX.Element {
     const { model } = this.props;
     if (!this.initialized) {
-      // tslint:disable-next-line:no-floating-promises
       this.init();
     }
     if (!model) {
@@ -68,7 +67,6 @@ class Main extends React.Component<IProps> {
     }
     // 自动跳过首页开始答题的情况下
     if (model.startAuto) {
-      // tslint:disable-next-line:no-floating-promises
       this.gotoQuestions(true);
       return null;
     }

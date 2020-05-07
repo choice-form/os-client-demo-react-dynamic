@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Util } from '@choiceform/os-client-core'
+import { Core } from '@choiceform/os-client-core'
 import { renderQuestions } from '../../templates/questions';
 import { renderNoViewNode } from '../../templates/no-view';
 
@@ -21,12 +21,7 @@ class Themes extends React.Component<IProps> {
       return;
     }
     this.initialized = true;
-    Util.initPreviewUploader();
-    Util.sendMessage({
-      name: 'init_preview',
-    });
-    document.documentElement.setAttribute('class',
-      'ios iphone mobile portrait safari -9');
+    Core.initRealtimePreview();
   }
   /**
    * 渲染
