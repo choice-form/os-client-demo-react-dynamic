@@ -6,15 +6,35 @@ interface IProps extends IQuesComBaseProps {
   node: CFCascadeQuestion;
 }
 
+/**
+ * 基础级联题组件
+ * 只实现了下拉列表方式
+ */
 class CascadeBasic extends React.Component<IProps> {
-
+  /**
+   * 选项输入时的处理方法
+   * @param cascade 级联项
+   * @param value 输入值
+   * @param parentCascade 所属父级联项
+   */
   handleInput(cascade: CFCascade, value: string, parentCascade: CFCascade): void {
     const { handler, node } = this.props;
     const index = parentCascade.list.indexOf(cascade);
+    // 算出索引以后调用核心的级联输入回调函数
     handler.handleCascadeInput(value, index, parentCascade, node);
   }
-
+  /**
+   * 选中级联项时的处理方法
+   * @param cascade 级联项
+   * @param e 事件参数
+   */
   handleSelect(cascade: CFCascade, e: React.ChangeEvent<HTMLSelectElement>): void {
+    // 级联题选中后可以调用handleOptionClick方法
+    // 或者调用handleCascadeClick方法,
+    // 前者要求传递的一个CascadeClickResult对象
+    // 后者要求传递选择的级联项在所属列表中的索引,一般来说调用后者更简单
+    // 但是我们这里用的原生的HTML的select组件,这个组件开启了多选的时候,即使进行单选操作
+    // 原来选中的项目也不会被取消掉,所以仅仅传递选中项的索引不够,我们调用前者
     const { handler, node } = this.props;
     const resultList = Array.from(e.target.options).reduce((rs, opt) => {
       if (opt.selected) {
@@ -29,7 +49,9 @@ class CascadeBasic extends React.Component<IProps> {
     }
     handler.handleOptionClick(param, node);
   }
-
+  /**
+   * 渲染
+   */
   render(): JSX.Element {
     const { node, theme } = this.props;
     return <div>
@@ -37,12 +59,17 @@ class CascadeBasic extends React.Component<IProps> {
       {this.renderDropdownUnit(node.cascade, null)}
     </div>
   }
-
+  /**
+   * 递归渲染级联下拉
+   * @param cascade 级联项
+   * @param parentCascade 所属的父级联项
+   */
   renderDropdownUnit(cascade: CFCascade, parentCascade: CFCascade): JSX.Element {
     if (!cascade.list || cascade.list.length === 0) {
       return null;
     }
     return <div>
+      {/* 有可能需要输入框 */}
       {parentCascade && ((cascade.option.inputType === 'select-input'
         && cascade.option.selected)
         || cascade.option.inputType === 'input')
@@ -51,7 +78,7 @@ class CascadeBasic extends React.Component<IProps> {
           value={cascade.option.value}
           message={cascade.option.errorMessage} />
         : null}
-
+      {/* 下拉列表 */}
       <select multiple={cascade.multiple}
         onChange={(e) => this.handleSelect(cascade, e)}>
         <option value={cascade.placeholder}>{cascade.placeholder}</option>
@@ -62,7 +89,7 @@ class CascadeBasic extends React.Component<IProps> {
           </option>
         })}
       </select>
-
+      {/* 递归渲染已选中项的子列表 */}
       {cascade.list.filter(item => item.selected).map(item => {
         return <div key={item.text}>
           {this.renderDropdownUnit(item, cascade)}
