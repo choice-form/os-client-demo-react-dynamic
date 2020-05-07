@@ -8,10 +8,9 @@ class StartBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { model } = this.props;
     return <div>
-
-      <span>StartBasic</span>
       {model.images.map(image => {
         return <img src={image.large}
+          style={{ width: '100%' }}
           key={image.id}
           title={image.originName}
         ></img>
