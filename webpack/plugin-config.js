@@ -6,26 +6,28 @@ const standardPath = pluginRoot + standardFolder;
 const partialFolder = 'partials';
 const partialPath = pluginRoot + partialFolder;
 
-function getFiles(directory, prefix = '') {
+function getFiles(directory, prefix = '', filter) {
   let result = [];
   const files = fs.readdirSync(directory);
   files.forEach(file => {
     const currentPath = directory + '/' + file;
     const currentPrefix = prefix ? prefix + '/' + file : file;
-    if (file.endsWith('index.tsx')) {
+    if (filter(file)) {
       result.push(currentPrefix);
     } else if (fs.statSync(currentPath).isDirectory()) {
-      result = [...result, ...getFiles(currentPath, currentPrefix)];
+      result = [...result, ...getFiles(currentPath, currentPrefix, filter)];
     }
   });
   return result;
 }
 function getPluginConfig() {
-  const pluginsFiles = getFiles(standardPath, standardFolder);
-  const componentFiles = getFiles(partialPath, partialFolder);
+  const pluginsFiles = getFiles(standardPath, standardFolder,
+    (f) => f.endsWith('index.tsx'));
+  const partialFiles = getFiles(partialPath, partialFolder,
+    (f) => f.match(/\.tsx?/));
   const entries = {};
   const splitChunks = {};
-  [...pluginsFiles, ...componentFiles].forEach(file => {
+  [...pluginsFiles, ...partialFiles].forEach(file => {
     const pPath = file.replace(/(?:[\\/]index)?\.tsx$/, '');
     const name = pPath.replace(/[\\/]/g, '_');
     if (file.startsWith(partialFolder)) {
