@@ -16,10 +16,7 @@ class IconBasic extends React.Component<IProps> {
         {node.options.map(option => {
           return <ChoiceOption option={option}
             handleChange={(v) => handler.handleOptionInput(v, option, node)}
-            handleClick={() => {
-              console.log('click');
-              handler.handleOptionClick(option, node)
-            }}
+            handleClick={() => handler.handleOptionClick(option, node)}
             key={option.renderId}
             theme={theme} handler={handler}
             type={node.selectType} />

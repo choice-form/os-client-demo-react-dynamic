@@ -37,16 +37,17 @@ class ChoiceOption extends React.Component<IProps, IState> {
     // 选项加备注选中时需要输入框
     const needInput = option.selected
       && option.inputType === 'select-input';
-    console.log(option.selected, option.text, option._selected);
     return <div data-checked={option.selected}>
       <label htmlFor={option.renderId}>
         <input type={type} id={option.renderId}
           checked={option.selected}
-          onClick={() => handleClick()} />
+          onChange={() => handleClick()} />
         <span>{option.text}</span>
         {option.icon
           ? <OptionIcon iconUrl={option.icon}
-            iconActiveUrl={option.iconActive} />
+            iconActiveUrl={option.iconActive}
+            activated={option.selected}
+            cacheId={option.renderId} />
           : null
         }
         {option.image

@@ -3,6 +3,14 @@ import { loadIcon } from '../../../services/icon-lib';
 
 interface IProps {
   /**
+   * 是否激活
+   */
+  activated: boolean;
+  /**
+   * 作为缓存依据的id
+   */
+  cacheId: string;
+  /**
    * 选中时的图标地址
    */
   iconActiveUrl: string;
@@ -11,45 +19,41 @@ interface IProps {
    */
   iconUrl: string;
 }
-interface IState {
-  /**
-   * 选中时的图标
-   */
-  icon: string;
-  /**
-   * 未选中时的图标
-   */
-  iconActive: string;
-}
 /**
  * 图表题图标组件
  */
-class OptionIcon extends React.Component<IProps, IState>{
+class OptionIcon extends React.Component<IProps>{
+  static style: string = require('./style.scss');
+  private iconActiveRef: React.RefObject<HTMLDivElement>;
+  private iconRef: React.RefObject<HTMLDivElement>;
   constructor(props: IProps) {
     super(props);
-    this.state = { icon: '', iconActive: '' };
+    this.iconActiveRef = React.createRef();
+    this.iconRef = React.createRef();
+  }
+  componentDidMount(): void {
     this.initIcon();
   }
   /**
    * 初始化图标
    */
   async initIcon(): Promise<void> {
-    const { iconActiveUrl, iconUrl } = this.props;
-    const iconActive = await loadIcon(iconActiveUrl);
-    const icon = await loadIcon(iconUrl);
-    this.setState({ icon, iconActive });
+    const { iconActiveUrl, iconUrl, cacheId: id } = this.props;
+    const iconActive = await loadIcon(iconActiveUrl, id);
+    const icon = await loadIcon(iconUrl, id);
+    this.iconRef.current.appendChild(icon);
+    this.iconActiveRef.current.appendChild(iconActive);
   }
   /**
    * 渲染
    */
   render(): JSX.Element {
-    const { icon } = this.state;
-    if (!icon) {
-      return null;
-    }
-    console.log(icon);
-    return <div>
-      <div className=''></div>
+    const { activated } = this.props;
+    return <div className='option-icon'>
+      <div className={activated ? null : 'hidden'}
+        ref={this.iconActiveRef}></div>
+      <div className={activated ? 'hidden' : null}
+        ref={this.iconRef}></div>}
     </div>
   }
 }
