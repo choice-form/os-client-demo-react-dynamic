@@ -1,6 +1,9 @@
 
 const nameMatchReg = /[\\/]src[\\/]plugin[\\/](standards[\\/].+)[\\/]index.tsx$/;
 
+/**
+ * 标准入口插件的加载器
+ */
 module.exports = function (source) {
   const match = this.resourcePath.match(nameMatchReg);
   if (!match) {

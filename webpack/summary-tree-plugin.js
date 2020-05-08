@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { standardMatchReg, partialMatchReg } = require('./common');
+const depcruise = require("dependency-cruiser").cruise;
 
 /**
  * 是否为标准的插件路径
@@ -94,10 +95,52 @@ function generatePluginTree(compilation) {
         .replace(/[-_]/g, ' ');
       addToTree(config.standards, reformed);
     } else {
+      if (reformed.id === 'standards_icon_basic') {
+        console.log(reformed, raw);
+      }
       addToTree(config.partials, reformed);
     }
   });
   fs.writeFileSync('./dist/tree.json', JSON.stringify(config));
+}
+
+function generatePluginTree2(compilation) {
+  // 通过chunks生成chunk名目标文件的映射关系,后面需要用到.
+  const chunkMap = {};
+  compilation.chunks.forEach(chunk => {
+    chunkMap[chunk.name] = chunk.files[0];
+  });
+  // 接下来我们来查找依赖关系
+  // 之前我们使用了webpack自身的chunks树来获取依赖关系
+  // 但是都是自己调试得到的接口,这些结构在文档中无说明,而且非常之复杂.
+  // 考虑到后续webpack可能发生变更,导致这些结构无法被使用,
+  // 或者对于复杂的依赖关系出现问题时,难以调试错误.
+  // 现在决定使用简单的第三方库来获取依赖树关系
+  // 然后再结合前面从webpack中抽出的chunk和目标文件的映射来在树中添加目标文件
+  // 而从webpack中抽出chunk映射不需要深入钻取webpack的内部结构,很简单
+  // 第三方的库则易于调试.方便.
+
+
+  // 我们只抓插件部分的依赖树
+  let dependencies = depcruise(["src/plugin"]).output;
+
+  const modules = dependencies.modules.filter(md => {
+    md.dependencies = md.dependencies.map(d => d.resolved)
+      .filter(d => {
+        // 来自标准入口插件
+        if (d.match(standardMatchReg)) {
+          // 只要index.tsx的
+          return d.endsWith('.index.tsx');
+          // 来自非标准入口的
+        } else {
+          // 满足ts模块即可
+          return d.match(/.tsx?/);
+        }
+      });
+    return md.source.match(/\.tsx?/);
+  });
+
+  console.log(modules);
 }
 
 
@@ -107,6 +150,7 @@ class SummaryTreePlugin {
       'SummaryTreePlugin',
       (compilation, callback) => {
         generatePluginTree(compilation);
+        generatePluginTree2(compilation);
         callback();
       }
     );

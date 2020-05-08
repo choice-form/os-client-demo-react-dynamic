@@ -5,10 +5,9 @@ const {
   isLocal, getConfigFile, getCoreSdkAlias, getDevPort,
   getDevPlugin, insureDistDir, getAssetsPath, getCdnFolder
 } = require('./webpack/dev');
-const { getPluginConfig } = require('./webpack/plugin-config');
+const { getStandardEntries, getSplitChunks } = require('./webpack//split-chunk');
 const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const pluginConfig = getPluginConfig();
 const LangPlugin = require('./webpack/lang-plugin/plugin');
 // const os = require('os');
 const { generateScssTree } = require('./webpack/scss');
@@ -17,7 +16,8 @@ generateScssTree();
 insureDistDir();
 
 const cdnFolder = getCdnFolder();
-
+const splitChunks = getSplitChunks();
+const standardEntries = getStandardEntries();
 
 module.exports = (env) => {
   const local = isLocal(env);
@@ -49,7 +49,7 @@ module.exports = (env) => {
 
   return {
     entry: {
-      ...pluginConfig.entries,
+      ...standardEntries,
       index: './src/app/index.tsx',
     },
     output: {
@@ -64,14 +64,14 @@ module.exports = (env) => {
         template: './src/app/index.html',
         filename: 'index.html',
         favicon: path.resolve('./src/app/favicon.ico'),
-        excludeChunks: Object.keys(pluginConfig.entries)
+        excludeChunks: Object.keys(standardEntries)
       }),
       new CleanWebpackPlugin(),
       new SummaryTreePlugin(),
       new MiniCssExtractPlugin({
-        filename: local 
-        ? `${cdnFolder}[name].css`
-        : `${cdnFolder}[name]-[contenthash:8].css`,
+        filename: local
+          ? `${cdnFolder}[name].css`
+          : `${cdnFolder}[name]-[contenthash:8].css`,
       }),
       new LangPlugin({ directory: 'lang', local }),
       ...getDevPlugin(env),
@@ -112,7 +112,7 @@ module.exports = (env) => {
               loader: 'ts-loader',
             },
             {
-              loader: require.resolve('./webpack/plugin-loader'),
+              loader: require.resolve('./webpack/standards-loader'),
             },
             {
               loader: LangPlugin.codeLoader,
@@ -168,7 +168,7 @@ module.exports = (env) => {
             test: /[\\/]src[\\/]utils[\\/]/,
             enforce: true,
           },
-          ...pluginConfig.splitChunks,
+          ...splitChunks,
         }
       }
     }
