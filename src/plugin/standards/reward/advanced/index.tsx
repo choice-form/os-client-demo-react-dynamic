@@ -2,7 +2,7 @@ import React from 'react';
 
 class RewardAdvanced extends React.Component {
   render(): JSX.Element {
-    return <div>RewardAdvanced 空容器</div>
+    return <div>RewardAdvanced 空容器 未实现</div>
   }
 }
 

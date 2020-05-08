@@ -1,6 +1,6 @@
 import React from 'react';
-import NodeHead from '../../../partials/basic/node-head';
-import OptionInput from '../../../partials/basic/option-input';
+import NodeHead from '../../../partials/components/basic/node-head';
+import OptionInput from '../../../partials/components/basic/option-input';
 
 interface IProps extends IQuesComBaseProps {
   node: CFCascadeQuestion;
@@ -11,6 +11,10 @@ interface IProps extends IQuesComBaseProps {
  * 只实现了下拉列表方式
  */
 class CascadeBasic extends React.Component<IProps> {
+  /**
+   * 导入自己独用的样式
+   */
+  static style: string = require('./style.scss');
   /**
    * 选项输入时的处理方法
    * @param cascade 级联项
@@ -54,7 +58,7 @@ class CascadeBasic extends React.Component<IProps> {
    */
   render(): JSX.Element {
     const { node, theme } = this.props;
-    return <div>
+    return <div className='basic-cascade'>
       <NodeHead node={node} theme={theme} />
       {this.renderDropdownUnit(node.cascade, null)}
     </div>
@@ -68,7 +72,7 @@ class CascadeBasic extends React.Component<IProps> {
     if (!cascade.list || cascade.list.length === 0) {
       return null;
     }
-    return <div>
+    return <div className='dropdown'>
       {/* 有可能需要输入框 */}
       {parentCascade && ((cascade.option.inputType === 'select-input'
         && cascade.option.selected)
@@ -81,7 +85,10 @@ class CascadeBasic extends React.Component<IProps> {
       {/* 下拉列表 */}
       <select multiple={cascade.multiple}
         onChange={(e) => this.handleSelect(cascade, e)}>
-        <option value={cascade.placeholder}>{cascade.placeholder}</option>
+        <option value={cascade.placeholder}
+          hidden={true}>
+          {cascade.placeholder}
+        </option>
         {cascade.list.map(sub => {
           return <option key={sub.text}
             value={sub.text}>

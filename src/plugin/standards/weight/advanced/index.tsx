@@ -10,7 +10,7 @@ class WeightAdvanced extends React.Component<IProps> {
    */
   render(): JSX.Element {
     return <div className='advanced-weight'>
-      <span>WeightAdvanced 空容器</span>
+      <span>WeightAdvanced 空容器 未实现</span>
     </div >
   }
 }

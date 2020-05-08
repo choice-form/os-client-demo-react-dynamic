@@ -1,5 +1,5 @@
 import React from "react";
-import NodeHead from '../../../partials/basic/node-head';
+import NodeHead from '../../../partials/components/basic/node-head';
 interface IProps extends IQuesComBaseProps {
   node: CFSelectQuestion;
 }

@@ -29,5 +29,9 @@ interface IOptionBaseProps {
    * 事件回调处理器
    */
   handler: CFUIEventHandler;
+  /**
+   * 主题信息
+   */
+  theme: CFTheme;
 }
 

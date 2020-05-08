@@ -10,7 +10,7 @@ class RatingAdvanced extends React.Component<IProps> {
    */
   render(): JSX.Element {
     return <div className='advanced-rating'>
-      <span>RatingAdvanced 空容器</span>
+      <span>RatingAdvanced 空容器 未实现</span>
     </div >
   }
 }

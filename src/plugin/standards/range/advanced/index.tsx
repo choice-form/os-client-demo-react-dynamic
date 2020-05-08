@@ -11,7 +11,7 @@ class RangeAdvanced extends React.Component<IProps> {
    */
   render(): JSX.Element {
     return <div>
-      <span>RangeAdvanced 空容器</span>
+      <span>RangeAdvanced 空容器 未实现</span>
     </div>
   }
 }
