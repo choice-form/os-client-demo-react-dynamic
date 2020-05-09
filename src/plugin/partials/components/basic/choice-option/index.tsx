@@ -59,6 +59,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
       </label>
       {needInput
         ? <OptionInput value={option.value}
+          placeholder={option.placeholder}
           message={option.errorMessage}
           handleChange={(v) => handleChange(v)}
         />

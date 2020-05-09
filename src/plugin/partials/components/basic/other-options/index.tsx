@@ -16,13 +16,15 @@ class OtherOptions extends React.Component<IProps>{
       {node.otherOptions.map(option => {
         // 纯备注的
         if (option.inputType === 'input') {
-          return <OptionInput value={option.value}
+          return <OptionInput value={option.value} key={option.renderId}
+            placeholder={option.placeholder}
             handleChange={(v) => handler.handleOptionInput(v, option, node)}
             message={option.errorMessage}
           />
           // 纯选项或选项加备注的
         } else {
           return <ChoiceOption option={option}
+            key={option.renderId}
             type={node.selectType}
             handler={handler}
             theme={theme}
