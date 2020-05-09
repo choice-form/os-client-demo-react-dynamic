@@ -52,6 +52,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
         }
         {option.image
           ? <img src={option.image.natural}
+            style={{ width: '200px' }}
             title={option.image.originName} />
           : null
         }

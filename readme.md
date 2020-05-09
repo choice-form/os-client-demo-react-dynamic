@@ -21,18 +21,21 @@
  + 标准入口插件,在`src/plugin/standards`文件夹下,每个节点有一个文件夹,这些文件夹名字固定,在这些文件夹下,创建多个任意名字的文件夹,就为该节点创建了多个渲染风格,每个文件下必须是一本`index.tsx`作为组件文件,如`src/plugin/standards/choice/basic/index.tsx`和`src/plugin/standards/choice/advanced/index.tsx`这两个文件,就会选择题创建了`基础`和`高级`两种渲染风格,在设计端选中选择题后,节点右侧的布局设置中,就可以下拉选择使用`basic`或`advanced`风格渲染.
  + 非标准入口插件,在`src/plugin/partials`文件夹下,可以任意自定义目录和文件名,和`standards`中不一样,这里面对文件夹命名没有要求,但是组件文件仍然得交index.tsx,如果是非组件模块则文件名字不限制.一般这里面的组件或模块会在不同的标准入口组件里面都会被使用
 
- + 所有的插件组件都必须使用export default导出;
+ + `plugin`文件加下的所有UI组件都必须使用`export default`导出;逻辑模块则可用`export default`也可用`export`导出
 
 ## 引用关系限制图
 箭头方向代表可引用的方向
-+ app <=> app => utils <=> utils
-+ plugin/standards => utils <=> utils
-+ plugin/standards => plugin/partials <=> plugin/partials
-+ plugin/partials <=> plugin/partials => utils <=> utils
++ `app <=> app => utils <=> utils`
++ `plugin/standards => utils <=> utils`
++ `plugin/standards => plugin/partials <=> plugin/partials`
++ `plugin/partials <=> plugin/partials => utils <=> utils`
 
 如果没有遵循以上的规则的应用关系,则构建时会报错.
 
-
+## 样式与HTML片段
++ 全局使用的通用样式放到主程序中,每次都会加载.
++ 插件组件自己独有的样式,在`index.tsx`边上新建一本`style.scss`文件,样式写在里面,然后要记得在index.tsx中的组件类上新加一个导入样式的代码`static style:string = require('./style.scss')`
++ HTML片段一般用来处理全局的图标库,在`src/app/index.html`中使用`<link href='./xxx/xxx.html'>`这样的格式导入
 
 ## 自定义设置
 从种子仓库为模板生成仓库后,需要自定义一些配置,再进行开发

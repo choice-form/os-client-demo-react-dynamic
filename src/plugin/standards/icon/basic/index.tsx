@@ -2,6 +2,7 @@ import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
 import ChoiceOption from '../../../partials/components/basic/choice-option';
 import OptionContainer from '../../../partials/components/basic/option-container';
+import OtherOptions from '../../../partials/components/basic/other-options';
 
 interface IProps extends IQuesComBaseProps {
   node: CFIconQuestion;
@@ -22,6 +23,7 @@ class IconBasic extends React.Component<IProps> {
             type={node.selectType} />
         })}
       </OptionContainer>
+      <OtherOptions handler={handler} theme={theme} node={node} />
     </div>
   }
 }

@@ -15,7 +15,7 @@ class NodeHead extends React.Component<IProps> {
    */
   render(): JSX.Element {
     const node = this.props.node as CFSelectQuestion;
-    return <div>
+    return <div className='node-head'>
       <NodeVideo node={node} />
       <NodeImage node={node} />
       <h1>{node.title}</h1>
