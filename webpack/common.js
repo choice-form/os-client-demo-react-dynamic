@@ -1,3 +1,4 @@
+const path = require('path');
 /**
  * 用于匹配标准入口插件路径规则的正则表达式
  */
@@ -10,6 +11,18 @@ const partialMatchReg = /src[\\/]plugin[\\/]partials[\\/]/;
  * 从项目根目录到插件仓库的路径片段表达式
  */
 const pluginPrefixMatchReg = /(?:.+[\\/])?src[\\/]plugin[\\/]/;
+/**
+ * 主程序路径匹配正则
+ */
+const appMatchReg = /src[\\/]app[\\/]/;
+/**
+ * 工具程序路径匹配规则
+ */
+const utilsMatchReg = /src[\\/]utils[\\/]/;
+/**
+ * 插件程序路径匹配规则
+ */
+const pluginMatchReg = /src[\\/]plugin[\\/]/;
 /**
  * 从项目根目录到插件仓库的路径
  */
@@ -31,18 +44,17 @@ const partialFolderName = 'partials';
  */
 const partialPath = pluginRoot + partialFolderName;
 
-
 /**
  * 是否为标准的插件路径
- * @param p 
+ * @param file  文件名
  */
-function isStandardPluginFile(p) {
-  return !!p.match(standardMatchReg);
+function isStandardPluginFile(file) {
+  return !!file.match(standardMatchReg);
 }
 
 /**
  * 是否为有效的插件文件
- * @param {string} file 
+ * @param {string} file 文件名
  */
 function isUsefulPluginFile(file) {
   // 来自标准入口插件
@@ -57,7 +69,7 @@ function isUsefulPluginFile(file) {
 }
 /**
  * 根据文件名得到要生成的chunk名
- * @param {string} file 
+ * @param {string} file 文件名
  */
 function getChunkName(file) {
   let result = '';
@@ -81,6 +93,59 @@ function getChunkName(file) {
     .replace(/[\\/]/g, '_');
 }
 
+/**
+ * 获取模块的基本性质
+ * @param {*} file 文件名
+ */
+function getModulePortrait(file) {
+  const portrait = { file: path.resolve(file) };
+  if (file.match(appMatchReg)) {
+    portrait.isApp = true;
+  } else if (file.match(utilsMatchReg)) {
+    portrait.isUtils = true;
+  } else if (file.match(pluginMatchReg)) {
+    portrait.isPlugins = true;
+    if (file.match(standardMatchReg)) {
+      portrait.isStandards = true;
+    } else {
+      portrait.isPartials = true;
+    }
+  }
+  return portrait;
+}
+/**
+ * 是否为坏的的依赖关系
+ * @param {*} main 主模块
+ * @param {*} dependency 依赖模块
+ */
+function testBadDependency(main, dependency) {
+  if (main.isApp && dependency.isPlugins) {
+    return '主程序src/app中的模块不能引用插件程序src/plugin中的模块\n但是:\n'
+      + main.file + '\n 引用了 \n' + dependency.file;
+  }
+
+  if (main.isPlugins && dependency.isApp) {
+    return '插件程序src/plugin中的模块不能引用主程序src/app中的模块\n但是:\n'
+      + main.file + '\n 引用了 \n' + dependency.file;
+  }
+
+  if (main.isUtils && dependency.isApp) {
+    return '工具程序src/utils中的模块不能引用主程序src/app中的模块\n但是:\n'
+      + main.file + '\n 引用了 \n' + dependency.file;
+  }
+
+  if (main.isUtils && dependency.isPlugins) {
+    return '工具程序src/utils中的模块不能引用主程序src/plugin中的模块\n但是:\n'
+      + main.file + '\n 引用了 \n' + dependency.file;
+  }
+
+  if (main.isPartials && dependency.isStandards) {
+    return '工具程序src/plugin/partials中的模块不能引用主程序src/plugin/standards中的模块\n'
+      + main.file + '\n 引用了 \n' + dependency.file;
+  }
+  return '';
+}
+
 module.exports = {
   standardMatchReg,
   partialMatchReg,
@@ -92,5 +157,7 @@ module.exports = {
   partialFolderName,
   pluginPrefixMatchReg,
   getChunkName,
-  isStandardPluginFile
+  isStandardPluginFile,
+  getModulePortrait,
+  testBadDependency
 };

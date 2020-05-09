@@ -48,6 +48,7 @@ module.exports = (env) => {
 
 
   return {
+    stats: 'minimal',
     entry: {
       ...standardEntries,
       index: './src/app/index.tsx',
@@ -67,7 +68,7 @@ module.exports = (env) => {
         excludeChunks: Object.keys(standardEntries)
       }),
       new CleanWebpackPlugin(),
-      new SummaryTreePlugin(),
+      new SummaryTreePlugin({ local }),
       new MiniCssExtractPlugin({
         filename: local
           ? `${cdnFolder}[name].css`
@@ -137,6 +138,9 @@ module.exports = (env) => {
       headers: { "Access-Control-Allow-Origin": "*" },
       host: '0.0.0.0',
       port: getDevPort(),
+      // 这下面这个配置如果开启,则每次任何更改,即使是样式也会重新刷新页面
+      // 如果关闭,则更改样式不会刷新页面,但会更新样式效果,但是更改html片段也不会被刷新,看不到更新效果
+      // 自己按需控制
       // watchContentBase: true,
       hot: true,
     } : undefined,

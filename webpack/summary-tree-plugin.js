@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { getDependencyTree } = require('./dependency-tree');
+const { getDependencyTree, checkDependencyRules } = require('./dependency-tree');
 
 
 function generatePluginTree(compilation) {
@@ -20,10 +20,6 @@ function generatePluginTree(compilation) {
 
   // 获取到依赖树
   const tree = getDependencyTree(chunkMap);
-
-  // 上面得到的是春依赖书,但没有和构建后的目标文件联系起来,
-  // 这一步我们从之前的chunkMap中找到目标文件,把他们联系起来
-  console.log(chunkMap);
   fs.writeFileSync('./dist/tree.json', JSON.stringify(tree));
 }
 
@@ -31,12 +27,31 @@ function generatePluginTree(compilation) {
  * 生成动态加载模块依赖树的webpack插件
  */
 class SummaryTreePlugin {
+  constructor(options) {
+    this.options = options || {};
+  }
   apply(compiler) {
+    const { options: { local } } = this;
     compiler.hooks.emit.tapAsync(
       'SummaryTreePlugin',
       (compilation, callback) => {
+
         generatePluginTree(compilation);
         callback();
+      }
+    );
+    compiler.hooks.compile.tap(
+      'SummaryTreePlugin',
+      () => {
+        const error = checkDependencyRules();
+        if (error) {
+          if (local) {
+            console.log('\x1b[31m', error);
+          } else {
+            throw error;
+          }
+
+        }
       }
     );
   }

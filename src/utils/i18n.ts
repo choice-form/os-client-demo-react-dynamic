@@ -1,6 +1,5 @@
 import { I18n } from '@choiceform/os-client-core'
 
-
 const mf = new I18n.MessageFormat();
 
 /**
