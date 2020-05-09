@@ -51,6 +51,13 @@ const partialPath = pluginRoot + partialFolderName;
 function isStandardPluginFile(file) {
   return !!file.match(standardMatchReg);
 }
+/**
+ * 是否为非标准的插件路径
+ * @param {*} file 文件名
+ */
+function isPartialPluginFile(file) {
+  return !!file.match(partialMatchReg);
+}
 
 /**
  * 是否为有效的插件文件
@@ -62,16 +69,17 @@ function isUsefulPluginFile(file) {
     // 只要index.tsx的
     return file.endsWith('index.tsx');
     // 来自非标准入口的
-  } else {
+  } else if (isPartialPluginFile(file)) {
     // 满足ts模块即可
     return !!file.match(/\.tsx?$/);
   }
+  return false;
 }
 /**
- * 根据文件名得到要生成的chunk名
+ * 根据文件名得到要独立生成的chunk名
  * @param {string} file 文件名
  */
-function getChunkName(file) {
+function getSplitChunkName(file) {
   let result = '';
   // 标准入口插件,把index后缀去掉
   if (isStandardPluginFile(file)) {
@@ -156,7 +164,7 @@ module.exports = {
   partialPath,
   partialFolderName,
   pluginPrefixMatchReg,
-  getChunkName,
+  getSplitChunkName,
   isStandardPluginFile,
   getModulePortrait,
   testBadDependency

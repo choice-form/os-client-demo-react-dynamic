@@ -1,5 +1,6 @@
 
-const nameMatchReg = /[\\/]src[\\/]plugin[\\/](standards[\\/].+)[\\/]index.tsx$/;
+const { getSplitChunkName, isUsefulPluginFile } = require('./common');
+// const nameMatchReg = /[\\/]src[\\/]plugin[\\/]((?:standards|partials)[\\/].+)[\\/]index\.tsx$/;
 
 /**
  * 标准入口插件的加载器
@@ -8,12 +9,12 @@ const nameMatchReg = /[\\/]src[\\/]plugin[\\/](standards[\\/].+)[\\/]index.tsx$/
  * 添加一下代码将组件粘附到双方协定好的一个全局属性上.
  */
 module.exports = function (source) {
-  const match = this.resourcePath.match(nameMatchReg);
-  if (!match) {
+  const file = this.resourcePath;
+  if (!isUsefulPluginFile(file)) {
     return source;
   }
+  const name = getSplitChunkName(this.resourcePath);
   // 偷偷在插件的默认导出中注入粘附到全局的代码
-  const name = match[1].replace(/[\\/]/g, '_');
   const parsed = source.replace(/export\s+default/,
     `export default (window as any).CF_UI_COMS["${name}"] =`);
   return parsed;

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const {
   isUsefulPluginFile, partialPath,
-  standardPath, getChunkName
+  standardPath, getSplitChunkName
 } = require('./common');
 
 
@@ -36,7 +36,7 @@ function getStandardEntries() {
   const entries = {};
   standardFiles.forEach(file => {
     // 获取名称
-    const entryName = getChunkName(file);
+    const entryName = getSplitChunkName(file);
     entries[entryName] = file;
   });
   return entries;
@@ -52,7 +52,7 @@ function getSplitChunks() {
   const splitChunks = {};
   partialFiles.forEach(file => {
     // 获取名称
-    const chunkName = getChunkName(file);
+    const chunkName = getSplitChunkName(file);
     splitChunks[chunkName] = {
       chunks: 'all',
       name: chunkName,

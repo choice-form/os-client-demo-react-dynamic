@@ -19,7 +19,9 @@
 + 工具程序,是放到`src/utils`下面的程序,指一些单独的模块,是主程序和插件程序都想使用的一些模块,这里面的模块可以被主程序和插件程序引用,但是不能反过来引用主程序和插件程序的模块,比如我们现在就在其中有一个多语言翻译模块,
 + 插件程序内部
  + 标准入口插件,在`src/plugin/standards`文件夹下,每个节点有一个文件夹,这些文件夹名字固定,在这些文件夹下,创建多个任意名字的文件夹,就为该节点创建了多个渲染风格,每个文件下必须是一本`index.tsx`作为组件文件,如`src/plugin/standards/choice/basic/index.tsx`和`src/plugin/standards/choice/advanced/index.tsx`这两个文件,就会选择题创建了`基础`和`高级`两种渲染风格,在设计端选中选择题后,节点右侧的布局设置中,就可以下拉选择使用`basic`或`advanced`风格渲染.
- + 非标准入口插件,在`src/plugin/partials`文件夹下,可以任意自定义目录和文件名,和`standards`中不一样,这里面对明明没有要求,在这里可以放一些组件,一般这些组件在不同的标准入口组件里面都会被使用
+ + 非标准入口插件,在`src/plugin/partials`文件夹下,可以任意自定义目录和文件名,和`standards`中不一样,这里面对文件夹命名没有要求,但是组件文件仍然得交index.tsx,如果是非组件模块则文件名字不限制.一般这里面的组件或模块会在不同的标准入口组件里面都会被使用
+
+ + 所有的插件组件都必须使用export default导出;
 
 ## 引用关系限制图
 箭头方向代表可引用的方向
@@ -28,6 +30,7 @@
 + plugin/standards => plugin/partials <=> plugin/partials
 + plugin/partials <=> plugin/partials => utils <=> utils
 
+如果没有遵循以上的规则的应用关系,则构建时会报错.
 
 
 

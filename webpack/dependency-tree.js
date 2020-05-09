@@ -1,4 +1,4 @@
-const { isStandardPluginFile, getChunkName,
+const { isStandardPluginFile, getSplitChunkName,
   isUsefulPluginFile, getModulePortrait,
   testBadDependency } = require('./common');
 const depcruise = require("dependency-cruiser").cruise;
@@ -48,10 +48,10 @@ function getDependencyTree(chunkMap) {
     const filePath = md.source;
     // 只要ts模块
     if (filePath.match(/\.tsx?$/)) {
-      const id = getChunkName(filePath);
+      const id = getSplitChunkName(filePath);
       const dependencies = md.dependencies.map(d => d.resolved)
         .filter(d => isUsefulPluginFile(d))
-        .map(d => getChunkName(d));
+        .map(d => getSplitChunkName(d));
       // 从chunkMap中获取到目标文件
       const file = chunkMap[id];
       // 通用树叶
