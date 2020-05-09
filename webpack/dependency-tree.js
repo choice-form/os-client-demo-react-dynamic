@@ -1,0 +1,47 @@
+const { isStandardPluginFile, getChunkName,
+  isUsefulPluginFile } = require('./common');
+const depcruise = require("dependency-cruiser").cruise;
+
+
+
+/**
+ * 获取到依赖树,先通过第三方插件获取依赖树,然后节后webpack的chunkMap
+ * 把依赖树和目标chunk文件关联起来
+ * @param {{[key:string]:string}} chunkMap webpack的chunkMap,
+ * 其中存储了chunk名目标文件映射
+ */
+function getDependencyTree(chunkMap) {
+  // 我们只抓插件部分的依赖树
+  let dependencies = depcruise(["src/plugin"]).output;
+  const tree = {
+    partials: [],
+    standards: []
+  };
+  dependencies.modules.forEach(md => {
+    const filePath = md.source;
+    // 只要ts模块
+    if (filePath.match(/\.tsx?$/)) {
+      const id = getChunkName(filePath);
+      const dependencies = md.dependencies.map(d => d.resolved)
+        .filter(d => isUsefulPluginFile(d))
+        .map(d => getChunkName(d));
+      // 从chunkMap中获取到目标文件
+      const file = chunkMap[id];
+      // 通用树叶
+      const item = { id, file, dependencies };
+      // 标准入口组件
+      if (isStandardPluginFile(filePath)) {
+        const name = filePath.match(/[\\/]([^\\/]+)[\\/]index\.tsx/)[1];
+        const type = filePath.match(/[\\/]([^\\/]+)[\\/][^\\/]+[\\/]index\.tsx/)[1];
+        tree.standards.push({ ...item, type, name });
+      } else {
+        tree.partials.push({ ...item });
+      }
+    }
+  });
+  return tree;
+}
+
+module.exports = {
+  getDependencyTree,
+};

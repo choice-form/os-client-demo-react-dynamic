@@ -1,6 +1,9 @@
 const recursive = require('recursive-readdir');
 const fs = require('fs');
 
+/**
+ * 运行该方法可以自动帮主程序生成scss文件的依赖树,全部加入到app.scss中
+ */
 function generateScssTree() {
   recursive('src/app', [], function (err, files) {
     let content = '';

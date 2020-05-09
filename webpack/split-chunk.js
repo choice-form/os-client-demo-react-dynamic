@@ -35,11 +35,8 @@ function getStandardEntries() {
   const standardFiles = getSplitFiles(standardPath);
   const entries = {};
   standardFiles.forEach(file => {
-    // 标准插件都是index.tsx结尾的
-    // 找到所在文件夹
-    const folder = file.replace(/[\\/]index?\.tsx$/, '');
-    // 去除前缀并替换文件夹分隔符
-    const entryName = getChunkName(folder);
+    // 获取名称
+    const entryName = getChunkName(file);
     entries[entryName] = file;
   });
   return entries;
@@ -54,15 +51,8 @@ function getSplitChunks() {
   // 其他插件都需要配置分离构建
   const splitChunks = {};
   partialFiles.forEach(file => {
-    // 其他插件可能是任何名成的ts模块
-    // 如果是以index.tsx结尾的,则去掉index.tsx
-    // 否则只去掉后缀
-    // 找到所在文件夹
-    // 先去掉index.tsx结尾,如果不是这种格式的则这一步什么都没干
-    // 下一步可以在去掉后缀
-    const folder = file.replace(/[\\/]index?\.tsx$/, '')
-      .replace(/\.tsx?$/, '');
-    const chunkName = getChunkName(folder);
+    // 获取名称
+    const chunkName = getChunkName(file);
     splitChunks[chunkName] = {
       chunks: 'all',
       name: chunkName,
