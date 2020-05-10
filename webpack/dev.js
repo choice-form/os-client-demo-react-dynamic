@@ -68,7 +68,7 @@ function getDevPlugin(env) {
     const list = ['zh_cn', 'en_us'].map(name => {
       const fileName = name + '-00000000.json';
       return {
-        from: debugSdkPath.replace(/\/[^/]+$/, '/' + fileName),
+        from: debugSdkPath.replace(/[\\/][^\\/]+$/, '/' + fileName),
         to: path.resolve(`./dist/${getCdnFolder()}debug/` + fileName)
       };
     });
@@ -82,6 +82,7 @@ function getDevPlugin(env) {
       from: debugSdkPath,
       to: path.resolve(`./dist/${getCdnFolder()}` + sdkFileName)
     });
+    console.log(list);
     return [
       new CopyWebpackPlugin(list),
     ];
