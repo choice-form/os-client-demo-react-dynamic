@@ -8,8 +8,24 @@ interface IProps extends IQuesComBaseProps {
   node: CFMenuQuestion;
 }
 
-
+/**
+ * 菜单题组件
+ */
 class DropdownBasic extends React.Component<IProps> {
+  /**
+   * 处理点击变化
+   * @param value 最后点击的选项文字
+   */
+  handleChange(value: string): void {
+    const { node, handler } = this.props;
+    // 找到对应选项序号
+    const index = this.props.node.options
+      .map(opt => opt.text).indexOf(value);
+    handler.handleMenuClick(index, node);
+  }
+  /**
+   * 渲染
+   */
   render(): JSX.Element {
     const { node, theme, handler } = this.props;
     const selectedValues = node.options.filter(opt => opt.selected)
@@ -19,14 +35,13 @@ class DropdownBasic extends React.Component<IProps> {
       <OptionContainer>
         <select multiple={node.multiple}
           value={selectedValues}
-          onChange={() => { /** 保留 */ }}>
+          onChange={(e) => this.handleChange(e.target.value)}>
           <option hidden={true}
             value={node.placeholder}>
             {node.placeholder}
           </option>
-          {node.options.map((option, index) => {
+          {node.options.map(option => {
             return <option key={option.text}
-              onClick={() => handler.handleMenuClick(index, node)}
               value={option.text}>
               {option.text}
             </option>

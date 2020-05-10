@@ -30,28 +30,13 @@ class CascadeBasic extends React.Component<IProps> {
   /**
    * 选中级联项时的处理方法
    * @param cascade 级联项
-   * @param e 事件参数
+   * @param value 最后点击的项目文字
    */
-  handleSelect(cascade: CFCascade, e: React.ChangeEvent<HTMLSelectElement>): void {
-    // 级联题选中后可以调用handleOptionClick方法
-    // 或者调用handleCascadeClick方法,
-    // 前者要求传递的一个CascadeClickResult对象
-    // 后者要求传递选择的级联项在所属列表中的索引,一般来说调用后者更简单
-    // 但是我们这里用的原生的HTML的select组件,这个组件开启了多选的时候,即使进行单选操作
-    // 原来选中的项目也不会被取消掉,所以仅仅传递选中项的索引不够,我们调用前者
-    const { handler, node } = this.props;
-    const resultList = Array.from(e.target.options).reduce((rs, opt) => {
-      if (opt.selected) {
-        rs.push(opt.value);
-      }
-      return rs;
-    }, [] as string[])
-    const param: CascadeClickResult = {
-      resultList,
-      list: cascade.list,
-      group: cascade,
-    }
-    handler.handleOptionClick(param, node);
+  handleSelect(cascade: CFCascade, value: string): void {
+    const { node, handler } = this.props;
+    const index = cascade.list.map(item => item.option.text)
+      .indexOf(value);
+    handler.handleCascadeClick(index, cascade, node);
   }
   /**
    * 渲染
@@ -72,6 +57,8 @@ class CascadeBasic extends React.Component<IProps> {
     if (!cascade.list || cascade.list.length === 0) {
       return null;
     }
+    const selectedValues = cascade.list.filter(item => item.option.selected)
+      .map(item => item.option.text);
     return <div className='dropdown'>
       {/* 有可能需要输入框 */}
       {parentCascade && ((cascade.option.inputType === 'select-input'
@@ -85,7 +72,8 @@ class CascadeBasic extends React.Component<IProps> {
         : null}
       {/* 下拉列表 */}
       <select multiple={cascade.multiple}
-        onChange={(e) => this.handleSelect(cascade, e)}>
+        value={selectedValues}
+        onChange={(e) => this.handleSelect(cascade, e.target.value)}>
         <option value={cascade.placeholder}
           hidden={true}>
           {cascade.placeholder}
