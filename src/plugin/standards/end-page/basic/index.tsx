@@ -1,8 +1,16 @@
 import React from 'react';
+import NodeHead from '../../../partials/components/basic/node-head';
 
-class EndPageBasic extends React.Component {
+interface IProps extends IQuesComBaseProps {
+  node: CFEndQuestion;
+}
+
+class EndPageBasic extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div>EndPageBasic</div>
+    const { node, theme } = this.props;
+    return <div className='basic-end'>
+      <NodeHead node={node} theme={theme} />
+    </div>
   }
 }
 

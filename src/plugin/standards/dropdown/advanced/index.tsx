@@ -1,7 +1,11 @@
 import React from 'react';
 
-class DropdownAdvanced extends React.Component {
-  render():JSX.Element {
+interface IProps extends IQuesComBaseProps {
+  node: CFMenuQuestion;
+}
+
+class DropdownAdvanced extends React.Component<IProps> {
+  render(): JSX.Element {
     return <div>DropdownAdvanced 空容器 未实现</div>
   }
 }
