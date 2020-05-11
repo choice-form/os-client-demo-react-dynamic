@@ -1,4 +1,8 @@
 const enUS: ILang = {
+  reward: {
+    wechat: 'wechat red packet:',
+    custom: "Keep code to get reward:",
+  },
   slideRate: {
     prev: '上一项',
     next: '下一项'

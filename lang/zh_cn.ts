@@ -1,4 +1,8 @@
 const zhCN = {
+  reward:{
+    wechat: '微信红包奖励',
+    custom: "保留核销码或凭手机获取短信作为领奖凭证",
+  },
   slideRate: {
     prev: '上一项',
     next: '下一项'

@@ -47,7 +47,7 @@ class SlideRateBasic extends React.Component<IProps, IState> {
               onClick={() => handler.handleOptionInput(rate.value, option, node)}>
               <label htmlFor={rateId}>
                 <input type="radio" id={rateId}
-                  onChange={() => {/** 保留这个空回调来组织React报错 */ }}
+                  onChange={() => {/** 保留这个空回调来阻止React报错 */ }}
                   checked={option.value === rate.value} />
                 {rate.url
                   ? <OptionIcon iconUrl={rate.url}
