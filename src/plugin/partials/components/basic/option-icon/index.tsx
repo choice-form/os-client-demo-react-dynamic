@@ -53,7 +53,7 @@ class OptionIcon extends React.Component<IProps>{
       <div className={activated ? null : 'hidden'}
         ref={this.iconActiveRef}></div>
       <div className={activated ? 'hidden' : null}
-        ref={this.iconRef}></div>}
+        ref={this.iconRef}></div>
     </div>
   }
 }
