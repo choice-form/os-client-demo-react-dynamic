@@ -1,4 +1,6 @@
 import React from 'react';
+import NodeHead from '../../../partials/components/basic/node-head';
+import OptionContainer from '../../../partials/components/basic/option-container';
 
 interface IProps extends IQuesComBaseProps {
   node: CFRegionQuestion;
@@ -21,8 +23,12 @@ class RegionAdvanced extends React.Component<IProps> {
     const { node, handler } = this.props;
     handler.handleManualLocate(`${value} 0 0`, node);
   }
+
+  /**
+   * 渲染
+   */
   render(): JSX.Element {
-    const { node } = this.props;
+    const { node, theme } = this.props;
     const indexes = node.indexes.split(' ').map(t => Number(t));
     const provinces = node.regions;
     const selectedProvinceIndex = indexes[0];
@@ -44,44 +50,47 @@ class RegionAdvanced extends React.Component<IProps> {
       }
     }
     return <div className='basic-region'>
-      <select value={selectedProvinceIndex}
-        onChange={(e) => this.handleProvinceChange(e.target.value)}>
-        <option value={node.placeholder} hidden={true}>
-          {node.placeholder}
-        </option>
-        {provinces.map((prov, index) => {
-          return <option value={index} key={index}>
-            {prov.Meaning}
-          </option>
-        })}
-      </select>
-      {cities
-        ? <select value={selectedCityIndex}
-          onChange={(e) => this.handleCityChange(e.target.value)}>
+      <NodeHead node={node} theme={theme} />
+      <OptionContainer>
+        <select value={selectedProvinceIndex}
+          onChange={(e) => this.handleProvinceChange(e.target.value)}>
           <option value={node.placeholder} hidden={true}>
             {node.placeholder}
           </option>
-          {cities.map((city, index) => {
+          {provinces.map((prov, index) => {
             return <option value={index} key={index}>
-              {city.Meaning}
+              {prov.Meaning}
             </option>
           })}
         </select>
-        : null}
+        {cities
+          ? <select value={selectedCityIndex}
+            onChange={(e) => this.handleCityChange(e.target.value)}>
+            <option value={node.placeholder} hidden={true}>
+              {node.placeholder}
+            </option>
+            {cities.map((city, index) => {
+              return <option value={index} key={index}>
+                {city.Meaning}
+              </option>
+            })}
+          </select>
+          : null}
 
-      {counties
-        ? <select value={selectedCountyIndex}
-          onChange={(e) => this.handleCountyChange(e.target.value)}>
-          <option value={node.placeholder} hidden={true}>
-            {node.placeholder}
-          </option>
-          {counties.map((county, index) => {
-            return <option value={index} key={index}>
-              {county.Meaning}
+        {counties
+          ? <select value={selectedCountyIndex}
+            onChange={(e) => this.handleCountyChange(e.target.value)}>
+            <option value={node.placeholder} hidden={true}>
+              {node.placeholder}
             </option>
-          })}
-        </select>
-        : null}
+            {counties.map((county, index) => {
+              return <option value={index} key={index}>
+                {county.Meaning}
+              </option>
+            })}
+          </select>
+          : null}
+      </OptionContainer>
     </div>
   }
 }

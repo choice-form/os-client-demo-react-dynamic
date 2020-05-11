@@ -1,7 +1,9 @@
 import React from "react";
 import NodeHead from "../../../partials/components/basic/node-head";
+import OptionContainer from "../../../partials/components/basic/option-container";
+import OtherOptions from "../../../partials/components/basic/other-options";
 
-interface IProps extends IQuesComBaseProps{
+interface IProps extends IQuesComBaseProps {
   node: CFGraphMarkQuestion;
 }
 
@@ -27,24 +29,26 @@ class RatingBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, handler, theme } = this.props;
     return <div className='basic-rating'>
-      <span>RatingBasic</span>
       <NodeHead node={node} theme={theme} />
-      {node.options.map(opt => {
-        const iconList = this.getIconList(opt);
-        return < div key={opt.renderId} >
-          <span>{opt.text}</span>
-          <div className='rate-icon-list'>
-            {iconList.map((_icon, index) => {
-              return <span key={index}
-                className={(opt.value > index) ? 'active' : ''}
-                onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
-              </span>
-            })}
-            <span>{opt.value || 0}</span>
+      <OptionContainer>
+        {node.options.map(opt => {
+          const iconList = this.getIconList(opt);
+          return < div key={opt.renderId} >
+            <span>{opt.text}</span>
+            <div className='rate-icon-list'>
+              {iconList.map((_icon, index) => {
+                return <span key={index}
+                  className={(opt.value > index) ? 'active' : ''}
+                  onClick={() => handler.handleOptionInput(index + 1, opt, node)}>
+                </span>
+              })}
+              <span>{opt.value || 0}</span>
+            </div>
           </div>
-        </div>
-      })
-      }
+        })
+        }
+      </OptionContainer>
+      <OtherOptions node={node} handler={handler} theme={theme} />
     </div >
   }
 }
