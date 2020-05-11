@@ -1,4 +1,15 @@
 const enUS: ILang = {
+  slideRate: {
+    prev: '上一项',
+    next: '下一项'
+  },
+  verification: {
+    inputPhone: 'Input Phone Number',
+    inputCode: 'Input Code',
+    getCapture: 'Get graphic verification code',
+    inputPswd: 'Input Password',
+    getMessage: 'Get Message'
+  },
   preview: {
     title: 'Preview & Test',
     bookmark: {

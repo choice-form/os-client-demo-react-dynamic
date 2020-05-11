@@ -41,7 +41,8 @@ class ChoiceOption extends React.Component<IProps, IState> {
       <label htmlFor={option.renderId}>
         <input type={type} id={option.renderId}
           checked={option.selected}
-          onChange={() => handleClick()} />
+          onClick={() => handleClick()}
+          onChange={() => { /** 保留这个空回调来阻止React报错 */ }} />
         <span>{option.text}</span>
         {option.icon
           ? <OptionIcon iconUrl={option.icon}

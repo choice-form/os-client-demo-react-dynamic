@@ -7,7 +7,7 @@ interface IProps {
 class StartBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { model } = this.props;
-    return <div>
+    return <div className='basic-start'>
       {model.images.map(image => {
         return <img src={image.large}
           style={{ width: '300px' }}

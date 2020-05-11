@@ -1,4 +1,15 @@
 const zhCN = {
+  slideRate: {
+    prev: '上一项',
+    next: '下一项'
+  },
+  verification: {
+    inputPhone: '请输入手机号',
+    inputCode: '请输入验证码',
+    getCapture: '获取图形验证码',
+    inputPswd: '请输入密码',
+    getMessage: '获取短信验证码'
+  },
   preview: {
     title: '预览测试',
     bookmark: {
