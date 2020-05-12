@@ -1,7 +1,6 @@
 import React from "react";
 
 interface IProps extends IQuesComBaseProps {
-  handler: CFUIEventHandler;
   node: CFValueMarkQuestion;
 }
 

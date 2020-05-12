@@ -7,6 +7,9 @@ interface IProps extends IQuesComBaseProps {
   node: CFWeightQuestion;
 }
 
+/**
+ * 权重题
+ */
 class WeightBasic extends React.Component<IProps> {
   static style: string = require('./style.scss')
   /**
@@ -15,7 +18,6 @@ class WeightBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, handler, theme } = this.props;
     return <div className='basic-weight'>
-      <span>WeightBasic</span>
       <NodeHead node={node} theme={theme} />
       <div className='weight-indicator'>
         {node.options.map(opt => {
