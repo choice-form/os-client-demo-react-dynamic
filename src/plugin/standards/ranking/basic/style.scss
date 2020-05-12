@@ -1,0 +1,11 @@
+.basic-ranking {
+  .drag-item {
+    > * {
+      pointer-events: none;
+    }
+    border: solid 1px transparent;
+    &.drop-target{
+      border: solid 1px black;
+    }
+  }
+}
