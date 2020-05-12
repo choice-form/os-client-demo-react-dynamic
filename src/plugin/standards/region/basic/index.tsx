@@ -51,7 +51,7 @@ class RegionAdvanced extends React.Component<IProps> {
     }
     return <div className='basic-region'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         <select value={selectedProvinceIndex}
           onChange={(e) => this.handleProvinceChange(e.target.value)}>
           <option value={node.placeholder} hidden={true}>

@@ -16,7 +16,7 @@ class FileUploadBasic extends React.Component<IProps> {
     const { node, theme, handler } = this.props;
     return <div className='basic-file-upload'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         {node.options.map(option => {
           return <div key={option.renderId}>
             <button onClick={() => handler.handleOptionClick(option, node)}>

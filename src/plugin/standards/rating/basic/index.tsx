@@ -30,7 +30,7 @@ class RatingBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-rating'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         {node.options.map(opt => {
           const iconList = this.getIconList(opt);
           return < div key={opt.renderId} >

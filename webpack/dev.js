@@ -82,7 +82,6 @@ function getDevPlugin(env) {
       from: debugSdkPath,
       to: path.resolve(`./dist/${getCdnFolder()}` + sdkFileName)
     });
-    console.log(list);
     return [
       new CopyWebpackPlugin(list),
     ];

@@ -15,13 +15,12 @@ class ShortTextBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-short-text'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
-        {node.options.map(opt => {
-          return <OptionInput key={opt.renderId}
-            value={opt.value}
-            placeholder={opt.placeholder}
-            handleChange={(e) => handler.handleOptionInput(e, opt, node)}
-            message={opt.errorMessage} />
+      <OptionContainer theme={theme}>
+        {node.options.map(option => {
+          return <OptionInput key={option.renderId}
+            option={option}
+            theme={theme}
+            handleChange={(e) => handler.handleOptionInput(e, option, node)} />
         })}
       </OptionContainer>
     </div>

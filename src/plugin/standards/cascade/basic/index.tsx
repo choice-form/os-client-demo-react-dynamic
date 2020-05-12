@@ -65,10 +65,9 @@ class CascadeBasic extends React.Component<IProps> {
         && cascade.option.selected)
         || cascade.option.inputType === 'input')
         ? <OptionInput
-          placeholder={cascade.placeholder}
-          handleChange={(v) => this.handleInput(cascade, v, parentCascade)}
-          value={cascade.option.value}
-          message={cascade.option.errorMessage} />
+          option={cascade.option}
+          theme={this.props.theme}
+          handleChange={(v) => this.handleInput(cascade, v, parentCascade)} />
         : null}
       {/* 下拉列表 */}
       <select multiple={cascade.multiple}

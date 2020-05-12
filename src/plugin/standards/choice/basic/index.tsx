@@ -15,7 +15,7 @@ class ChoiceBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-choice'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         {node.options.map(option => {
           return <ChoiceOption option={option}
             handleChange={(v) => handler.handleOptionInput(v, option, node)}

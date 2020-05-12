@@ -32,7 +32,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
     this.state = { selected: false };
   }
   render(): JSX.Element {
-    const { type, handleChange, handleClick } = this.props;
+    const { type, handleChange, handleClick, theme } = this.props;
     const option = this.props.option as CFIconOption & CFSelectPicOption;
     // 选项加备注选中时需要输入框
     const needInput = option.selected
@@ -59,9 +59,8 @@ class ChoiceOption extends React.Component<IProps, IState> {
         }
       </label>
       {needInput
-        ? <OptionInput value={option.value}
-          placeholder={option.placeholder}
-          message={option.errorMessage}
+        ? <OptionInput option={option}
+          theme={theme}
           handleChange={(v) => handleChange(v)}
         />
         : null

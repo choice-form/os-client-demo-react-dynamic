@@ -62,14 +62,40 @@
 + 做好以上准备后就可以开发组件了
 + 通用的第三方资源在app中引入,每次都会被加载
 + 每个组件自己使用的资源在这个组件中引用,每个组件自己的样式需要按basic中的示例规则引入.
-+ html模板参照index.html中的方式引入
-+ 多语言直接应用utils中i18n中的T(LANG.xxxx.xxxx)方式进行翻译,可以搜索示例代码.
++ `html`模板参照`index.html`中的方式引入
++ 多语言直接应用`utils`中`i18n`中的`T(LANG.xxxx.xxxx)`方式进行翻译,可以搜索示例代码.
 + 引用主题
- + app.tsx中通过getTheme方法获取主题
- + 路由组件中通过this.props.model.theme获取主题
- + 节点组件中通过this.props.theme获取主题
+ + `app.tsx`中通过`getTheme`方法获取主题
+ + 路由组件中通过`this.props.model.theme`获取主题
+ + 节点组件中通过`this.props.theme`获取主题
  + 其他更小分支上的组件中如有要用到主题,通过路由或者节点组件将主题传进去即可.
 
+ ## 题目组件
+ 上面的`开始编写`中的大部分事情,种子仓库中都已经布置好了,一般不需要改动,后面一般专注于实现各个题目的组件,种子仓库中,为每个题目都实现了basic风格,里面都有详细的注释说明.
+ + 对于大部分的题目,其接到的`props`都是一下结构
+ ```typescript
+ /**
+ * 节点组件基础属性
+ */
+interface IQuesComBaseProps {
+  /**
+   * 问题对象
+   */
+  node: CFQuestion;
+  /**
+   * 事件回调处理器
+   */
+  handler: CFUIEventHandler;
+  /**
+   * 主题信息
+   */
+  theme: CFTheme;
+}
+ ```
+其中node是基础类型`CFQuestion`,真正渲染某个具体节点时,重写一下这个类型为当前渲染的具体节点类型,这样才能获得更精确的typescript提示,这个操作在所有节点的组件里面都有演示
++ 对于`start`和`reward`这两个组件,他们接到的`props`分别是`CFIntro`和`CFRewardModel`,在其中包含了`handleEvents`(回到处理器)和`theme`(主题信息)
+
++ 在我们的演示中,主题信息只做了部分演示,全部内容请查看`CFTheme`中每个主题控制属性的说明
 
 
 

@@ -32,7 +32,7 @@ class DropdownBasic extends React.Component<IProps> {
       .map(opt => opt.text);
     return <div className='basic-dropdown'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         <select multiple={node.multiple}
           value={selectedValues}
           onChange={(e) => this.handleChange(e.target.value)}>

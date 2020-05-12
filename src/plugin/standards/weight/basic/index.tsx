@@ -26,7 +26,7 @@ class WeightBasic extends React.Component<IProps> {
           }} key={opt.renderId}></span>
         })}
       </div>
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         {node.options.map(opt => {
           return <div key={opt.renderId}>
             <span className='weight-opt-color' style={{

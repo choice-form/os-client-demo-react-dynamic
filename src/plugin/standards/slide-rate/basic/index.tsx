@@ -37,7 +37,7 @@ class SlideRateBasic extends React.Component<IProps, IState> {
         disabled={this.state.index === node.options.length - 1}>
         {T(LANG.slideRate.next)}
       </button>
-      <OptionContainer>
+      <OptionContainer theme={theme}>
         <div>
           <img src={option.image.thumbnail} />
           <span>{option.text}</span>
