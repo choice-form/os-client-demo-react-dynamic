@@ -154,6 +154,26 @@ module.exports = (env) => {
     optimization: {
       splitChunks: {
         cacheGroups: {
+          libs: {
+            chunks: 'all',
+            enforce: true,
+            test(e) {
+              if (e.resource) {
+                const match = e.resource.match(/[\\/]node_modules[\\/]([^\\/]+)[\\/]/);
+                return !!match;
+              }
+              return false;
+            },
+            name(e) {
+              if (e.resource) {
+                const match = e.resource.match(/[\\/]node_modules[\\/]([^\\/]+)[\\/]/);
+                if (match) {
+                  return match[1];
+                }
+              }
+              return '';
+            }
+          },
           react: {
             chunks: 'all',
             name: 'react',
