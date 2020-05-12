@@ -25,6 +25,7 @@ class OtherOptions extends React.Component<IProps>{
           return <OptionInput key={option.renderId}
             option={option}
             theme={theme}
+            handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
             handleChange={(v) => handler.handleOptionInput(v, option, node)}
           />
           // 纯选项或选项加备注的
@@ -35,6 +36,7 @@ class OtherOptions extends React.Component<IProps>{
             type={node.selectType}
             handler={handler}
             theme={theme}
+            handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
             handleClick={() => handler.handleOptionClick(option, node)}
             handleChange={(v) => handler.handleOptionInput(v, option, node)} />
         }

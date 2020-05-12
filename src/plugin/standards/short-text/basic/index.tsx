@@ -20,6 +20,7 @@ class ShortTextBasic extends React.Component<IProps> {
           return <OptionInput key={option.renderId}
             option={option}
             theme={theme}
+            handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
             handleChange={(e) => handler.handleOptionInput(e, option, node)} />
         })}
       </OptionContainer>

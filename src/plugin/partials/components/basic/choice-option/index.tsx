@@ -17,6 +17,11 @@ interface IProps extends IOptionBaseProps {
    * 选项点击时的回调函数
    */
   handleClick(): void;
+  /**
+   * 选项输入触发提示文字时的回调函数
+   * @param value
+   */
+  handleTrigger(value: string): void;
 }
 
 interface IState {
@@ -32,7 +37,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
     this.state = { selected: false };
   }
   render(): JSX.Element {
-    const { type, handleChange, handleClick, theme } = this.props;
+    const { type, handleChange, handleClick, theme, handleTrigger } = this.props;
     const option = this.props.option as CFIconOption & CFSelectPicOption;
     // 选项加备注选中时需要输入框
     const needInput = option.selected
@@ -61,6 +66,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
       {needInput
         ? <OptionInput option={option}
           theme={theme}
+          handleTrigger={(v) => handleTrigger(v)}
           handleChange={(v) => handleChange(v)}
         />
         : null

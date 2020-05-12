@@ -18,6 +18,7 @@ class ChoiceBasic extends React.Component<IProps> {
       <OptionContainer theme={theme}>
         {node.options.map(option => {
           return <ChoiceOption option={option}
+            handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
             handleChange={(v) => handler.handleOptionInput(v, option, node)}
             handleClick={() => handler.handleOptionClick(option, node)}
             key={option.renderId}

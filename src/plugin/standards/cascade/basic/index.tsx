@@ -59,6 +59,7 @@ class CascadeBasic extends React.Component<IProps> {
     }
     const selectedValues = cascade.list.filter(item => item.option.selected)
       .map(item => item.option.text);
+    const { node, handler, theme } = this.props;
     return <div className='dropdown'>
       {/* 有可能需要输入框 */}
       {parentCascade && ((cascade.option.inputType === 'select-input'
@@ -66,7 +67,8 @@ class CascadeBasic extends React.Component<IProps> {
         || cascade.option.inputType === 'input')
         ? <OptionInput
           option={cascade.option}
-          theme={this.props.theme}
+          theme={theme}
+          handleTrigger={(v) => handler.handleAutoCpltInput(v, cascade.option, node)}
           handleChange={(v) => this.handleInput(cascade, v, parentCascade)} />
         : null}
       {/* 下拉列表 */}

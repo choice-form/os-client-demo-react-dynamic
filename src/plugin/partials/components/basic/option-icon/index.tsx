@@ -1,5 +1,5 @@
 import React from 'react';
-import { loadIcon } from '../../../services/icon-lib';
+import { loadIcon } from '../../../modules/icon-lib';
 
 interface IProps {
   /**
