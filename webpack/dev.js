@@ -1,11 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
-
-/**
- * 读入的构建配置
- */
-const config = JSON.parse(fs.readFileSync('build.json').toString());
+const config = require('../build.config');
 
 /**
  * 是否为本地开发

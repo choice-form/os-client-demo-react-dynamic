@@ -3,8 +3,7 @@ const {
   isUsefulPluginFile, partialPath,
   standardPath, getSplitChunkName
 } = require('./common');
-
-
+const buildConfig = require('../build.config');
 
 /**
  * 获取要独立分割构建的插件文件列表
@@ -69,6 +68,19 @@ function getSplitChunks() {
       }
     };
   });
+  // 配置中的也读过来
+  buildConfig.splitChunks.forEach(item => {
+    splitChunks[item.name] = {
+      chunks: 'all',
+      name: item.name,
+      enforce: true,
+      test(e) {
+        return e.resource && e.resource.includes(item.folder);
+      }
+    };
+  });
+
+
   return splitChunks;
 }
 

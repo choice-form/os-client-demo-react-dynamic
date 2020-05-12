@@ -1,9 +1,0 @@
-{
-  "devPort": "4401",
-  "cdnFolder": "assets",
-  "assetsPath": {
-    "local": "http://localhost:${port}",
-    "staging": "https://media.choiceform.io/os-client-live",
-    "prod": "https://media.choiceform.com/os-client-live"
-  }
-}

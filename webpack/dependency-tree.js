@@ -1,6 +1,7 @@
 const { isStandardPluginFile, getSplitChunkName,
   isUsefulPluginFile, getModulePortrait,
   testBadDependency } = require('./common');
+const buildConfig = require('../build.config');
 const depcruise = require("dependency-cruiser").cruise;
 
 /**
@@ -30,6 +31,17 @@ function checkDependencyRules() {
   return undefined;
 }
 
+/**
+ * 是否事先配置好的分离chunk
+ * @param {*} file 
+ */
+function getConfigedSplitChunk(file) {
+  const isSplitChunks = buildConfig.splitChunks.find(item => {
+    return file.includes(item.folder);
+  });
+  return isSplitChunks;
+}
+
 
 /**
  * 获取到依赖树,先通过第三方插件获取依赖树,然后结合webpack的chunkMap
@@ -44,14 +56,39 @@ function getDependencyTree(chunkMap) {
     partials: [],
     standards: []
   };
+  const handledConfigedIds = [];
   dependencies.modules.forEach(md => {
     const filePath = md.source;
-    // 只要ts模块
-    if (filePath.match(/\.tsx?$/)) {
+    const configedChunk = getConfigedSplitChunk(filePath);
+    // 事先指定的第三方分离包
+    if (configedChunk) {
+      const id = configedChunk.name;
+      // 第三方包可能会出现多条记录,但是只记一次.
+      if (handledConfigedIds.includes(id)) {
+        return;
+      }
+      handledConfigedIds.push(id);
+      // 从chunkMap中获取到目标文件
+      const file = chunkMap[id];
+      // 第三包的依赖无需在追踪,置空
+      tree.partials.push({ id, file, dependencies: [] });
+      // ts模块
+    } else if (filePath.match(/\.tsx?$/)) {
+      // 事先指定好的分离包名字直接用,动态的则推算名字
       const id = getSplitChunkName(filePath);
-      const dependencies = md.dependencies.map(d => d.resolved)
-        .filter(d => isUsefulPluginFile(d))
-        .map(d => getSplitChunkName(d));
+      const dependencies = md.dependencies
+        .map(dep => dep.resolved)
+        .reduce((rs, res) => {
+          const chunk = getConfigedSplitChunk(res);
+          // 是事先配置好的分离chunk
+          if (chunk) {
+            rs.push(chunk.name);
+            // 动态的分离chunk
+          } else if (isUsefulPluginFile(res)) {
+            rs.push(getSplitChunkName(res));
+          }
+          return rs;
+        }, []);
       // 从chunkMap中获取到目标文件
       const file = chunkMap[id];
       // 通用树叶
