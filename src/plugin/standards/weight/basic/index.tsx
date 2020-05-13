@@ -1,6 +1,6 @@
 import React from "react";
 import NodeHead from "../../../partials/components/basic/node-head";
-import OptionContainer from "../../../partials/components/basic/option-container";
+import NodeBody from "../../../partials/components/basic/node-body";
 import OtherOptions from "../../../partials/components/basic/other-options";
 
 interface IProps extends IQuesComBaseProps {
@@ -28,7 +28,7 @@ class WeightBasic extends React.Component<IProps> {
           }} key={opt.renderId}></span>
         })}
       </div>
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         {node.options.map(opt => {
           return <div key={opt.renderId}>
             <span className='weight-opt-color' style={{
@@ -47,7 +47,7 @@ class WeightBasic extends React.Component<IProps> {
             <span>{opt.value || 0}</span>
           </div>
         })}
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div >
   }

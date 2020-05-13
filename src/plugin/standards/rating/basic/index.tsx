@@ -1,6 +1,6 @@
 import React from "react";
 import NodeHead from "../../../partials/components/basic/node-head";
-import OptionContainer from "../../../partials/components/basic/option-container";
+import NodeBody from "../../../partials/components/basic/node-body";
 import OtherOptions from "../../../partials/components/basic/other-options";
 
 interface IProps extends IQuesComBaseProps {
@@ -30,7 +30,7 @@ class RatingBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-rating'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         {node.options.map(opt => {
           const iconList = this.getIconList(opt);
           return < div key={opt.renderId} >
@@ -47,7 +47,7 @@ class RatingBasic extends React.Component<IProps> {
           </div>
         })
         }
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions node={node} handler={handler} theme={theme} />
     </div >
   }

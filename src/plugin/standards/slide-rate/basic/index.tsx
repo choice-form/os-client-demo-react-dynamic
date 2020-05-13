@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 import OtherOptions from '../../../partials/components/basic/other-options';
 import { T } from '../../../../utils/i18n';
 import OptionIcon from '../../../partials/components/basic/option-icon';
@@ -29,15 +29,15 @@ class SlideRateBasic extends React.Component<IProps, IState> {
     const option = node.options[this.state.index];
     return <div className='basic-slide-rate'>
       <NodeHead node={node} theme={theme} />
-      <button onClick={() => this.prev()}
-        disabled={this.state.index === 0}>
-        {T(LANG.slideRate.prev)}
-      </button>
-      <button onClick={() => this.next()}
-        disabled={this.state.index === node.options.length - 1}>
-        {T(LANG.slideRate.next)}
-      </button>
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
+        <button onClick={() => this.prev()}
+          disabled={this.state.index === 0}>
+          {T(LANG.slideRate.prev)}
+        </button>
+        <button onClick={() => this.next()}
+          disabled={this.state.index === node.options.length - 1}>
+          {T(LANG.slideRate.next)}
+        </button>
         <div>
           <img src={option.image.thumbnail} />
           <span>{option.text}</span>
@@ -60,7 +60,7 @@ class SlideRateBasic extends React.Component<IProps, IState> {
             </div>
           })}
         </div>
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div>
   }

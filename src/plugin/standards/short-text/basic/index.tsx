@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 import OptionInput from '../../../partials/components/basic/option-input';
 
 interface IProps extends IQuesComBaseProps {
@@ -15,7 +15,7 @@ class ShortTextBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-short-text'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         {node.options.map(option => {
           return <OptionInput key={option.renderId}
             option={option}
@@ -23,7 +23,7 @@ class ShortTextBasic extends React.Component<IProps> {
             handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
             handleChange={(e) => handler.handleOptionInput(e, option, node)} />
         })}
-      </OptionContainer>
+      </NodeBody>
     </div>
   }
 }

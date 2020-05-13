@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 import OtherOptions from '../../../partials/components/basic/other-options';
 
 
@@ -32,7 +32,7 @@ class DropdownBasic extends React.Component<IProps> {
       .map(opt => opt.text);
     return <div className='basic-dropdown'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         <select multiple={node.multiple}
           value={selectedValues}
           onChange={(e) => this.handleChange(e.target.value)}>
@@ -47,7 +47,7 @@ class DropdownBasic extends React.Component<IProps> {
             </option>
           })}
         </select>
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div>
   }

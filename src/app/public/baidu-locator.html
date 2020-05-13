@@ -40,7 +40,7 @@
         window.addEventListener('message', function (e) {
           var data = e.data;
           if (data.name === 'baidu-locate') {
-            console.log('received')
+            console.log('received');
           }
           // 之后的每次都是有事件触发
           geo.getCurrentPosition(handleSuccess, handleTimeout);

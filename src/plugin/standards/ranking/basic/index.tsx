@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 import OtherOptions from '../../../partials/components/basic/other-options';
 
 interface IProps extends IQuesComBaseProps {
@@ -83,7 +83,7 @@ class RankingBasic extends React.Component<IProps> {
       {/* 使用共同组建渲染头部 */}
       <NodeHead node={node} theme={theme} />
       {/* 渲染常规选项 */}
-      <OptionContainer  theme={theme}>
+      <NodeBody  theme={theme}>
         <div onDrop={() => this.handleDrop()}
           onDragOver={(e) => e.preventDefault()}>
           {/* 我们这里使用拖拽的方式进行排序 */}
@@ -101,7 +101,7 @@ class RankingBasic extends React.Component<IProps> {
           })}
         </div>
 
-      </OptionContainer>
+      </NodeBody>
       {/* 渲染其他选项,调用共通组建 */}
       <OtherOptions node={node} handler={handler} theme={theme} />
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
 import OtherOptions from '../../../partials/components/basic/other-options';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 
 interface IProps extends IQuesComBaseProps {
   node: CFUploadQuestion;
@@ -16,7 +16,7 @@ class FileUploadBasic extends React.Component<IProps> {
     const { node, theme, handler } = this.props;
     return <div className='basic-file-upload'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         {node.options.map(option => {
           return <div key={option.renderId}>
             <button onClick={() => handler.handleOptionClick(option, node)}>
@@ -30,7 +30,7 @@ class FileUploadBasic extends React.Component<IProps> {
               title={option.fileName} />
           </div>
         })}
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div>
   }

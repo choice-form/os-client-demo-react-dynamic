@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from '../../../partials/components/basic/option-container';
+import NodeBody from '../../../partials/components/basic/node-body';
 import OtherOptions from '../../../partials/components/basic/other-options';
 
 interface IProps extends IQuesComBaseProps {
@@ -14,7 +14,7 @@ class MatrixBasic extends React.Component<IProps> {
       {/* 调用共通组建渲染头部 */}
       <NodeHead node={node} theme={theme} />
       {/* 渲染选项 */}
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         <table>
           <thead>
             <tr>
@@ -38,7 +38,7 @@ class MatrixBasic extends React.Component<IProps> {
             })}
           </tbody>
         </table>
-      </OptionContainer>
+      </NodeBody>
       {/* 其他选项   */}
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div>

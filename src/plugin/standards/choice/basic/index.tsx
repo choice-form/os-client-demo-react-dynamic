@@ -1,6 +1,6 @@
 import React from "react";
 import NodeHead from '../../../partials/components/basic/node-head';
-import OptionContainer from "../../../partials/components/basic/option-container";
+import NodeBody from "../../../partials/components/basic/node-body";
 import ChoiceOption from "../../../partials/components/basic/choice-option";
 import OtherOptions from "../../../partials/components/basic/other-options";
 interface IProps extends IQuesComBaseProps {
@@ -15,7 +15,7 @@ class ChoiceBasic extends React.Component<IProps> {
     const { node, handler, theme } = this.props;
     return <div className='basic-choice'>
       <NodeHead node={node} theme={theme} />
-      <OptionContainer theme={theme}>
+      <NodeBody theme={theme}>
         {node.options.map(option => {
           return <ChoiceOption option={option}
             handleTrigger={(v) => handler.handleAutoCpltInput(v, option, node)}
@@ -25,7 +25,7 @@ class ChoiceBasic extends React.Component<IProps> {
             theme={theme} handler={handler}
             type={node.selectType} />
         })}
-      </OptionContainer>
+      </NodeBody>
       <OtherOptions theme={theme} handler={handler} node={node} />
     </div>
   }
