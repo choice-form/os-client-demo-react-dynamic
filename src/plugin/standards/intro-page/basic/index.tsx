@@ -1,8 +1,13 @@
 import React from 'react';
+import NodeHead from '../../../partials/components/basic/node-head';
 
-class IntroPageBasic extends React.Component {
+
+class IntroPageBasic extends React.Component<IQuesComBaseProps> {
   render(): JSX.Element {
-    return <div>IntroPageBasic</div>
+    const { node, theme } = this.props;
+    return <div className='intro-page-basic'>
+      <NodeHead node={node} theme={theme} />
+    </div>
   }
 }
 

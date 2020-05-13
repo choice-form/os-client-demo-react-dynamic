@@ -15,7 +15,7 @@ class LotteryBasic extends React.Component<IProps>{
       {/* 有抽奖结构图片则需要渲染 */}
       {node.rewardImage
         ? <img src={node.rewardImage.url}
-          style={{ width: '100px' }}
+          width='100'
           title={node.rewardImage.originName} />
         : null}
       {/* 抽奖结果标题 */}

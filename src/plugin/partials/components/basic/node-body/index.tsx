@@ -11,7 +11,7 @@ interface IProps {
  */
 class NodeBody extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div className='option-container'>
+    return <div className='node-body'>
       {this.props.children}
     </div>
   }

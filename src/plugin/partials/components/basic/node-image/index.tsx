@@ -13,7 +13,7 @@ class NodeImage extends React.Component<IProps> {
     return <div>
       {node.images.map(image => {
         return <img src={image.large}
-          style={{ width: '300px' }}
+          width='300'
           key={image.id}
           title={image.originName}
         ></img>
