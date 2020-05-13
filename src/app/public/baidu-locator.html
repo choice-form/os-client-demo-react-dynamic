@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://api.map.baidu.com/getscript?v=2.0&ak=3XRlvu2txGfGUIPEWfmgQlnMlSh9GsVM"></script>
+</head>
+
+<body>
+  <script>
+
+    (function () {
+      function init() {
+        try {
+          var geo = new window.BMap.Geolocation();
+        } catch (e) {
+          console.log('retry');
+          setTimeout(init, 500);
+        }
+        function sendMessage(data, type) {
+          window.parent.postMessage({
+            name: 'baidu-locate-result',
+            data: data,
+            type: type,
+          });
+        }
+        function handleSuccess(response) {
+          if (window.BMAP_STATUS_SUCCESS === geo.getStatus()) {
+            sendMessage(response, 'success');
+          } else {
+            sendMessage(response, 'failure');
+          }
+        }
+        function handleTimeout() {
+          sendMessage(null, 'timeout');
+        }
+
+        window.addEventListener('message', function (e) {
+          var data = e.data;
+          if (data.name === 'baidu-locate') {
+            console.log('received')
+          }
+          // 之后的每次都是有事件触发
+          geo.getCurrentPosition(handleSuccess, handleTimeout);
+        })
+        // 第一次立刻执行
+        geo.getCurrentPosition(handleSuccess, handleTimeout);
+      }
+      setTimeout(init, 500);
+    })();
+  </script>
+</body>
+
+</html>

@@ -10,6 +10,7 @@ const SummaryTreePlugin = require('./webpack/summary-tree-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LangPlugin = require('./webpack/lang-plugin/plugin');
 // const os = require('os');
+const CopyPlugin = require('copy-webpack-plugin');
 const { generateScssTree } = require('./webpack/scss');
 
 generateScssTree();
@@ -75,6 +76,10 @@ module.exports = (env) => {
           : `${cdnFolder}[name]-[contenthash:8].css`,
       }),
       new LangPlugin({ directory: 'lang', local }),
+      new CopyPlugin([{
+        from: 'src/app/public',
+        to: 'public'
+      }]),
       ...getDevPlugin(env),
     ],
     module: {

@@ -1,4 +1,11 @@
 const enUS: ILang = {
+  locate: {
+    click: 'Click to locate',
+    doing: 'Locating...',
+    success: 'Success',
+    failed: 'Failed',
+    timeout: 'timeout',
+  },
   reward: {
     wechat: 'wechat red packet:',
     custom: "Keep code to get reward:",
