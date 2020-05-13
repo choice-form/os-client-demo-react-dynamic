@@ -29,6 +29,9 @@ module.exports = {
     {
       name: 'pinyin',
       folder: 'node_modules/pinyin'
+    }, {
+      name: 'qrcodejs2',
+      folder: 'node_modules/qrcodejs2'
     }
   ]
 };

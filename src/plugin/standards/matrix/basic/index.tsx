@@ -11,7 +11,9 @@ class MatrixBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, theme, handler } = this.props;
     return <div className='basic-matrix'>
+      {/* 调用共通组建渲染头部 */}
       <NodeHead node={node} theme={theme} />
+      {/* 渲染选项 */}
       <OptionContainer theme={theme}>
         <table>
           <thead>
@@ -37,6 +39,7 @@ class MatrixBasic extends React.Component<IProps> {
           </tbody>
         </table>
       </OptionContainer>
+      {/* 其他选项   */}
       <OtherOptions node={node} theme={theme} handler={handler} />
     </div>
   }
