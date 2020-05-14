@@ -21,8 +21,8 @@ class HotSpotBasic extends React.Component<IProps> {
           <svg style={{ minHeight: height }}>
             <g transform={`scale(${ratio})`}>
               <image xlinkHref={node.mapImage.natural} />
-              {node.options.map(option => {
-                return <g transform={option.transform}
+              {node.options.map((option, index) => {
+                return <g key={index} transform={option.transform}
                   onClick={() => handler.handleOptionClick(option, node)}>
                   <path d={option.pathD}
                     fillOpacity='0.5'

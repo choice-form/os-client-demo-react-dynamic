@@ -24,7 +24,7 @@ function getConfigFile(env) {
  */
 function getDevCoreSdkPath(env) {
   const debugSdkPath = path.resolve(
-    '../os-client-core/debug/umd-legacy-with-i18n.js');
+    '../os-client-core/debug/umd-legacy.js');
   if (isLocal(env) && fs.existsSync(debugSdkPath)) {
     return debugSdkPath;
   }

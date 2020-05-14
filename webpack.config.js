@@ -97,7 +97,7 @@ module.exports = (env) => {
               loader: path.resolve('./webpack/pre-html-loader'),
               options: {
                 devSupport: local
-                  ? `<script src='${cdnFolder}umd-legacy-with-i18n.js'></script>`
+                  ? `<script src='${cdnFolder}umd-legacy.js'></script>`
                   : '',
               }
             }
