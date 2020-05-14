@@ -51,7 +51,7 @@ class Main extends React.Component<IProps> {
       this.props.model.setNextHander(() => {
         this.gotoQuestions();
       })
-      Core.prepareWxShare(this.props.model);
+      Core.prepareWxShare();
     }, 500);
   }
   /**

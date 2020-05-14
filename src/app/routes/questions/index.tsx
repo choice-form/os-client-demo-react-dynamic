@@ -23,7 +23,7 @@ class Questions extends React.Component<IProps> {
     }
     // 稍后准备微信分享
     setTimeout(() => {
-      Core.prepareWxShare(this.props.model);
+      Core.prepareWxShare();
     }, 500)
   }
   render(): JSX.Element {
