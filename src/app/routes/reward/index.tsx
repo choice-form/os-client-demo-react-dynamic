@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Core } from '@choiceform/os-client-core';
 
 interface IProps extends RouteComponentProps {
   /**
@@ -39,10 +38,6 @@ class Reward extends React.Component<IProps, IState> {
     this.initialized = true;
     const model = await this.props.core.fetchReward();
     this.setState({ model })
-    // 稍后初始化微信分享
-    setTimeout(() => {
-      Core.prepareWxShare();
-    }, 500);
   }
   /**
    * 渲染

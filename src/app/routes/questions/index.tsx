@@ -1,7 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import QuesContainer from '../../components/ques-container';
-import { Core } from '@choiceform/os-client-core';
 import PreviewTool from '../../components/preview-tool';
 import AnswerResume from '../../components/answer-resume';
 
@@ -43,10 +42,6 @@ class Questions extends React.Component<IProps, IState> {
     // 获取数据
     const model = await this.props.core.fetchQuestions();
     this.setState({ model })
-    // 稍后准备微信分享
-    setTimeout(() => {
-      Core.prepareWxShare();
-    }, 500)
   }
   /**
    * 渲染
