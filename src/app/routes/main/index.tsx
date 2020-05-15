@@ -17,12 +17,6 @@ class Main extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = { model: null }
-    console.log('index construction')
-    const oldSetter = this.setState;
-    this.setState = (data: any) => {
-      console.log('index set state');
-      oldSetter.call(this, data);
-    }
     this.init();
   }
   /**
@@ -34,6 +28,7 @@ class Main extends React.Component<IProps, IState> {
     // 请求成功的数据释放到缓存里的,到答答题页面再次请求该数据时
     // 不会再次发送远程请求,而是或获取到缓存里面的数据
     await this.props.core.fetchQuestions()
+    // 数据请求完以后通过框架路由驱动跳往答题页面
     const url = Util.getQuestionsPageUrl('questions')
       .replace(location.origin, '.');
     this.props.history.replace(url)
@@ -46,9 +41,10 @@ class Main extends React.Component<IProps, IState> {
       return;
     }
     this.initialized = true;
-    const model = await this.props.core.fetchIntro();
-    model.setNextHander(() => {
-      this.gotoQuestions();
+    const model = await this.props.core.fetchIntro(() => {
+      setTimeout(() => {
+        this.gotoQuestions();
+      })
     });
     this.setState({ model });
   }
@@ -56,15 +52,10 @@ class Main extends React.Component<IProps, IState> {
    * 渲染页面
    */
   render(): JSX.Element {
-    console.log('index render');
     const { model } = this.state;
-    if (!model) {
+    // 没有数据,或者数据中指定不要显示UI时不渲染
+    if (!model || model.hidden) {
       return null
-    }
-    // 自动跳过首页开始答题的情况下
-    if (model.startAuto && !model.nextLoading) {
-      this.gotoQuestions();
-      return null;
     }
     // 交给动态模板渲染,开始页面和节点不同,直接传入整个model
     const StartComponent = model.template.component;

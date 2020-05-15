@@ -60,7 +60,7 @@ class QuesContainer extends React.Component<IProps> {
         handleEvents.handlePrevClick();
       }}>{prevButton}</button> : ''}
       {nextButton ? <button onClick={() => {
-        handleEvents.handleNextClick(true);
+        handleEvents.handleNextClick();
       }}>{nextButton}</button> : ''}
     </div>
   }

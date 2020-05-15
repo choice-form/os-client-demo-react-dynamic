@@ -43,17 +43,11 @@ class App extends React.Component<any, IFullState> {
    */
   constructor(props: any) {
     super(props);
-    console.log('app construction');
     this.state = {
       core: null,
       error: '',
       notification: [],
     };
-    const oldSetter = this.setState;
-    this.setState = (data: any) => {
-      console.log('app set state');
-      oldSetter.call(this, data);
-    }
     this.init();
   }
   /**
@@ -97,7 +91,6 @@ class App extends React.Component<any, IFullState> {
     this.setState({ core });
     // 每当核心数据发生变化时,再次驱动更新
     EventHub.on('SET_PROPS', () => {
-      // console.log('set_props');
       this.setState({});
     })
   }
@@ -135,7 +128,6 @@ class App extends React.Component<any, IFullState> {
    * 渲染页面
    */
   render(): JSX.Element {
-    console.log('app render');
     const { core } = this.state;
     // 核心还未完成初始化
     if (!core) {

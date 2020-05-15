@@ -16,7 +16,6 @@
         try {
           var geo = new window.BMap.Geolocation();
         } catch (e) {
-          console.log('retry');
           setTimeout(init, 500);
         }
         function sendMessage(data, type) {
@@ -39,9 +38,6 @@
 
         window.addEventListener('message', function (e) {
           var data = e.data;
-          if (data.name === 'baidu-locate') {
-            console.log('received');
-          }
           // 之后的每次都是有事件触发
           geo.getCurrentPosition(handleSuccess, handleTimeout);
         })

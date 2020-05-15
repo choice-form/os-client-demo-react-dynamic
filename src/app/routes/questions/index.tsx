@@ -30,12 +30,6 @@ class Questions extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = { model: null };
-    console.log('questions construction');
-    const oldSetter = this.setState;
-    this.setState = (data: any) => {
-      console.log('questions set state');
-      oldSetter.call(this, data);
-    }
     this.init();
   }
   /**
@@ -58,7 +52,6 @@ class Questions extends React.Component<IProps, IState> {
    * 渲染
    */
   render(): JSX.Element {
-    console.log('questions render');
     const { model } = this.state;
     // 数据还准备好
     if (!model) {
