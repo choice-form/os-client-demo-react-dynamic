@@ -4,7 +4,7 @@
  * @param time
  */
 export function debounce<T extends (...args: any[]) => any>(
-  fn: T, time: number = 150): T {
+  fn: T, time: number = 0): T {
   let lastId: number = -1;
   return function (this: any): any {
     const args = arguments;

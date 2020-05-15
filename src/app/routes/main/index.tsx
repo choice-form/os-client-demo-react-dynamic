@@ -1,34 +1,39 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Util, Core } from '@choiceform/os-client-core'
+import { Util } from '@choiceform/os-client-core'
 interface IProps extends RouteComponentProps {
-  model: CFIntro;
-  requestModel(): Promise<void>;
-  requestQuestions(silent?: boolean): Promise<void>;
+  core: CFCore;
 }
-class Main extends React.Component<IProps> {
+
+interface IState {
+  model: CFIntro;
+}
+
+class Main extends React.Component<IProps, IState> {
   /**
    * 是否已经进行了首次渲染
    */
   private initialized: boolean;
   constructor(props: IProps) {
     super(props);
+    this.state = { model: null }
+    console.log('index construction')
+    const oldSetter = this.setState;
+    this.setState = (data: any) => {
+      console.log('index set state');
+      oldSetter.call(this, data);
+    }
+    this.init();
   }
   /**
    * 去往答题页面
-   * @param silent 静默模式不会更新状态
    */
-  private async gotoQuestions(silent?: boolean): Promise<void> {
+  private async gotoQuestions(): Promise<void> {
     // 去之前先拿帮答题页拿好数据,同时显示loading状态
     // 这样可以避免答题页面临时拿数据出现空白
-    if (!silent) {
-      this.setState({ nextLoading: true });
-    }
-    await this.props.requestQuestions(silent)
-    if (!silent) {
-      this.setState({ nextLoading: false });
-    }
-
+    // 请求成功的数据释放到缓存里的,到答答题页面再次请求该数据时
+    // 不会再次发送远程请求,而是或获取到缓存里面的数据
+    await this.props.core.fetchQuestions()
     const url = Util.getQuestionsPageUrl('questions')
       .replace(location.origin, '.');
     this.props.history.replace(url)
@@ -41,33 +46,24 @@ class Main extends React.Component<IProps> {
       return;
     }
     this.initialized = true;
-    await this.props.requestModel();
-    // 首页下一题的行为会切换理由,核心包是无法处理的,这里修改一下这个处理器
-    // 由本路由自己处理
-    // 因为成功收到数据后上层setState之后才会让本路由的model得到更新
-    // 而setState造成的结果是非同步的,所以我们这里稍后再设置处理器
-    // 否则model还没有更新进来
-    setTimeout(() => {
-      this.props.model.setNextHander(() => {
-        this.gotoQuestions();
-      })
-      Core.prepareWxShare();
-    }, 500);
+    const model = await this.props.core.fetchIntro();
+    model.setNextHander(() => {
+      this.gotoQuestions();
+    });
+    this.setState({ model });
   }
   /**
    * 渲染页面
    */
   render(): JSX.Element {
-    const { model } = this.props;
-    if (!this.initialized) {
-      this.init();
-    }
+    console.log('index render');
+    const { model } = this.state;
     if (!model) {
       return null
     }
     // 自动跳过首页开始答题的情况下
     if (model.startAuto && !model.nextLoading) {
-      this.gotoQuestions(true);
+      this.gotoQuestions();
       return null;
     }
     // 交给动态模板渲染,开始页面和节点不同,直接传入整个model

@@ -20,53 +20,40 @@ interface IFullState {
   /**
    * 核心数据
    */
-  core: CFCoreBase,
+  core: CFCore,
   /**
    * 错误消息
    */
   error: string;
   /**
-   * 多语言代号
-   */
-  locale: string;
-  /**
    * 提示消息列表
    */
   notification: { id: number, text: string }[];
-  /**
-   * 全局主题信息
-   */
-  theme: CFTheme;
 }
 /**
  * 应用程序根组件
  */
 class App extends React.Component<any, IFullState> {
-
-  /**
-   * 答题核心对象
-   */
-  private core: CFCore;
   /**
    * 提示信息是否被挂起
    */
   private notifySuspended: boolean;
   /**
-   * 更新任务id
-   */
-  private updateTaskId: number = -1;
-  /**
    * 构造函数
    */
   constructor(props: any) {
     super(props);
+    console.log('app construction');
     this.state = {
-      locale: 'zh_cn',
       core: null,
       error: '',
       notification: [],
-      theme: null,
     };
+    const oldSetter = this.setState;
+    this.setState = (data: any) => {
+      console.log('app set state');
+      oldSetter.call(this, data);
+    }
     this.init();
   }
   /**
@@ -83,12 +70,12 @@ class App extends React.Component<any, IFullState> {
    * 初始化答题核心
    */
   async init(): Promise<void> {
-    if (this.core) {
+    if (this.state.core) {
       return
     }
 
     const surveyId = Util.getSidOfStandardUrl();
-    this.core = await Core.setup({
+    const core = await Core.setup({
       clientName: 'Live',
       dynamic: true,
       treeUrl: location.origin + '/tree.json',
@@ -104,13 +91,15 @@ class App extends React.Component<any, IFullState> {
       suspendNotify: () => this.suspendNotify(),
       resumeNotify: () => this.resumeNotify(),
       realTimePreview: location.href.indexOf('/themes') > -1,
-      setTheme: (e) => this.setTheme(e),
       hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
-    this.updateCore()
+    this.setState({ core });
     // 每当核心数据发生变化时,再次驱动更新
-    EventHub.on('SET_PROPS', () => this.updateCore())
+    EventHub.on('SET_PROPS', () => {
+      // console.log('set_props');
+      this.setState({});
+    })
   }
   /**
    * 定位错误
@@ -133,7 +122,9 @@ class App extends React.Component<any, IFullState> {
       return;
     }
     const item = { id: Math.random(), text };
+    // 推入错误消息
     this.setState({ notification: [...this.state.notification, item] })
+    // 两秒后去掉错误消息
     setTimeout(() => {
       this.setState({
         notification: this.state.notification.filter(a => a !== item)
@@ -144,6 +135,7 @@ class App extends React.Component<any, IFullState> {
    * 渲染页面
    */
   render(): JSX.Element {
+    console.log('app render');
     const { core } = this.state;
     // 核心还未完成初始化
     if (!core) {
@@ -191,31 +183,25 @@ class App extends React.Component<any, IFullState> {
    * @param routeProps 路由属性
    */
   renderMain(routeProps: RouteComponentProps): JSX.Element {
-    return <Main
-      requestModel={() => this.requestMainModel()}
-      requestQuestions={(e) => this.requestQuestionsModel(e)}
-      model={this.state.core.intro}
-      {...routeProps} />
+    return <Main {...routeProps}
+      core={this.state.core}
+    />
   }
   /**
    * 渲染答题页面
    * @param routeProps 路由属性
    */
   renderQuestions(routeProps: RouteComponentProps): JSX.Element {
-    return <Questions
-      requestModel={() => this.requestQuestionsModel()}
-      model={this.state.core.questions}
-      {...routeProps} />
+    return <Questions {...routeProps}
+      core={this.state.core} />
   }
   /**
    * 渲染奖励页面
    * @param routeProps 路由属性
    */
   renderReward(routeProps: RouteComponentProps): JSX.Element {
-    return <Reward
-      requestModel={() => this.requestRewardModel()}
-      model={this.state.core.reward}
-      {...routeProps}></Reward>
+    return <Reward {...routeProps}
+      core={this.state.core} />
   }
   /**
    * 渲染主题实时预览页面
@@ -226,30 +212,7 @@ class App extends React.Component<any, IFullState> {
       model={this.state.core.realtime}
       {...routeProps}></Themes>
   }
-  /**
-   * 请求首页数据
-   */
-  async requestMainModel(): Promise<void> {
-    await this.core.fetchIntro();
-    this.updateCore();
-  }
-  /**
-   * 请求答题页数据
-   * @param silent 静默模式不会更新状态
-   */
-  async requestQuestionsModel(silent?: boolean): Promise<void> {
-    await this.core.fetchQuestions();
-    if (!silent) {
-      this.updateCore();
-    }
-  }
-  /**
-   * 请求奖励页数据
-   */
-  async requestRewardModel(): Promise<void> {
-    await this.core.fetchReward();
-    this.updateCore();
-  }
+
   /**
    * 将提示消息从挂起状态中恢复过来,之后的提示消息会恢复显示
    */
@@ -261,15 +224,7 @@ class App extends React.Component<any, IFullState> {
    * @param locale
    */
   setLocale(locale: string): void {
-    this.setState({ locale })
     setLocale(locale);
-  }
-  /**
-   * 设置主题
-   * @param theme 主题
-   */
-  setTheme(theme: CFTheme): void {
-    this.setState({ theme });
   }
   /**
    * 显示错误消息
@@ -283,30 +238,6 @@ class App extends React.Component<any, IFullState> {
    */
   suspendNotify(): void {
     this.notifySuspended = true;
-  }
-  /**
-   * 驱动核心数据上的变化到页面中
-   * 因为核心数据的变化是sdk中发生的,react对他是无感的
-   * 需要我们从根部驱动一下
-   * 同一进程中的同步更改所调用的更新会被合并到最后一个来减压
-   */
-  updateCore(): void {
-    clearTimeout(this.updateTaskId);
-    this.updateTaskId = window.setTimeout(() => {
-      this.setState({
-        core: {
-          preview: this.core.preview,
-          needPreviewFlag: this.core.needPreviewFlag,
-          intro: this.core.intro,
-          questions: this.core.questions,
-          reward: this.core.reward,
-          realtime: this.core.realtime,
-          getTheme: () => {
-            return this.core.getTheme();
-          }
-        }
-      });
-    })
   }
 }
 
