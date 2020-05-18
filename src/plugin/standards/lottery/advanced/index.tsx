@@ -1,6 +1,6 @@
 import React from 'react';
 interface IProps extends IQuesComBaseProps {
-  node: CFLotteryQuestion;
+  node: CFLotteryPage;
 }
 class LotteryAdvanced extends React.Component<IProps> {
   render(): JSX.Element {

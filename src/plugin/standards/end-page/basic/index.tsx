@@ -2,7 +2,7 @@ import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFEndQuestion;
+  node: CFEndPage;
 }
 
 class EndPageBasic extends React.Component<IProps> {

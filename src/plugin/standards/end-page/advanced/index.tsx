@@ -1,6 +1,6 @@
 import React from 'react';
 interface IProps extends IQuesComBaseProps {
-  node: CFEndQuestion;
+  node: CFEndPage;
 }
 
 class EndPageAdvanced extends React.Component<IProps> {

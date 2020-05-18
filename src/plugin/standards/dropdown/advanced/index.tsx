@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFMenuQuestion;
+  node: CFDropdownQuestion;
 }
 
 class DropdownAdvanced extends React.Component<IProps> {

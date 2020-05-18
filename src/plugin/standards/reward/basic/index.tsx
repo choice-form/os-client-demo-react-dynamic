@@ -2,7 +2,7 @@ import React from 'react';
 import { T } from '../../../../utils/i18n';
 
 interface IProps {
-  model: CFRewardModel;
+  model: CFRewardState;
 }
 
 class RewardBasic extends React.Component<IProps> {

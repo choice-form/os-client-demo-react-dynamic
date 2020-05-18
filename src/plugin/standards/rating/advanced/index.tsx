@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps extends IQuesComBaseProps {
-  node: CFGraphMarkQuestion;
+  node: CFRatingQuestion;
 }
 
 class RatingAdvanced extends React.Component<IProps> {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps {
-  model: CFIntro;
+  model: CFStartState;
 }
 
 class StartBasic extends React.Component<IProps> {

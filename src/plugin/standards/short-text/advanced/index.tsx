@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFFillQuestion;
+  node: CFShortTextQuestion;
 }
 
 class ShortTextAdvanced extends React.Component<IProps> {

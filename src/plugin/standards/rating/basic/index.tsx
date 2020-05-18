@@ -4,7 +4,7 @@ import NodeBody from "../../../partials/components/basic/node-body";
 import OtherOptions from "../../../partials/components/basic/other-options";
 
 interface IProps extends IQuesComBaseProps {
-  node: CFGraphMarkQuestion;
+  node: CFRatingQuestion;
 }
 
 class RatingBasic extends React.Component<IProps> {

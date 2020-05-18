@@ -9,7 +9,7 @@ interface IProps extends RouteComponentProps {
 }
 
 interface IState {
-  model: CFRewardModel;
+  model: CFRewardState;
 }
 
 /**
@@ -36,7 +36,7 @@ class Reward extends React.Component<IProps, IState> {
       return;
     }
     this.initialized = true;
-    const model = await this.props.core.fetchReward();
+    const model = await this.props.core.fetchRewardState();
     this.setState({ model })
   }
   /**

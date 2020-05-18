@@ -5,7 +5,7 @@ interface IProps extends RouteComponentProps {
 }
 
 interface IState {
-  model: CFIntro;
+  model: CFStartState;
 }
 
 class Main extends React.Component<IProps, IState> {
@@ -31,7 +31,7 @@ class Main extends React.Component<IProps, IState> {
         this.props.history.replace(p.route);
       })
     }
-    const model = await this.props.core.fetchIntro(routerSwitcher);
+    const model = await this.props.core.fetchStartState(routerSwitcher);
     this.setState({ model });
   }
   /**

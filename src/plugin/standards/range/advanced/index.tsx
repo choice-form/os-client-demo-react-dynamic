@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps extends IQuesComBaseProps {
-  node: CFValueMarkQuestion;
+  node: CFRangeQuestion;
 }
 
 class RangeAdvanced extends React.Component<IProps> {

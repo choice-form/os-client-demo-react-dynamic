@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFUploadQuestion;
+  node: CFFileUploadQuestion;
 }
 
 class FileUploadAdvanced extends React.Component<IProps> {

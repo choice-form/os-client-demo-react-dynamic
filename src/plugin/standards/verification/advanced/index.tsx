@@ -1,6 +1,6 @@
 import React from 'react';
 interface IProps extends IQuesComBaseProps {
-  node: CFValidateQuestion;
+  node: CFVerificationQuestion;
 }
 class VerificationAdvanced extends React.Component<IProps> {
   render(): JSX.Element {

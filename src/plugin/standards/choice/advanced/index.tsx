@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps extends IQuesComBaseProps {
-  node: CFSelectQuestion;
+  node: CFChoiceQuestion;
 }
 
 class ChoiceAdvanced extends React.Component<IProps> {

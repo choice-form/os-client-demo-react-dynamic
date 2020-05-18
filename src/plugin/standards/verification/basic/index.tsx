@@ -4,7 +4,7 @@ import { T } from '../../../../utils/i18n';
 import NodeBody from '../../../partials/components/basic/node-body';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFValidateQuestion;
+  node: CFVerificationQuestion;
 }
 
 class VerificationBasic extends React.Component<IProps> {

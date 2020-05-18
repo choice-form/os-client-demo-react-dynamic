@@ -12,7 +12,7 @@ interface IProps extends RouteComponentProps {
 }
 
 interface IState {
-  model: CFState;
+  model: CFSurveyState;
 }
 /**
  * 答题页路由组件
@@ -40,7 +40,7 @@ class Survey extends React.Component<IProps, IState> {
     }
     this.initialized = true;
     // 获取数据
-    const model = await this.props.core.fetchQuestions();
+    const model = await this.props.core.fetchSurveyState();
     this.setState({ model })
   }
   /**

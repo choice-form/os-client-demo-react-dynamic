@@ -4,7 +4,7 @@ import NodeBody from "../../../partials/components/basic/node-body";
 import OtherOptions from "../../../partials/components/basic/other-options";
 
 interface IProps extends IQuesComBaseProps {
-  node: CFValueMarkQuestion;
+  node: CFRangeQuestion;
 }
 
 class RangeBasic extends React.Component<IProps> {

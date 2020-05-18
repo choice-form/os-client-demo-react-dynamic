@@ -5,7 +5,7 @@ import OtherOptions from '../../../partials/components/basic/other-options';
 
 
 interface IProps extends IQuesComBaseProps {
-  node: CFMenuQuestion;
+  node: CFDropdownQuestion;
 }
 
 /**

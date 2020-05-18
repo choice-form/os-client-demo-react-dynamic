@@ -4,7 +4,7 @@ import NodeBody from "../../../partials/components/basic/node-body";
 import ChoiceOption from "../../../partials/components/basic/choice-option";
 import OtherOptions from "../../../partials/components/basic/other-options";
 interface IProps extends IQuesComBaseProps {
-  node: CFSelectQuestion;
+  node: CFChoiceQuestion;
 }
 
 class ChoiceBasic extends React.Component<IProps> {

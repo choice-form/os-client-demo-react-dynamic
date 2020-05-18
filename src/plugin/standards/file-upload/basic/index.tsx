@@ -4,7 +4,7 @@ import OtherOptions from '../../../partials/components/basic/other-options';
 import NodeBody from '../../../partials/components/basic/node-body';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFUploadQuestion;
+  node: CFFileUploadQuestion;
 }
 
 

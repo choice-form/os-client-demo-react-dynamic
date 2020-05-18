@@ -4,7 +4,7 @@ import NodeBody from '../../../partials/components/basic/node-body';
 import OptionInput from '../../../partials/components/basic/option-input';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFFillQuestion;
+  node: CFShortTextQuestion;
 }
 
 class ShortTextBasic extends React.Component<IProps> {

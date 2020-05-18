@@ -2,7 +2,7 @@ import React from 'react';
 import QrCodeBasic from '../../../partials/components/basic/qr-code';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFLotteryQuestion;
+  node: CFLotteryPage;
 }
 
 /**
