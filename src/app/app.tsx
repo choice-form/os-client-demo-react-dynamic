@@ -6,10 +6,10 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 import Main from "./routes/main";
-import Questions from "./routes/questions";
+import Survey from "./routes/survey";
 import Themes from "./routes/themes";
 import Reward from "./routes/reward";
-import { Core, Util, EventHub } from '@choiceform/os-client-core'
+import { Core, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
 import './app.scss';
 import { setLocale, T } from "../utils/i18n";
@@ -67,24 +67,18 @@ class App extends React.Component<any, IFullState> {
     if (this.state.core) {
       return
     }
-
-    const surveyId = Util.getSidOfStandardUrl();
     const core = await Core.setup({
       clientName: 'Live',
       dynamic: true,
       treeUrl: location.origin + '/tree.json',
       templatePath: this.getTemplatePath(),
-      surveyId,
       useWxSdk: true,
-      indexUrl: location.origin + '?' + surveyId,
-      rewardUrl: location.origin + '/reward?sid=' + surveyId,
       error: (e) => this.showError(e),
       notify: (e) => this.notify(e),
       locateError: (e) => this.locateError(e),
       setLocale: (e) => this.setLocale(e),
       suspendNotify: () => this.suspendNotify(),
       resumeNotify: () => this.resumeNotify(),
-      realTimePreview: location.href.indexOf('/themes') > -1,
       hostConfig: CF_CONFIG,
     });
     // 驱动初始更新
@@ -160,7 +154,7 @@ class App extends React.Component<any, IFullState> {
           <Route path="/reward"
             render={(e) => this.renderReward(e)}>
           </Route>
-          <Route path="/questions"
+          <Route path="/survey"
             render={(e) => this.renderQuestions(e)}>
           </Route>
           <Route path="/"
@@ -184,7 +178,7 @@ class App extends React.Component<any, IFullState> {
    * @param routeProps 路由属性
    */
   renderQuestions(routeProps: RouteComponentProps): JSX.Element {
-    return <Questions {...routeProps}
+    return <Survey {...routeProps}
       core={this.state.core} />
   }
   /**

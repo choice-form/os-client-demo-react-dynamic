@@ -17,7 +17,7 @@ interface IState {
 /**
  * 答题页路由组件
  */
-class Questions extends React.Component<IProps, IState> {
+class Survey extends React.Component<IProps, IState> {
   /**
    * 是否已经初始化完成
    */
@@ -63,4 +63,4 @@ class Questions extends React.Component<IProps, IState> {
   }
 }
 
-export default Questions;
+export default Survey;

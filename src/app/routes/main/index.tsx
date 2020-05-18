@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Util } from '@choiceform/os-client-core'
 interface IProps extends RouteComponentProps {
   core: CFCore;
 }
@@ -20,20 +19,6 @@ class Main extends React.Component<IProps, IState> {
     this.init();
   }
   /**
-   * 去往答题页面
-   */
-  private async gotoQuestions(): Promise<void> {
-    // 去之前先拿帮答题页拿好数据,同时显示loading状态
-    // 这样可以避免答题页面临时拿数据出现空白
-    // 请求成功的数据释放到缓存里的,到答答题页面再次请求该数据时
-    // 不会再次发送远程请求,而是或获取到缓存里面的数据
-    await this.props.core.fetchQuestions()
-    // 数据请求完以后通过框架路由驱动跳往答题页面
-    const url = Util.getQuestionsPageUrl('questions')
-      .replace(location.origin, '.');
-    this.props.history.replace(url)
-  }
-  /**
    * 初始化数据
    */
   private async init(): Promise<void> {
@@ -41,11 +26,12 @@ class Main extends React.Component<IProps, IState> {
       return;
     }
     this.initialized = true;
-    const model = await this.props.core.fetchIntro(() => {
+    const routerSwitcher = (p: IRouteSwitchParam) => {
       setTimeout(() => {
-        this.gotoQuestions();
+        this.props.history.replace(p.route);
       })
-    });
+    }
+    const model = await this.props.core.fetchIntro(routerSwitcher);
     this.setState({ model });
   }
   /**
