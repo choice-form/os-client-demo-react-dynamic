@@ -13,7 +13,7 @@ class RatingBasic extends React.Component<IProps> {
    * 获取图标列表
    * @param opt
    */
-  private getIconList(opt: CFGraphMarkOption): string[] {
+  private getIconList(opt: CFRatingOption): string[] {
     const { count, icon } = opt;
     let result = this.iconListCache[count];
     if (!result) {

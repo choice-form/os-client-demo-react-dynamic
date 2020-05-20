@@ -38,7 +38,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
   }
   render(): JSX.Element {
     const { type, handleChange, handleClick, theme, handleTrigger } = this.props;
-    const option = this.props.option as CFIconOption & CFSelectPicOption;
+    const option = this.props.option as CFIconOption & CFPictureChoiceOption;
     // 选项加备注选中时需要输入框
     const needInput = option.selected
       && option.inputType === 'select-input';

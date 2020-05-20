@@ -5,7 +5,7 @@ import NoView from '../../components/no-view';
 import QuesContainer from '../../components/ques-container';
 
 interface IProps extends RouteComponentProps {
-  model: CFRealTime;
+  model: CFRealtime;
 }
 
 class Themes extends React.Component<IProps> {

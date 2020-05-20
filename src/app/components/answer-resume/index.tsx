@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps {
-  model: CFMemoryRecover;
+  model: CFAnswerResumer;
 }
 /**
  * 断点续答选择组件
