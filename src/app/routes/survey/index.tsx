@@ -53,8 +53,8 @@ class Survey extends React.Component<IProps, IState> {
       return null;
     }
     // 考虑断点续答
-    if (model.memoryTool && model.memoryTool.show) {
-      return <AnswerResume model={model.memoryTool} />
+    if (model.answerResumer && model.answerResumer.show) {
+      return <AnswerResume model={model.answerResumer} />
     }
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}

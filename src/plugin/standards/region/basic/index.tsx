@@ -48,11 +48,11 @@ class RegionAdvanced extends React.Component<IProps> {
     const selectedProvinceIndex = indexes[0];
     const selectedProvince = provinces[selectedProvinceIndex];
     // 城市选择数据
-    let cities: RegionCity[];
+    let cities: CFRegionCity[];
     let selectedCityIndex = 0;
-    let selectedCity: RegionCity;
+    let selectedCity: CFRegionCity;
     // 县区选择数据
-    let counties: RegionCounty[];
+    let counties: CFRegionCounty[];
     let selectedCountyIndex = 0;
     // 当收集范围涉及到城市才准备城市数据
     if (node.grade > 1 && selectedProvince) {

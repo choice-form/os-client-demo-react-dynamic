@@ -26,6 +26,7 @@ class Reward extends React.Component<IProps, IState> {
    */
   constructor(props: IProps) {
     super(props);
+    this.state = { model: null };
     this.init();
   }
   /**

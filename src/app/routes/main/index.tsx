@@ -26,7 +26,7 @@ class Main extends React.Component<IProps, IState> {
       return;
     }
     this.initialized = true;
-    const routerSwitcher = (p: IRouteSwitchParam) => {
+    const routerSwitcher = (p: CFRouteSwitchParam) => {
       setTimeout(() => {
         this.props.history.replace(p.route);
       })

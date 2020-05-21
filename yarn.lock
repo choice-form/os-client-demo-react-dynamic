@@ -9,10 +9,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@choiceform/os-client-core@^1.0.48":
-  version "1.0.48"
-  resolved "https://registry.yarnpkg.com/@choiceform/os-client-core/-/os-client-core-1.0.48.tgz#532d281e545d588ab0a29151289f5390785121ac"
-  integrity sha512-hwX9XM+r9hpnPdhGeMTznObww34bM8rFPlIt4+AUTspPK0zTbL3HYJZLNNOY3IE70HNS4fkBDqRVeGuHk9NIMA==
+"@choiceform/os-client-core@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@choiceform/os-client-core/-/os-client-core-2.0.0.tgz#ef2fc134048a72abf7c807b51ab9c947c424ca5a"
+  integrity sha512-AoDJYy5oOndtGo/RAExYLyIszF5w2zlKLtsHM7M1CvCHkoJmslimOmjCBI2eO9dO89Go/ZCE+Jm/veay96rCeg==
 
 "@types/anymatch@*":
   version "1.3.1"

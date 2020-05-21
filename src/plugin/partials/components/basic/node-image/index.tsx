@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps {
-  node: CFMediaNodeMixin;
+  node: CFQuestion;
 }
 
 class NodeImage extends React.Component<IProps> {
@@ -9,12 +9,13 @@ class NodeImage extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    const { node } = this.props;
+    //
+    const node = this.props.node as CFChoiceQuestion;
     return <div>
-      {node.images.map(image => {
+      {node.images.map((image, index) => {
         return <img src={image.large}
           width='300'
-          key={image.id}
+          key={index}
           title={image.originName}
         ></img>
       })}

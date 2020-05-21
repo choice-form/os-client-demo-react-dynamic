@@ -34,7 +34,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@choiceform/os-client-core": "^1.0.48",
+    "@choiceform/os-client-core": "^2.0.0",
     "@types/react-router-dom": "^5.1.4",
     "pinyin": "^2.9.1",
     "qrcodejs2": "^0.0.2",

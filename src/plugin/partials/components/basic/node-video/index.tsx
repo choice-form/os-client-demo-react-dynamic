@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps {
-  node: CFMediaNodeMixin;
+  node: CFQuestion;
 }
 
 class NodeVideo extends React.Component<IProps> {
@@ -9,7 +9,8 @@ class NodeVideo extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    const { video } = this.props.node;
+    const node = this.props.node as CFChoiceQuestion;
+    const { video } = node;
     if (!video) {
       return null;
     }

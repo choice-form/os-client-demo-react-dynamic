@@ -25,7 +25,20 @@ class RewardBasic extends React.Component<IProps> {
               model.handleEvents.handleInputPhone(e.target.value, model as any)
             }} />
           <button>{T(LANG.verification.getMessage)}</button>
-        </div>}
+        </div>
+      }
+      {model.prevButton
+        ? <button onClick={() => model.handleEvents.handlePrevClick()}>
+          {model.prevButton}
+        </button>
+        : null
+      }
+      {model.nextButton
+        ? <button onClick={() => model.handleEvents.handleNextClick()}>
+          {model.nextButton}
+        </button>
+        : null
+      }
     </div>
   }
 }
