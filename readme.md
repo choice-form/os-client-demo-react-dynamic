@@ -1,4 +1,7 @@
-这是一个基于React的动态组件加载的online survey clinet程序,它来自于种子仓库[os-client-seed-react](./),下面说明一些规则.
+这是一个基于React的动态组件加载的online survey clinet程序,它来自于种子仓库[os-dynamic-client-react-demo](./),下面说明一些规则.
+
+## 前提
+你必须非常了解如何使用巧思调研的[核心包](https://choice-form.github.io/os-client-doc/doc/modules/_index_d_.html)才能继续后面的主题,如果你还不了解,请先查看核心包的使用方法再继续.
 
 ## 目录结构
 这里对需要关注的一些目录结构的说明
@@ -29,6 +32,8 @@
 + `plugin/standards => utils <=> utils`
 + `plugin/standards => plugin/partials <=> plugin/partials`
 + `plugin/partials <=> plugin/partials => utils <=> utils`
+
+> 因为各个组件之间,以及组件与主程序之间都是分开构建,不要尝试使用`utils`中的模块或其他模块来共享数据,因为被不同单独构建出去的组件依赖时,他们会生成新的实例,之间是无法共享数据的.关于这个情况在`utils/i18n.ts`模块中正好出现,请查看其中的注释.
 
 如果没有遵循以上的规则的应用关系,则构建时会报错.
 

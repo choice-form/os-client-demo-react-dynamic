@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import QuesContainer from '../../components/ques-container';
 import PreviewTool from '../../components/preview-tool';
 import AnswerResume from '../../components/answer-resume';
+import LangList from '../../components/lang-list';
 
 interface IProps extends RouteComponentProps {
   /**
@@ -58,6 +59,8 @@ class Survey extends React.Component<IProps, IState> {
     }
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}
+      <LangList handler={model.handleEvents}
+        language={model.language} langTable={model.langTable} />
       <QuesContainer model={model} />
     </div>;
   }

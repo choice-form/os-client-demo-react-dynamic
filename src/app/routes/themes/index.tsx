@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Core } from '@choiceform/os-client-core'
 import NoView from '../../components/no-view';
 import QuesContainer from '../../components/ques-container';
+import LangList from '../../components/lang-list';
 
 interface IProps extends RouteComponentProps {
   model: CFRealtime;
@@ -38,6 +39,8 @@ class Themes extends React.Component<IProps> {
     if (data.isStart || data.isGift) {
       const DynamicComponent = data.template.component;
       return <div>
+        <LangList handler={data.handleEvents}
+          language={data.language} langTable={data.langTable} />
         <DynamicComponent model={data} />
       </div>
       // 其他和正常题目一样
@@ -45,6 +48,8 @@ class Themes extends React.Component<IProps> {
       // 无视图节点的预览单独处理
       const node = data.nodes[0];
       return <div>
+        <LangList handler={data.handleEvents}
+          language={data.language} langTable={data.langTable} />
         {node.noView
           ? <NoView node={node} />
           : <QuesContainer model={data} />}

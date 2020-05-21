@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import LangList from '../../components/lang-list';
 interface IProps extends RouteComponentProps {
   core: CFCore;
 }
@@ -46,6 +47,8 @@ class Main extends React.Component<IProps, IState> {
     // 交给动态模板渲染,开始页面和节点不同,直接传入整个model
     const StartComponent = model.template.component;
     return <div>
+      <LangList handler={model.handleEvents}
+        language={model.language} langTable={model.langTable} />
       <StartComponent model={model} />
     </div>
   }

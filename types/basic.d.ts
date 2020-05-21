@@ -35,3 +35,6 @@ interface IOptionBaseProps {
   theme: CFTheme;
 }
 
+interface Window {
+  __shared_language__: string
+}
