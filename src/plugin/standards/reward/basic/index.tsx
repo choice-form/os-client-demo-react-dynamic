@@ -13,6 +13,8 @@ class RewardBasic extends React.Component<IProps> {
       <p>{model.title}</p>
       {model.rewardType === 'wechat'
         ? <div>
+          <img src={model.wechatImage}/>
+          <h2>{model.wechatID}</h2>
           <h2>{T(LANG.reward.wechat)}</h2>
           <p>{model.rewardValue}</p>
         </div>
