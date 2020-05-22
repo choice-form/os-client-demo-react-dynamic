@@ -5,6 +5,7 @@ import PreviewTool from '../../components/preview-tool';
 import AnswerResume from '../../components/answer-resume';
 import LangList from '../../components/lang-list';
 import Timer from '../../components/timer';
+import ProgressBar from '../../components/progress-bar';
 
 interface IProps extends RouteComponentProps {
   /**
@@ -61,6 +62,7 @@ class Survey extends React.Component<IProps, IState> {
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}
       {model.limitTime ? <Timer time={model.restTime} /> : null}
+      {model.needProgressBar ? <ProgressBar progress={model.progress} /> : null}
       <LangList handler={model.handleEvents}
         language={model.language} langTable={model.langTable} />
       <QuesContainer model={model} />

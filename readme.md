@@ -42,6 +42,7 @@
 ## 样式与HTML片段
 + 全局使用的通用样式放到主程序中,每次都会加载.
 + 插件组件自己独有的样式,在`index.tsx`边上新建一本`style.scss`文件,样式写在里面,然后要记得在index.tsx中的组件类上新加一个导入样式的代码`static style:string = require('./style.scss')`
++ 只有插件组件中的样式需要通过上面这个方式包含到自己的组件中,主程序`app`中的组件的样式不需要,`app`中的样式只需要在`app/app.scss`中统一引入即可.
 + HTML片段一般用来处理全局的图标库,在`src/app/index.html`中使用`<link href='./xxx/xxx.html'>`这样的格式导入
 
 ## 自定义设置

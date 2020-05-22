@@ -5,6 +5,7 @@ import NoView from '../../components/no-view';
 import QuesContainer from '../../components/ques-container';
 import LangList from '../../components/lang-list';
 import Timer from '../../components/timer';
+import ProgressBar from '../../components/progress-bar';
 
 interface IProps extends RouteComponentProps {
   model: CFRealtime;
@@ -52,6 +53,7 @@ class Themes extends React.Component<IProps> {
         <LangList handler={data.handleEvents}
           language={data.language} langTable={data.langTable} />
         {data.limitTime ? <Timer time={data.restTime} /> : null}
+        {data.needProgressBar ? <ProgressBar progress={data.progress} /> : null}
         {node.noView
           ? <NoView node={node} />
           : <QuesContainer model={data} />}
