@@ -157,6 +157,7 @@ module.exports = (env) => {
       },
     },
     optimization: {
+      runtimeChunk: 'single',
       splitChunks: {
         cacheGroups: {
           react: {

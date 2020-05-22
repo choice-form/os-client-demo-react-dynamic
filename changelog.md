@@ -217,3 +217,8 @@ interface ICommonItems{
 + 使用html-loader的interpolate方法注入html片段
 + 使用link语法,然后用一个pre-html-loader,将link语法转成html-loader需要的require语法,因为require语法在html中没有友好的链接提示.
 > 最新版的html-loader移除了interpolate的支持,后续可能需要寻找其他方案来注入html片段
+
+## runtimeChunk设置为single
+默认情况下如果webpack打包出来多个入口,每个入口又依赖了某个共通通模块,则该模块在每个入口中会生成新的实例,如果你这个共同模块中有些内部缓存数据或跨模块访问数据,则在多个实例间是不共享的,导致你的缓存数据或跨模块访问数据失效
+
+这是可以在webpack的配置中将optimization.runtimeChunk设置为single,则他们就会共享一个实例
