@@ -4,14 +4,26 @@ import { T } from '../../../utils/i18n';
 type ITabName = 'bookmark' | 'time';
 
 interface IState {
+  /**
+   * 预览书签名
+   */
   bookmarkName: string;
+  /**
+   * 当前选中的tab名称
+   */
   currentTab: ITabName;
+  /**
+   * 时间预览者名称
+   */
   timeTestName: string;
 }
 interface IProps {
   model: CFPreviewTool;
 }
 
+/**
+ * 预览工具组件,包含预览时间和预览书签
+ */
 class PreviewTool extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);
