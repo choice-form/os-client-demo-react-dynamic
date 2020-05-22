@@ -4,6 +4,7 @@ import QuesContainer from '../../components/ques-container';
 import PreviewTool from '../../components/preview-tool';
 import AnswerResume from '../../components/answer-resume';
 import LangList from '../../components/lang-list';
+import Timer from '../../components/timer';
 
 interface IProps extends RouteComponentProps {
   /**
@@ -59,6 +60,7 @@ class Survey extends React.Component<IProps, IState> {
     }
     return <div>
       {model.preview ? <PreviewTool model={model.previewTool} /> : null}
+      {model.limitTime ? <Timer time={model.restTime} /> : null}
       <LangList handler={model.handleEvents}
         language={model.language} langTable={model.langTable} />
       <QuesContainer model={model} />

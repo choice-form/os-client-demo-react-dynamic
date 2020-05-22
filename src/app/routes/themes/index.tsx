@@ -4,6 +4,7 @@ import { Core } from '@choiceform/os-client-core'
 import NoView from '../../components/no-view';
 import QuesContainer from '../../components/ques-container';
 import LangList from '../../components/lang-list';
+import Timer from '../../components/timer';
 
 interface IProps extends RouteComponentProps {
   model: CFRealtime;
@@ -50,6 +51,7 @@ class Themes extends React.Component<IProps> {
       return <div>
         <LangList handler={data.handleEvents}
           language={data.language} langTable={data.langTable} />
+        {data.limitTime ? <Timer time={data.restTime} /> : null}
         {node.noView
           ? <NoView node={node} />
           : <QuesContainer model={data} />}

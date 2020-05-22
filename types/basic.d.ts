@@ -36,5 +36,8 @@ interface IOptionBaseProps {
 }
 
 interface Window {
+  /**
+   * 故意放到全局的共享语言
+   */
   __shared_language__: string
 }
