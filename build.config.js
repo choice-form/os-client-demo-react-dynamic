@@ -8,12 +8,13 @@ module.exports = {
    */
   cdnFolder: "assets",
   /**
-   * 资源地址,这个一般不要改
+   * 资源地址,每个项目的地址是不同的
+   * 一般单独分离出的组件会被发布到我们的cdn上,这里设置后新的仓库组件会发布到的cdn的地址.
    */
   assetsPath: {
     local: "http://localhost:${port}",
-    staging: "https://media.choiceform.io/os-client-live",
-    prod: "https://media.choiceform.com/os-client-live"
+    staging: "https://media.choiceform.io/os-client-xxxx",
+    prod: "https://media.choiceform.com/os-client-xxxx"
   },
   /**
    * 这个非常重要,如果我们的插件程序`src/plugin`中依赖了第三方包
