@@ -6,7 +6,7 @@
 ## 目录结构
 这里对需要关注的一些目录结构做说明
 + `config`目录中放了一些配置,配置在不同环境中的一些资源和结构的地址
-+ `lang`文件夹中放了多语言的文本,初始只有中文和英文.后续可以按自己的需求添加其他语言.语言代号参考这里[https://choice-form.github.io/os-client-doc/doc/modules/_index_d_.html#%E5%85%B3%E4%BA%8E%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91]
++ `lang`文件夹中放了多语言的文本,初始只有中文和英文.后续可以按自己的需求添加其他语言.语言代号参考[这里](https://choice-form.github.io/os-client-doc/doc/modules/_index_d_.html#%E5%85%B3%E4%BA%8E%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91)
 + `src`文件夹是项目代码
   + `app` 是主程序代码,答题端初始会加载这个程序,但是各个节点的组件还没加载
   + `plugin` 是动态加载的组件,开始答题时主程序会动态按需仅仅加载当前问卷需要用的组件.
