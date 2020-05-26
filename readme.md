@@ -1,5 +1,8 @@
 这是一个基于React的动态组件加载的online survey clinet程序,它来自于模板仓库[os-client-demo-react-dynamic](https://github.com/choice-form/os-client-demo-react-dynamic),为了实现动态加载,我们在构建程序的时候就把构建树分离出来了,所以我们基于webpack完全使用自己编写的构建流程,这个构建流程对项目编程强制施加一些规则,下面说明这些规则.
 
+基于该模块仓库新建了仓库以后需要对一下设置进行一些[自定义设置](#自定义设置)
+
+
 ## 前提
 你必须非常了解如何使用巧思调研的[核心包](https://choice-form.github.io/os-client-doc/doc/modules/_index_d_.html)才能继续后面的主题,如果你还不了解,请先查看核心包的使用方法再继续.
 

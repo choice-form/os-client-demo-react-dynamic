@@ -68,7 +68,7 @@ class App extends React.Component<any, IFullState> {
       return
     }
     const core = await Core.setup({
-      clientName: 'Live',
+      clientName: 'ALL',
       dynamic: true,
       treeUrl: location.origin + '/tree.json',
       templatePath: this.getTemplatePath(),
