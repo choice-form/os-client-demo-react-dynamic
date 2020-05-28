@@ -39,7 +39,7 @@ class SlideRateBasic extends React.Component<IProps, IState> {
           {T(LANG.slideRate.next)}
         </button>
         <div>
-          <img src={option.image.thumbnail} />
+          {option.image ? <img src={option.image.thumbnail} /> : null}
           <span>{option.text}</span>
           {node.rateOptions.map((rate, index) => {
             const rateId = "rate-" + index;
