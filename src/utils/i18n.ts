@@ -9,8 +9,8 @@ const mf = new I18n.MessageFormat();
 /**
  * 多语言的资源地址,构建的时候会替换成真实地址
  */
-export const zh_cn = '/assets/zh_cn.json';
-export const en_us = '/assets/en_us.json';
+const zh_cn = '/assets/zh_cn.json';
+const en_us = '/assets/en_us.json';
 
 
 /**

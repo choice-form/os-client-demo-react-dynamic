@@ -85,6 +85,13 @@ module.exports = (env) => {
     module: {
       rules: [
         {
+          test: /[\\/]src[\\/]utils[\\/]i18n.ts/,
+          use: [{
+            loader: LangPlugin.loader,
+            options: { local, prefix: getAssetsPath(env) }
+          }]
+        },
+        {
           test: /\.html$/,
           use: [
             {
@@ -104,13 +111,6 @@ module.exports = (env) => {
           ]
         },
         {
-          test: /lang[\\/]\w+\.ts/,
-          use: [{
-            loader: LangPlugin.entryLoader,
-            options: { local, prefix: getAssetsPath(env) }
-          }]
-        },
-        {
           test: /\.tsx?$/,
           exclude: /lang[\\/]\w+\.ts/,
           use: [
@@ -119,9 +119,6 @@ module.exports = (env) => {
             },
             {
               loader: require.resolve('./webpack/standards-loader'),
-            },
-            {
-              loader: LangPlugin.codeLoader,
             }
           ]
         },
