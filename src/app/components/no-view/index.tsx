@@ -1,5 +1,5 @@
 import React from 'react';
-import { T } from '../../../utils/i18n';
+import { T, LANG } from '../../../utils/i18n';
 interface IProps {
   node: CFQuestion;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
 import NodeBody from '../../../partials/components/basic/node-body';
 import OtherOptions from '../../../partials/components/basic/other-options';
-import { T } from '../../../../utils/i18n';
+import { T, LANG } from '../../../../utils/i18n';
 import OptionIcon from '../../../partials/components/basic/option-icon';
 
 interface IProps extends IQuesComBaseProps {

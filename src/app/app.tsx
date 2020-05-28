@@ -12,7 +12,7 @@ import Reward from "./routes/reward";
 import { Core, EventHub } from '@choiceform/os-client-core'
 import CF_CONFIG from "config";
 import './app.scss';
-import { setLocale, T } from "../utils/i18n";
+import { setLocale, T, LANG} from "../utils/i18n";
 /**
  * 引用程序根状态
  */

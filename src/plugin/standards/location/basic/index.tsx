@@ -1,6 +1,6 @@
 import React from 'react';
 import NodeHead from '../../../partials/components/basic/node-head';
-import { T } from '../../../../utils/i18n';
+import { T, LANG } from '../../../../utils/i18n';
 import NodeBody from '../../../partials/components/basic/node-body';
 import { locate } from '../../../partials/modules/locator';
 
