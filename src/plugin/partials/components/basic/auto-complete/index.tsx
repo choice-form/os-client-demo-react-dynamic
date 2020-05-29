@@ -37,7 +37,7 @@ interface IState {
 /**
  * 基本风格的自动提示组件
  */
-class AutoCompleteBasic extends React.Component<IProps, IState> {
+class   AutoCompleteBasic extends React.Component<IProps, IState> {
 
   trigger: React.RefObject<HTMLInputElement>;
 

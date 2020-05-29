@@ -1,5 +1,6 @@
 import React from 'react';
 import { T, LANG } from '../../../../utils/i18n';
+import QrCodeBasic from '../../../partials/components/basic/qr-code';
 
 interface IProps {
   model: CFRewardState;
@@ -13,14 +14,14 @@ class RewardBasic extends React.Component<IProps> {
       <p>{model.title}</p>
       {model.rewardType === 'wechat'
         ? <div>
-          <img src={model.wechatImage}/>
+          <img src={model.wechatImage} />
           <h2>{model.wechatID}</h2>
           <h2>{T(LANG.reward.wechat)}</h2>
           <p>{model.rewardValue}</p>
         </div>
         : <div>
           <p>{T(LANG.reward.custom)}</p>
-          <p>{model.qrCode}</p>
+          <QrCodeBasic text={model.qrCode} />
           <input type="text" value={model.phoneNumber}
             placeholder={T(LANG.verification.inputPhone)}
             onChange={(e) => {
