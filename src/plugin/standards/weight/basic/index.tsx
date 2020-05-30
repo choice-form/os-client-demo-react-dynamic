@@ -34,7 +34,7 @@ class WeightBasic extends React.Component<IProps> {
             <span className='weight-opt-color' style={{
               backgroundColor: opt.color,
             }}></span>
-            <span>{opt.text}</span>
+            <span dangerouslySetInnerHTML={{ __html: opt.text }}></span>
             <input type="range"
               min='0'
               max={opt.maxValue}

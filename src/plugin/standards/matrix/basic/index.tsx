@@ -20,14 +20,14 @@ class MatrixBasic extends React.Component<IProps> {
             <tr>
               <th></th>
               {node.renderOptionsX.map(opt => {
-                return <th key={opt.uuid}>{opt.text}</th>
+                return <th key={opt.uuid} dangerouslySetInnerHTML={{ __html: opt.text }}></th>
               })}
             </tr>
           </thead>
           <tbody>
             {node.matrix.map((row, index) => {
               return <tr key={index}>
-                <td>{node.renderOptionsY[index].text}</td>
+                <td dangerouslySetInnerHTML={{ __html: node.renderOptionsY[index].text }}></td>
                 {row.map(cell => {
                   return <td key={cell.uuid}
                     onClick={() => handler.handleOptionClick(cell, node)}>

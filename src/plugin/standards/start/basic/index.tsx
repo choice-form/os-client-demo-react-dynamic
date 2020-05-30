@@ -16,8 +16,8 @@ class StartBasic extends React.Component<IProps> {
           title={image.originName}
         ></img>
       })}
-      <h1>{model.title}</h1>
-      <p>{model.summary}</p>
+      <h1 dangerouslySetInnerHTML={{ __html: model.title }}></h1>
+      <p dangerouslySetInnerHTML={{ __html: model.summary }}></p>
       <button onClick={() => model.handleEvents.handleNextClick()}>
         {model.nextLoading ? 'Loading' : model.nextButton}
       </button>

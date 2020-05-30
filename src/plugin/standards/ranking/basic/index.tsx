@@ -95,7 +95,7 @@ class RankingBasic extends React.Component<IProps> {
               onDragStart={() => this.handldDragStart(index)}
               draggable={true} >
               <span>{option.sortNo > 0 ? option.sortNo + '-' : ''}</span>
-              <span>{option.text}</span>
+              <span dangerouslySetInnerHTML={{ __html: option.text }}></span>
               <span>↕️</span>
             </div>
           })}

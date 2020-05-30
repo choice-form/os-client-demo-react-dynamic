@@ -34,7 +34,7 @@ class RatingBasic extends React.Component<IProps> {
         {node.options.map(opt => {
           const iconList = this.getIconList(opt);
           return < div key={opt.renderId} >
-            <span>{opt.text}</span>
+            <span dangerouslySetInnerHTML={{ __html: opt.text }}></span>
             <div className='rate-icon-list'>
               {iconList.map((_icon, index) => {
                 return <span key={index}

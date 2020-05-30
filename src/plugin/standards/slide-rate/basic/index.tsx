@@ -40,7 +40,7 @@ class SlideRateBasic extends React.Component<IProps, IState> {
         </button>
         <div>
           {option.image ? <img src={option.image.thumbnail} /> : null}
-          <span>{option.text}</span>
+          <span dangerouslySetInnerHTML={{ __html: option.text }}></span>
           {node.rateOptions.map((rate, index) => {
             const rateId = "rate-" + index;
             return <div key={index}

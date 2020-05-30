@@ -18,7 +18,7 @@ class RangeBasic extends React.Component<IProps> {
       <NodeBody theme={theme}>
         {node.options.map(opt => {
           return <div key={opt.renderId}>
-            <span>{opt.text}</span>
+            <span dangerouslySetInnerHTML={{ __html: opt.text }}></span>
             <input type="range"
               min={opt.minValue}
               max={opt.maxValue}

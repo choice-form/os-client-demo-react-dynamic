@@ -48,7 +48,7 @@ class ChoiceOption extends React.Component<IProps, IState> {
           checked={option.selected}
           onClick={() => handleClick()}
           onChange={() => { /** 保留这个空回调来阻止React报错 */ }} />
-        <span>{option.text}</span>
+        <span dangerouslySetInnerHTML={{ __html: option.text }}></span>
         {option.icon
           ? <OptionIcon iconUrl={option.icon}
             iconActiveUrl={option.iconActive}
