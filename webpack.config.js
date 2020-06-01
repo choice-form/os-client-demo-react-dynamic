@@ -149,6 +149,7 @@ module.exports = (env) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
       alias: {
+        "web-pinyin": path.join(__dirname, 'library/web-pinyin.js'),
         config: path.join(__dirname, `config/${getConfigFile(env)}.ts`),
         ...getCoreSdkAlias(env)
       },

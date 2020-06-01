@@ -20,10 +20,10 @@ class FileUploadBasic extends React.Component<IProps> {
         {node.options.map(option => {
           return <div key={option.renderId}>
             <button onClick={() => handler.handleOptionClick(option, node)}
-            dangerouslySetInnerHTML={{ __html: option.text }}>
+              dangerouslySetInnerHTML={{ __html: option.text }}>
             </button>
             <div className='progress'>
-              <div style={{ width: option.progress + '%'}}></div>
+              <div style={{ width: option.progress + '%' }}></div>
             </div>
             <div>{option.fileName}</div>
             <img src={option.value as string}

@@ -37,7 +37,7 @@ function checkDependencyRules() {
  */
 function getConfigedSplitChunk(file) {
   const isSplitChunks = buildConfig.splitChunks.find(item => {
-    return file.includes(item.folder);
+    return file.includes(item.match);
   });
   return isSplitChunks;
 }
@@ -70,6 +70,9 @@ function getDependencyTree(chunkMap) {
       handledConfigedIds.push(id);
       // 从chunkMap中获取到目标文件
       const file = chunkMap[id];
+      if (!file) {
+        return;
+      }
       // 第三包的依赖无需在追踪,置空
       tree.partials.push({ id, file, dependencies: [] });
       // ts模块
@@ -91,6 +94,9 @@ function getDependencyTree(chunkMap) {
         }, []);
       // 从chunkMap中获取到目标文件
       const file = chunkMap[id];
+      if (!file) {
+        return;
+      }
       // 通用树叶
       const item = { id, file, dependencies };
       // 标准入口组件

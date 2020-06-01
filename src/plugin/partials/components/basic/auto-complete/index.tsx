@@ -37,7 +37,7 @@ interface IState {
 /**
  * 基本风格的自动提示组件
  */
-class   AutoCompleteBasic extends React.Component<IProps, IState> {
+class AutoCompleteBasic extends React.Component<IProps, IState> {
 
   trigger: React.RefObject<HTMLInputElement>;
 
@@ -98,7 +98,8 @@ class   AutoCompleteBasic extends React.Component<IProps, IState> {
    */
   handleTrigger(value: string): void {
     const { option, handleTrigger } = this.props;
-    const completeData = getAutoCompleteData(value, option.completeGroups,
+    const existed = String(option.value).split(/[,，]/g);
+    const completeData = getAutoCompleteData(value, existed, option.completeGroups,
       "full", option.simpleCplt);
     this.setState({ candidates: completeData.results });
     handleTrigger(value);

@@ -24,13 +24,13 @@ interface IProps extends IOptionBaseProps {
   handleTrigger(value: string): void;
 }
 
-
 /**
  * 选择类型的选项组件,考虑图片和图标
  */
 class ChoiceOption extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
+    this.state = { selected: false };
   }
   render(): JSX.Element {
     const { type, handleChange, handleClick, theme, handleTrigger } = this.props;

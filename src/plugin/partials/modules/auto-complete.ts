@@ -1,5 +1,5 @@
 
-import pinyin from 'pinyin';
+import pinyin from 'web-pinyin';
 
 interface IPinyinMatch {
   full: string;
@@ -9,11 +9,6 @@ interface IPinyinMatch {
 
 type IPinyinRule = 'partial' | 'start' | 'full';
 
-interface IPinyinAnalyze {
-  existed: string[];
-  pattern: string;
-}
-
 interface IAutoCptlResult {
   existed: string[];
   results: CFAutoCpltData[];
@@ -22,15 +17,17 @@ interface IAutoCptlResult {
 /**
  * 获得自动提示项目
  * @param text 文字
+ * @param existed 已有的值
  * @param source 自动提示数据源
  * @param rule 匹配规则
  * @param isSimple 是否简单匹配
  */
-export function getAutoCompleteData(text: string, source: CFAutoCpltData[],
+export function getAutoCompleteData(text: string, existed: string[], source: CFAutoCpltData[],
   rule: IPinyinRule, isSimple: boolean = false): IAutoCptlResult {
-  const { pattern, existed } = analyzeText(text);
-  const patterns = [pattern, pattern.replace(/['\s]/g, '')];
-
+  if (!text) {
+    return { results: [], existed: [] };
+  }
+  const patterns = [text, text.replace(/['\s]/g, '')];
   const results = source.reduce((finale, record) => {
     return compareWith(record, patterns, existed, rule, isSimple)
       ? finale.concat({ ...record })
@@ -39,18 +36,6 @@ export function getAutoCompleteData(text: string, source: CFAutoCpltData[],
   return { results, existed };
 }
 
-/**
- * 解析字符,分出已有的和新输入的既有的项目
- * @param text 字符
- */
-function analyzeText(text: string): IPinyinAnalyze {
-  const patterns = text.split(/[,，]/g);
-  if (patterns.length > 1) {
-    return { pattern: patterns.pop(), existed: patterns };
-  } else {
-    return { pattern: patterns[0], existed: [] };
-  }
-}
 /**
  * 是否能匹配自动提示组中的内容
  * @param record 自动提示组
