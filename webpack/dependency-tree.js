@@ -37,7 +37,7 @@ function checkDependencyRules() {
  */
 function getConfigedSplitChunk(file) {
   const isSplitChunks = buildConfig.splitChunks.find(item => {
-    return file.includes(item.match);
+    return file.match(item.testRegExp);
   });
   return isSplitChunks;
 }

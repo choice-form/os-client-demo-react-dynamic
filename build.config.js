@@ -29,11 +29,11 @@ module.exports = {
   splitChunks: [
     {
       name: 'pinyin',
-      match: 'web-pinyin'
+      testRegExp: /web-pinyin/
     },
     {
       name: 'qrcodejs2',
-      match: 'node_modules/qrcodejs2'
+      testRegExp: /node_modules[\\/]qrcodejs2/
     }
   ]
 };

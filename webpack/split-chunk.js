@@ -75,7 +75,7 @@ function getSplitChunks() {
       name: item.name,
       enforce: true,
       test(e) {
-        return e.resource && e.resource.includes(item.match);
+        return e.resource && e.resource.match(item.testRegExp);
       }
     };
   });
