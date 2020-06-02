@@ -63,6 +63,7 @@ async function loadLocator(name: string, url: string): Promise<ILocator> {
     const iframe = document.createElement('iframe');
     iframe.setAttribute('id', `${name}-locator-iframe`);
     iframe.setAttribute('src', url);
+    iframe.style.display = 'none';
     iframe.onload = () => {
       locators[name] = { iframe, callback: () => { /***/ } };
       resolve(locators[name]);
@@ -73,7 +74,7 @@ async function loadLocator(name: string, url: string): Promise<ILocator> {
         locators[name].callback(data);
       }
     })
-    document.body.append(iframe);
+    document.body.appendChild(iframe);
   }) as Promise<ILocator>;
   return await promise;
 }
