@@ -27,12 +27,6 @@ module.exports = (env) => {
     {
       loader: 'css-loader'
     },
-    // {
-    //   loader: 'resolve-url-loader',
-    //   options: {
-    //     removeCR: os.platform() === 'win32' ? true : false
-    //   }
-    // },
     {
       loader: 'sass-loader',
 
@@ -95,10 +89,7 @@ module.exports = (env) => {
           test: /\.html$/,
           use: [
             {
-              loader: 'html-loader',
-              options: {
-                interpolate: true,
-              },
+              loader: 'raw-loader',
             },
             {
               loader: path.resolve('./webpack/pre-html-loader'),

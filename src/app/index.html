@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>os client live</title>
-  <script>
-    // ie特殊处理
-    if (window["context"] == undefined) {
-      if (!window.location.origin) {
-        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-      }
-      window["context"] = location.origin + "/V6.0";
-    }
-  </script>
 </head>
 
 <body>
 
   <div id="root"></div>
-  <link href="./html/index.html">
   <dev-support />
 </body>
 
