@@ -34,3 +34,10 @@ interface IOptionBaseProps {
    */
   theme: CFTheme;
 }
+
+interface Window {
+  __LIVE_APP__: {
+    disableNotify(): void;
+    recoverNotify(): void;
+  }
+}

@@ -9,10 +9,22 @@ import Main from "./routes/main";
 import Survey from "./routes/survey";
 import Themes from "./routes/themes";
 import Reward from "./routes/reward";
-import { Core, EventHub } from '@choiceform/os-client-core'
+import { Core, EventHub } from "@choiceform/os-client-core";
 import CF_CONFIG from "config";
-import './app.scss';
-import { setLocale, T, LANG} from "../utils/i18n";
+import "./app.scss";
+import "./style.scss";
+import { setLocale } from "../utils/i18n";
+import LogoFooter from "./components/logo-footer";
+import LogoBanner from "./components/logo-banner";
+import GlobalError from "./components/global-error";
+import Notification from "./components/notification";
+
+interface ISurveyInfo {
+  title: string;
+  logoImageUrl: string;
+  logoText: string;
+}
+
 /**
  * 引用程序根状态
  */
@@ -20,7 +32,7 @@ interface IFullState {
   /**
    * 核心数据
    */
-  core: CFCore,
+  core: CFCore;
   /**
    * 错误消息
    */
@@ -28,7 +40,7 @@ interface IFullState {
   /**
    * 提示消息列表
    */
-  notification: { id: number, text: string }[];
+  notification: { id: number; text: string }[];
 }
 /**
  * 应用程序根组件
@@ -45,10 +57,39 @@ class App extends React.Component<any, IFullState> {
     super(props);
     this.state = {
       core: null,
-      error: '',
+      error: "",
       notification: [],
     };
     this.init();
+  }
+
+  getSurveyInfo(): ISurveyInfo {
+    const { core } = this.state;
+    let state: {
+      title?: string;
+      customLogo?: string;
+      customText?: string;
+    } = null;
+    if (core) {
+      const { pathname } = window.location;
+      if (pathname === "/") {
+        state = core.startState;
+      } else if (pathname === "/themes") {
+        state = core.realtime && core.realtime.data;
+      } else if (pathname === "/survey") {
+        state = core.surveyState;
+      } else if (pathname === "/reward") {
+        state = core.surveyState;
+      }
+    }
+    if (state) {
+      return {
+        title: state.title,
+        logoImageUrl: state.customLogo,
+        logoText: state.customText,
+      };
+    }
+    return { title: "", logoImageUrl: "", logoText: "" };
   }
   /**
    * 获取动态组件所在路径
@@ -58,19 +99,27 @@ class App extends React.Component<any, IFullState> {
     if (location.origin.match(/(?:localhost|(?:\d{1,3}\.){3}\w{1,3})/)) {
       return location.origin;
     }
-    return CF_CONFIG.cdnHost + '/os-client-live';
+    return CF_CONFIG.cdnHost + "/os-client-live";
   }
   /**
    * 初始化答题核心
    */
   async init(): Promise<void> {
     if (this.state.core) {
-      return
+      return;
     }
+    window.__LIVE_APP__ = {
+      disableNotify: () => {
+        this.suspendNotify();
+      },
+      recoverNotify: () => {
+        this.resumeNotify();
+      },
+    };
     const core = await Core.setup({
-      clientName: 'ALL',
+      clientName: "Live",
       dynamic: true,
-      treeUrl: location.origin + '/tree.json',
+      treeUrl: location.origin + "/tree.json",
       templatePath: this.getTemplatePath(),
       useWxSdk: true,
       error: (e) => this.showError(e),
@@ -84,9 +133,9 @@ class App extends React.Component<any, IFullState> {
     // 驱动初始更新
     this.setState({ core });
     // 每当核心数据发生变化时,再次驱动更新
-    EventHub.on('SET_PROPS', () => {
+    EventHub.on("SET_PROPS", () => {
       this.setState({});
-    })
+    });
   }
   /**
    * 定位错误
@@ -96,7 +145,7 @@ class App extends React.Component<any, IFullState> {
     if (dueToNode) {
       const element = document.getElementById(dueToNode.renderId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
   }
@@ -105,16 +154,19 @@ class App extends React.Component<any, IFullState> {
    * @param text 提示消息
    */
   notify(text: string): void {
+    if (text === '请进入下一题') {
+      return;
+    }
     if (this.notifySuspended) {
       return;
     }
     const item = { id: Math.random(), text };
     // 推入错误消息
-    this.setState({ notification: [...this.state.notification, item] })
+    this.setState({ notification: [...this.state.notification, item] });
     // 两秒后去掉错误消息
     setTimeout(() => {
       this.setState({
-        notification: this.state.notification.filter(a => a !== item)
+        notification: this.state.notification.filter((a) => a !== item),
       });
     }, 2000);
   }
@@ -125,78 +177,73 @@ class App extends React.Component<any, IFullState> {
     const { core } = this.state;
     // 核心还未完成初始化
     if (!core) {
-      return <div></div>
+      return <div></div>;
     }
-    const theme = core.getTheme();
-    return (<Router>
-      <div>
-        {this.state.error
-          ? <div className='global-error'>
-            {this.state.error}
-          </div>
-          : null}
-        {core.needPreviewFlag
-          ? <div className='preview-flag'
-            style={{ background: theme.contrast }}>
-            {T(LANG.preview.title)}
-          </div>
-          : null}
-        <div className='global-notification'>
-          {this.state.notification.map(nt => {
-            return <div className='notification-item'
-              key={nt.id}>{nt.text}</div>
-          })}
+    const { title, logoText, logoImageUrl } = this.getSurveyInfo();
+    return (
+      <Router>
+        <LogoBanner preview={core.needPreviewFlag} surveyName={title} />
+        <Notification notification={this.state.notification} />
+        {/* 保留这一层容易来保证初始化没内容的时候不坍塌 */}
+        <div
+          className="flex flex-col flex-grow pt-8"
+          style={{ minHeight: "calc(100vh - 3rem)" }}
+        >
+          <Switch>
+            <Route path="/themes" render={(e) => this.renderThemes(e)}></Route>
+            <Route path="/reward" render={(e) => this.renderReward(e)}></Route>
+            <Route
+              path="/survey"
+              render={(e) => this.renderQuestions(e)}
+            ></Route>
+            <Route path="/" render={(e) => this.renderMain(e)}></Route>
+          </Switch>
         </div>
-        <Switch>
-          <Route path="/themes"
-            render={(e) => this.renderThemes(e)}>
-          </Route>
-          <Route path="/reward"
-            render={(e) => this.renderReward(e)}>
-          </Route>
-          <Route path="/survey"
-            render={(e) => this.renderQuestions(e)}>
-          </Route>
-          <Route path="/"
-            render={(e) => this.renderMain(e)}>
-          </Route>
-        </Switch>
-      </div>
-    </Router>)
+
+        {this.state.error && <GlobalError error={this.state.error} />}
+        <LogoFooter logoText={logoText} logoImageUrl={logoImageUrl} />
+      </Router>
+    );
   }
   /**
    * 渲染首页
    * @param routeProps 路由属性
    */
   renderMain(routeProps: RouteComponentProps): JSX.Element {
-    return <Main {...routeProps}
-      core={this.state.core}
-    />
+    if (this.state.error) {
+      return null;
+    }
+    return <Main {...routeProps} core={this.state.core} />;
   }
   /**
    * 渲染答题页面
    * @param routeProps 路由属性
    */
   renderQuestions(routeProps: RouteComponentProps): JSX.Element {
-    return <Survey {...routeProps}
-      core={this.state.core} />
+    if (this.state.error) {
+      return null;
+    }
+    return <Survey {...routeProps} core={this.state.core} />;
   }
   /**
    * 渲染奖励页面
    * @param routeProps 路由属性
    */
   renderReward(routeProps: RouteComponentProps): JSX.Element {
-    return <Reward {...routeProps}
-      core={this.state.core} />
+    if (this.state.error) {
+      return null;
+    }
+    return <Reward {...routeProps} core={this.state.core} />;
   }
   /**
    * 渲染主题实时预览页面
    * @param routeProps 路由属性
    */
   renderThemes(routeProps: RouteComponentProps): JSX.Element {
-    return <Themes
-      model={this.state.core.realtime}
-      {...routeProps}></Themes>
+    if (this.state.error) {
+      return null;
+    }
+    return <Themes model={this.state.core.realtime} {...routeProps}></Themes>;
   }
 
   /**
@@ -217,7 +264,7 @@ class App extends React.Component<any, IFullState> {
    * @param text
    */
   showError(text: string): void {
-    this.setState({ error: text })
+    this.setState({ error: text });
   }
   /**
    * 将提示信息挂起,直到恢复之前,任何提示信息都不会被显示出来.

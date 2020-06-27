@@ -24,7 +24,7 @@
             name: 'baidu-locate-result',
             data: data,
             type: type,
-          });
+          }, '*');
         }
         function handleSuccess(response) {
           if (window.BMAP_STATUS_SUCCESS === geo.getStatus()) {

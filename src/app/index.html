@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>os client live</title>
-</head>
+      <head>
+            <meta charset="UTF-8">
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+            <meta name="keywords"
+                  content="questionnaire,free online survey" />
+            <meta name="description"
+                  content="Use choiceform to drive your business forward by using our leading online survey tool to capture real voices and opinions." />
+            <title>os client live</title>
+            <!--favicon_package-->
+            <link rel="apple-touch-icon"
+                  sizes="180x180"
+                  href="https://media.choiceform.com/favicon_package/apple-touch-icon.png" />
+            <link rel="icon"
+                  type="image/png"
+                  sizes="32x32"
+                  href="https://media.choiceform.com/favicon_package/favicon-32x32.png" />
+            <link rel="icon"
+                  type="image/png"
+                  sizes="16x16"
+                  href="https://media.choiceform.com/favicon_package/favicon-16x16.png" />
+            <link rel="manifest"
+                  href="https://media.choiceform.com/favicon_package/site.webmanifest" />
+            <link rel="mask-icon"
+                  href="https://media.choiceform.com/favicon_package/safari-pinned-tab.svg"
+                  color="#272727" />
+            <link rel="shortcut icon"
+                  href="https://media.choiceform.com/favicon_package/favicon.ico" />
+            <meta name="msapplication-TileColor"
+                  content="#272727" />
+            <meta name="theme-color"
+                  content="#272727" />
+            <script>
+                  // ie特殊处理
+                  if (window["context"] == undefined) {
+                        if (!window.location.origin) {
+                              window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+                        }
+                        window["context"] = location.origin + "/V6.0";
+                  }
+                  var match = navigator.appVersion.match(/MSIE (\d+)/);
+                  if (match && Number(match[1]) < 10) {
+                        document.body.innerHTML =
+                              '<h1>您的浏览器版本太老,无法运行该页面,请改用较新版本的浏览器</h1>' +
+                              '<h1>Your browser is too old to run this page, Please try a newer version of the browser.</h1>'
+                  }
+            </script>
+      </head>
 
-<body>
-
-  <div id="root"></div>
-  <dev-support />
-</body>
+      <body>
+            <div id="root"
+                 class="flex flex-col min-h-screen"></div>
+            <dev-support />
+      </body>
 
 </html>

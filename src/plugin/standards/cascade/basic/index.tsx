@@ -66,13 +66,18 @@ class CascadeBasic extends React.Component<IProps> {
         && cascade.option.selected)
         || cascade.option.inputType === 'input')
         ? <OptionInput
+          placeAt='isolated'
+          placeholder={cascade.option.placeholder}
+          disabled={node.readonly}
           option={cascade.option}
           theme={theme}
+          handleAssistChange={(k, v) => handler.handleOptionAssistInput(k, v, cascade.option)}
           handleTrigger={(v) => handler.handleAutoCpltInput(v, cascade.option, node)}
           handleChange={(v) => this.handleInput(cascade, v, parentCascade)} />
         : null}
       {/* 下拉列表 */}
       <select multiple={cascade.multiple}
+        disabled={node.readonly}
         value={selectedValues}
         onChange={(e) => this.handleSelect(cascade, e.target.value)}>
         <option value={cascade.placeholder}

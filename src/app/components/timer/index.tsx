@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface IProps {
   time: string;
@@ -8,7 +8,9 @@ interface IProps {
  */
 class Timer extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div>{this.props.time}</div>
+    return (
+      <div className="flex items-center text-gray-600">{this.props.time}</div>
+    );
   }
 }
 

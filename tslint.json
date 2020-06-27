@@ -18,15 +18,8 @@
           "private-instance-method",
           "protected-instance-method",
           "public-instance-method"
-        ],
-        "alphabetize": true
+        ]
       }
-    ],
-    "typedef": [
-      true,
-      "call-signature",
-      "parameter",
-      "member-variable-declaration"
     ],
     "variable-name": false
   }

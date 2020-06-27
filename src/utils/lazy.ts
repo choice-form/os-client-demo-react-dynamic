@@ -1,3 +1,5 @@
+import { Device } from '@choiceform/os-client-core'
+
 /**
  * 瞎懒惰
  * @param fn
@@ -14,4 +16,9 @@ export function debounce<T extends (...args: any[]) => any>(
       fn.apply(scope, args);
     }, time);
   } as any;
+}
+
+
+export function isIE() {
+  return Device.browser.name === 'IE';
 }

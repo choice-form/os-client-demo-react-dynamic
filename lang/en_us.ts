@@ -1,4 +1,8 @@
 const enUS: ILang = {
+  general:{
+    readonly: 'Shadow node only displayed in preview mode.',
+    sum: 'Sum',
+  },
   locate: {
     click: 'Click to locate',
     doing: 'Locating...',

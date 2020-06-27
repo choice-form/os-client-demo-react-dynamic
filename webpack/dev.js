@@ -3,6 +3,27 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../build.config');
 
+let localIp = '';
+
+function getLocalIp() {
+  if (localIp) {
+    return localIp;
+  }
+  var interfaces = require('os').networkInterfaces();
+  const keys = Object.keys(interfaces);
+  for (var devName of keys) {
+    var iFace = interfaces[devName];
+    for (var i = 0; i < iFace.length; i++) {
+      var alias = iFace[i];
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+        localIp = alias.address;
+        return alias.address;
+      }
+    }
+  }
+  return '127.0.0.1';
+}
+
 /**
  * 是否为本地开发
  * @param {*} env 
@@ -102,7 +123,8 @@ function insureDistDir() {
 function getAssetsPath(env) {
   let result = config.assetsPath[env.NODE_ENV];
   if (env.NODE_ENV === 'local') {
-    result = result.replace('${port}', config.devPort);
+    result = result.replace('${port}', config.devPort)
+      .replace('localhost', getLocalIp());
   }
   if (config.cdnFolder) {
     result += "/" + config.cdnFolder;

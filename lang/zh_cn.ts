@@ -1,4 +1,8 @@
 const zhCN = {
+  general:{
+    readonly: '隐身节点，仅在预览测试显示。',
+    sum: '合计',
+  },
   locate: {
     click: '点击进行定位',
     doing: '正在定位...',

@@ -38,10 +38,9 @@
 
 如果违反了以上的规则的引用关系,则构建时会报错.
 
-## 样式与HTML片段
+## 样式
 + 全局使用的通用样式放到主程序中,在`app/app.scss`中统一引入,每次都会加载.
 + 插件组件自己独有的样式,在`index.tsx`边上新建一本`style.scss`文件,样式写在里面,然后要记得在index.tsx中的组件类上新加一个导入样式的代码`static style:string = require('./style.scss')`
-+ HTML片段一般用来处理内嵌的svg的图标库,在`src/app/index.html`中使用`<link href='./xxx/xxx.html'>`这样的格式导入
 
 ## 自定义设置
 从种子仓库为模板生成仓库后,需要自定义一些配置,再进行开发
@@ -122,5 +121,6 @@ interface IQuesComBaseProps {
 
 有了上面的机制,我们在节点类型增加,或因不同客户的需求对某个题型的展现方式发生巨大变化的时候,我们可以毫无负担的在plugin中添加新的题型组件,或者为某个题型添加新的风格组件,这样的横向扩展不再会使得答题端程序的加载包变大,使得以后的UI开放可以更自由.
 
-
+## 组件
+增加 `/utils/ui-components` 文件夹，存放基础的react组件。供app和plugin调用
 

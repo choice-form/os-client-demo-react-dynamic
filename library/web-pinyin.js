@@ -1,6 +1,6 @@
-const assign = require("object-assign");
+var assign = require("object-assign");
 // XXX: Symbol when web support.
-const PINYIN_STYLE = {
+var PINYIN_STYLE = {
   NORMAL: 0,       // 普通风格，不带声调。
   TONE: 1,         // 标准风格，声调在韵母的第一个字母上。
   TONE2: 2,        // 声调以数字形式在拼音之后，使用数字 0~4 标识。
@@ -8,18 +8,18 @@ const PINYIN_STYLE = {
   INITIALS: 3,     // 仅需要声母部分。
   FIRST_LETTER: 4, // 仅保留首字母。
 };
-const DEFAULT_OPTIONS = {
+var DEFAULT_OPTIONS = {
   style: PINYIN_STYLE.TONE, // 风格
   segment: false,           // 分词。
   heteronym: false,         // 多音字
 };
 
 // 声母表。
-const INITIALS = "b,p,m,f,d,t,n,l,g,k,h,j,q,x,r,zh,ch,sh,z,c,s".split(",");
+var INITIALS = "b,p,m,f,d,t,n,l,g,k,h,j,q,x,r,zh,ch,sh,z,c,s".split(",");
 // 韵母表。
-//const FINALS = "ang,eng,ing,ong,an,en,in,un,er,ai,ei,ui,ao,ou,iu,ie,ve,a,o,e,i,u,v".split(",");
+//var FINALS = "ang,eng,ing,ong,an,en,in,un,er,ai,ei,ui,ao,ou,iu,ie,ve,a,o,e,i,u,v".split(",");
 // 带声调字符。
-const PHONETIC_SYMBOL = {
+var PHONETIC_SYMBOL = {
   "ā": "a1",
   "á": "a2",
   "ǎ": "a3",
@@ -48,8 +48,8 @@ const PHONETIC_SYMBOL = {
   "ň": "n3",
   "": "m2",
 };
-const RE_PHONETIC_SYMBOL = new RegExp("([" + Object.keys(PHONETIC_SYMBOL).join("") + "])", "g");
-const RE_TONE2 = /([aeoiuvnm])([0-4])$/;
+var RE_PHONETIC_SYMBOL = new RegExp("([" + Object.keys(PHONETIC_SYMBOL).join("") + "])", "g");
+var RE_TONE2 = /([aeoiuvnm])([0-4])$/;
 
 /*
  * 格式化拼音为声母（Initials）形式。
@@ -57,7 +57,7 @@ const RE_TONE2 = /([aeoiuvnm])([0-4])$/;
  * @return {String}
  */
 function initials(pinyin) {
-  for (let i = 0, l = INITIALS.length; i < l; i++) {
+  for (var i = 0, l = INITIALS.length; i < l; i++) {
     if (pinyin.indexOf(INITIALS[i]) === 0) {
       return INITIALS[i];
     }
@@ -80,10 +80,10 @@ Pinyin.prototype.convert = function (hans, options) {
 
   options = assign({}, DEFAULT_OPTIONS, options);
 
-  let pys = [];
-  let nohans = "";
+  var pys = [];
+  var nohans = "";
 
-  for (let i = 0, firstCharCode, words, l = hans.length; i < l; i++) {
+  for (var i = 0, firstCharCode, words, l = hans.length; i < l; i++) {
 
     words = hans[i];
     firstCharCode = words.charCodeAt(0);
@@ -123,21 +123,21 @@ Pinyin.prototype.single_pinyin = function (han, options) {
     return this.single_pinyin(han.charAt(0), options);
   }
 
-  let hanCode = han.charCodeAt(0);
+  var hanCode = han.charCodeAt(0);
 
   if (!this._dict[hanCode]) {
     return [han];
   }
 
-  let pys = this._dict[hanCode].split(",");
+  var pys = this._dict[hanCode].split(",");
   if (!options.heteronym) {
     return [Pinyin.toFixed(pys[0], options.style)];
   }
 
   // 临时存储已存在的拼音，避免多音字拼音转换为非注音风格出现重复。
-  let py_cached = {};
-  let pinyins = [];
-  for (let i = 0, py, l = pys.length; i < l; i++) {
+  var py_cached = {};
+  var pinyins = [];
+  for (var i = 0, py, l = pys.length; i < l; i++) {
     py = Pinyin.toFixed(pys[i], options.style);
     if (py_cached.hasOwnProperty(py)) {
       continue;
@@ -158,9 +158,9 @@ Pinyin.prototype.single_pinyin = function (han, options) {
  */
 
 Pinyin.toFixed = function (pinyin, style) {
-  let tone = ""; // 声调。
-  let first_letter;
-  let py;
+  var tone = ""; // 声调。
+  var first_letter;
+  var py;
   switch (style) {
     case PINYIN_STYLE.INITIALS:
       return initials(pinyin);
@@ -205,8 +205,8 @@ Pinyin.toFixed = function (pinyin, style) {
  * @return {Number} 返回 -1，0，或 1。
  */
 Pinyin.prototype.compare = function (hanA, hanB) {
-  const pinyinA = this.convert(hanA, DEFAULT_OPTIONS);
-  const pinyinB = this.convert(hanB, DEFAULT_OPTIONS);
+  var pinyinA = this.convert(hanA, DEFAULT_OPTIONS);
+  var pinyinB = this.convert(hanB, DEFAULT_OPTIONS);
   return String(pinyinA).localeCompare(String(pinyinB));
 }
 
@@ -225,12 +225,12 @@ Pinyin.DEFAULT_OPTIONS = DEFAULT_OPTIONS;
 // @param {Object} dict_combo, 压缩的拼音库。
 // @param {Object} 解压的拼音库。
 function buildPinyinCache(dict_combo) {
-  let hans;
-  let uncomboed = {};
+  var hans;
+  var uncomboed = {};
 
-  for (let py in dict_combo) {
+  for (var py in dict_combo) {
     hans = dict_combo[py];
-    for (let i = 0, han, l = hans.length; i < l; i++) {
+    for (var i = 0, han, l = hans.length; i < l; i++) {
       han = hans.charCodeAt(i);
       if (!uncomboed.hasOwnProperty(han)) {
         uncomboed[han] = py;
@@ -243,7 +243,7 @@ function buildPinyinCache(dict_combo) {
   return uncomboed;
 }
 
-const dict = {
+var dict = {
   "èr": "二贰",
   "shí": "十时实蚀",
   "yǐ": "乙已以蚁倚",
@@ -1789,8 +1789,8 @@ const dict = {
 };
 
 
-const PINYIN_DICT = buildPinyinCache(dict);
-const pinyin = new Pinyin(PINYIN_DICT);
+var PINYIN_DICT = buildPinyinCache(dict);
+var pinyin = new Pinyin(PINYIN_DICT);
 
 module.exports = pinyin.convert.bind(pinyin);
 module.exports.compare = pinyin.compare.bind(pinyin);

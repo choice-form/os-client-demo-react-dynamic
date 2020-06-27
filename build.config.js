@@ -13,8 +13,8 @@ module.exports = {
    */
   assetsPath: {
     local: "http://localhost:${port}",
-    staging: "https://media.choiceform.io/os-client-xxxx",
-    prod: "https://media.choiceform.com/os-client-xxxx"
+    staging: "https://media.choiceform.io/os-client-live",
+    prod: "https://media.choiceform.com/os-client-live"
   },
   /**
    * 这个非常重要,如果我们的插件程序`src/plugin`中依赖了第三方包
