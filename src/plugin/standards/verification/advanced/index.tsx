@@ -4,8 +4,8 @@ interface IProps extends IQuesComBaseProps {
 }
 class VerificationAdvanced extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div className='advanced-verification'>
-      VerificationAdvanced 空容器 未实现
+    return <div>
+      空容器 未实现
       </div>
   }
 }

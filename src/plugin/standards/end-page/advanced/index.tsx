@@ -5,7 +5,7 @@ interface IProps extends IQuesComBaseProps {
 
 class EndPageAdvanced extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div>EndPageAdvanced 空容器 未实现</div>
+    return <div>空容器 未实现</div>
   }
 }
 

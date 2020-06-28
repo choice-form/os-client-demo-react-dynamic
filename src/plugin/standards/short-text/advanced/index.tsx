@@ -9,8 +9,8 @@ class ShortTextAdvanced extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    return <div className='advanced-short-text'>
-      <span>ShortTextAdvanced 空容器 未实现</span>
+    return <div>
+      <span>空容器 未实现</span>
     </div>
   }
 }

@@ -4,7 +4,7 @@ interface IProps extends IQuesComBaseProps {
 }
 class LotteryAdvanced extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div>LotteryAdvanced 空容器 未实现</div>
+    return <div>空容器 未实现</div>
   }
 }
 

@@ -9,8 +9,8 @@ class ChoiceAdvanced extends React.Component<IProps> {
    * 渲染组件
    */
   render(): JSX.Element {
-    return <div className='advanced-choice'>
-      <span>ChoiceAdvanced 空容器 未实现</span>
+    return <div>
+      <span>空容器 未实现</span>
     </div>
   }
 }

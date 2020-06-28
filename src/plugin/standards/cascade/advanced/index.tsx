@@ -6,7 +6,7 @@ interface IProps extends IQuesComBaseProps {
 
 class CascadeAdvanced extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div className='advanced-cascade'>CascadeAdvanced 空容器 未实现 </div>
+    return <div>空容器 未实现 </div>
   }
 }
 

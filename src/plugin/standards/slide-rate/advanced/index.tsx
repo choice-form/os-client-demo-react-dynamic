@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 interface IProps extends IQuesComBaseProps {
-  node: CFChoiceQuestion;
+  node: CFSlideRateQuestion;
 }
 
-class ChoiceBasic extends React.Component<IProps> {
+class SlideRateAdvanced extends React.Component<IProps> {
   /**
    * 渲染组件
    */
@@ -14,5 +14,5 @@ class ChoiceBasic extends React.Component<IProps> {
     </div>
   }
 }
-export default ChoiceBasic;
 
+export default SlideRateAdvanced;

@@ -5,8 +5,8 @@ interface IProps extends IQuesComBaseProps {
 
 class RegionAdvanced extends React.Component<IProps> {
   render(): JSX.Element {
-    return <div className="advanced-region">
-      RegionAdvanced 空容器 未实现
+    return <div>
+      空容器 未实现
       </div>
   }
 }

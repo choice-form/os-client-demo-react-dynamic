@@ -9,7 +9,7 @@ interface IProps extends IQuesComBaseProps {
 class EndPageBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { node, theme } = this.props;
-    return <div className='basic-end'>
+    return <div>
       <NodeHead node={node} theme={theme} />
       {node.qrCode ? <QrCodeBasic text={node.qrCode} /> : null}
     </div>
