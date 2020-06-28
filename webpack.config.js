@@ -65,12 +65,6 @@ module.exports = (env) => {
     {
       loader: "css-loader",
     },
-    // {
-    //   loader: 'resolve-url-loader',
-    //   options: {
-    //     removeCR: os.platform() === 'win32' ? true : false
-    //   }
-    // },
     {
       loader: "postcss-loader",
       options: {
