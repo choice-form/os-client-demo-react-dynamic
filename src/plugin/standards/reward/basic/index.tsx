@@ -22,7 +22,7 @@ class RewardBasic extends React.Component<IProps> {
         : <div>
           <p>{T(LANG.reward.custom)}</p>
           <QrCodeBasic text={model.qrCode} />
-          <input type="text" value={model.phoneNumber}
+          <input type="text" defaultValue={model.phoneNumber}
             placeholder={T(LANG.verification.inputPhone)}
             onChange={(e) => {
               model.handleEvents.handleInputPhone(e.target.value, model as any)

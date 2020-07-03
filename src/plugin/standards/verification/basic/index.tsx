@@ -67,12 +67,12 @@ class VerificationBasic extends React.Component<IProps> {
     return <div>
       <div>{T(LANG.verification.inputPhone)}</div>
       {/* 渲染手机号码输入框, 输入变化后序号调用核心库提供的回调函数 */}
-      <input type="text" value={node.phoneNumber}
+      <input type="text" defaultValue={node.phoneNumber}
         onChange={(e) => handler.handleInputPhone(e.target.value, node)} />
       <div>{T(LANG.verification.inputCode)}</div>
       {/* 渲染验证码输入框,当用户手机上接受到验证码,用户可以在这个输入框输入验证码
       输入发生变化后需要调用核心库提供的回调函数 */}
-      <input type="text" value={node.code}
+      <input type="text" defaultValue={node.code}
         onChange={(e) => handler.handleInputCode(e.target.value, node)} />
       {/* 渲染一个按钮,当用户输入手机号码后,可以点击这个按钮获取验证码,点击后需要
         调用核心库提供的回调函数 */}
@@ -88,7 +88,7 @@ class VerificationBasic extends React.Component<IProps> {
     const { node, handler } = this.props;
     return <div>
       <div>{T(LANG.verification.inputPswd)}</div>
-      <input type="text" value={node.code}
+      <input type="text" defaultValue={node.code}
         onChange={(e) => handler.handleInputCode(e.target.value, node)} />
     </div>
   }

@@ -58,7 +58,7 @@ class OptionInput extends React.Component<IProps> {
     } else {
       const type = OptionInput.nativeHtmlTypeMap[option.inputRule] || 'text';
       return <div>
-        <input type={type} value={option.value}
+        <input type={type} defaultValue={option.value}
           placeholder={option.placeholder}
           onChange={(e) => handleChange(e.target.value)} />
         {option.errorMessage

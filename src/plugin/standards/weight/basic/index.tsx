@@ -39,7 +39,7 @@ class WeightBasic extends React.Component<IProps> {
               min='0'
               max={opt.maxValue}
               step='1'
-              value={opt.value}
+              defaultValue={opt.value}
               onChange={(e) => {
                 const value = (e.target as HTMLInputElement).value;
                 handler.handleOptionInput(value, opt, node);

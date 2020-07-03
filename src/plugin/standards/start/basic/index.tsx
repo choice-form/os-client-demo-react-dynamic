@@ -8,7 +8,6 @@ class StartBasic extends React.Component<IProps> {
   render(): JSX.Element {
     const { model } = this.props;
     return <div className='basic-start'>
-
       {model.images.map((image, index) => {
         return <img src={image.large}
           width='300'

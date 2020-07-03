@@ -87,7 +87,7 @@ class PreviewTool extends React.Component<IProps, IState> {
               <h2>{T(LANG.preview.bookmark.title)}</h2>
               <p>
                 <input type="text"
-                  value={this.state.bookmarkName}
+                  defaultValue={this.state.bookmarkName}
                   onChange={(e) => this.handleBookmarkNameChange(e.target.value)}
                   placeholder={T(LANG.preview.bookmark.input)} />
                 <button onClick={() => {
@@ -129,7 +129,7 @@ class PreviewTool extends React.Component<IProps, IState> {
               <h2>{T(LANG.preview.time.title)}</h2>
               <p>
                 <input type="text"
-                  value={this.state.timeTestName}
+                  defaultValue={this.state.timeTestName}
                   onChange={(e) => this.handleTimeTestNameChange(e.target.value)}
                   placeholder={T(LANG.preview.bookmark.input)} />
                 <button onClick={() => {
