@@ -140,7 +140,7 @@ class PreviewTool extends React.Component<IProps, IState> {
                   <input
                     type="text"
                     className="relative block w-full px-3 py-2 text-sm leading-5 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none rounded-md appearance-none focus:outline-none focus:shadow-outline focus:border-blue-300 focus:z-10"
-                    value={this.state.bookmarkName}
+                    defaultValue={this.state.bookmarkName}
                     onChange={(e) =>
                       this.handleBookmarkNameChange(e.target.value)
                     }
@@ -220,7 +220,7 @@ class PreviewTool extends React.Component<IProps, IState> {
                   <input
                     type="text"
                     className="relative block w-full px-3 py-2 text-sm leading-5 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none rounded-md appearance-none focus:outline-none focus:shadow-outline focus:border-blue-300 focus:z-10"
-                    value={this.state.timeTestName}
+                    defaultValue={this.state.timeTestName}
                     onChange={(e) =>
                       this.handleTimeTestNameChange(e.target.value)
                     }

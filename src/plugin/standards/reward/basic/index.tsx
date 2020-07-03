@@ -41,7 +41,7 @@ class RewardBasic extends React.Component<IProps> {
                   "text-sm leading-5 "
                 }
                 type="text"
-                value={model.phoneNumber}
+                defaultValue={model.phoneNumber}
                 placeholder={T(LANG.verification.inputPhone)}
                 onChange={(e) => {
                   model.handleEvents.handleInputPhone(
